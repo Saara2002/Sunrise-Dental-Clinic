@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Help - Sunrise Dental Clinic</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f8fb;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            background: #075985;
+            color: white;
+            padding: 25px 15px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo-icon {
+            font-size: 45px;
+        }
+
+        .logo h2 {
+            margin-top: 8px;
+            font-size: 20px;
+        }
+
+        .logo p {
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        .menu {
+            list-style: none;
+        }
+
+        .menu li {
+            margin-bottom: 8px;
+        }
+
+        .menu a {
+            display: block;
+            padding: 13px 15px;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .menu a:hover,
+        .menu .active {
+            background: #06496b;
+        }
+
+        .logout {
+            margin-top: 30px;
+            background: #dc3545 !important;
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .topbar {
+            margin-bottom: 25px;
+        }
+
+        .topbar h1 {
+            color: #075985;
+            font-size: 30px;
+        }
+
+        .topbar p {
+            color: #666;
+            margin-top: 6px;
+        }
+
+        .welcome {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .welcome h2 {
+            color: #075985;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .help-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .help-card h2 {
+            color: #075985;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .help-card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .help-card ol {
+            padding-left: 22px;
+            color: #444;
+            line-height: 1.8;
+        }
+
+        .help-card ul {
+            padding-left: 22px;
+            color: #444;
+            line-height: 1.8;
+        }
+
+        .step {
+            background: #f0f9ff;
+            border-left: 4px solid #087ea4;
+            padding: 12px 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .important {
+            background: #fff7ed;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+
+        .important strong {
+            color: #b45309;
+        }
+
+        .contact {
+            margin-top: 25px;
+            background: #075985;
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .contact h2 {
+            margin-bottom: 10px;
+        }
+
+        .contact p {
+            line-height: 1.7;
+        }
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                width: 200px;
+            }
+
+            .main {
+                margin-left: 200px;
+            }
+
+            .help-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">🦷</div>
+
+            <h2>Sunrise Dental</h2>
+
+            <p>Receptionist Panel</p>
+
+        </div>
+
+
+        <ul class="menu">
+
+            <li>
+                <a href="receptionist-dashboard.html">
+                    🏠 Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="appointments.html">
+                    📅 Appointments
+                </a>
+            </li>
+
+            <li>
+                <a href="patients.html">
+                    👤 Patients
+                </a>
+            </li>
+
+            <li>
+                <a href="billing.html">
+                    💰 Billing
+                </a>
+            </li>
+
+            <li>
+                <a href="help.html" class="active">
+                    ❓ Help
+                </a>
+            </li>
+
+            <li>
+                <a href="login.html" class="logout">
+                    🚪 Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- MAIN -->
+
+    <div class="main">
+
+
+        <div class="topbar">
+
+            <h1>❓ Help and User Guide</h1>
+
+            <p>
+                Sunrise Dental Clinic Management System
+            </p>
+
+        </div>
+
+
+        <!-- WELCOME -->
+
+        <div class="welcome">
+
+            <h2>Welcome to Sunrise Dental Clinic</h2>
+
+            <p>
+                This Help section provides step-by-step instructions
+                for using the Receptionist Management System.
+                Follow the instructions below to manage patients,
+                appointments and billing.
+            </p>
+
+        </div>
+
+
+        <!-- HELP CARDS -->
+
+        <div class="help-grid">
+
+
+            <!-- LOGIN -->
+
+            <div class="help-card">
+
+                <h2>🔐 1. Login</h2>
+
+                <p>
+                    Use your authorized username and password
+                    to access the system.
+                </p>
+
+                <ol>
+
+                    <li>
+                        Open the Sunrise Dental Clinic system.
+                    </li>
+
+                    <li>
+                        Enter your username.
+                    </li>
+
+                    <li>
+                        Enter your password.
+                    </li>
+
+                    <li>
+                        Click the <strong>Login</strong> button.
+                    </li>
+
+                    <li>
+                        You will be redirected to the
+                        appropriate dashboard.
+                    </li>
+
+                </ol>
+
+            </div>
+
+
+            <!-- REGISTER APPOINTMENT -->
+
+            <div class="help-card">
+
+                <h2>📅 2. Register Appointment</h2>
+
+                <p>
+                    To register a new patient appointment:
+                </p>
+
+                <ol>
+
+                    <li>
+                        Open <strong>Appointments</strong>.
+                    </li>
+
+                    <li>
+                        Click <strong>New Appointment</strong>.
+                    </li>
+
+                    <li>
+                        Enter the patient details.
+                    </li>
+
+                    <li>
+                        Select the dentist.
+                    </li>
+
+                    <li>
+                        Select the treatment.
+                    </li>
+
+                    <li>
+                        Select the appointment date and time.
+                    </li>
+
+                    <li>
+                        Click <strong>Register Appointment</strong>.
+                    </li>
+
+                </ol>
+
+            </div>
+
+
+            <!-- SEARCH -->
+
+            <div class="help-card">
+
+                <h2>🔍 3. Search Appointment</h2>
+
+                <p>
+                    Use the search box to find an existing appointment.
+                </p>
+
+                <ol>
+
+                    <li>
+                        Open the <strong>Appointments</strong> page.
+                    </li>
+
+                    <li>
+                        Click the search box.
+                    </li>
+
+                    <li>
+                        Enter the appointment number
+                        or patient name.
+                    </li>
+
+                    <li>
+                        The matching appointments will be displayed.
+                    </li>
+
+                </ol>
+
+            </div>
+
+
+            <!-- EDIT -->
+
+            <div class="help-card">
+
+                <h2>✏️ 4. Edit Appointment</h2>
+
+                <p>
+                    Existing booked appointments can be updated.
+                </p>
+
+                <ol>
+
+                    <li>
+                        Open <strong>Appointments</strong>.
+                    </li>
+
+                    <li>
+                        Find the required appointment.
+                    </li>
+
+                    <li>
+                        Click the <strong>Edit</strong> button.
+                    </li>
+
+                    <li>
+                        Change the required information.
+                    </li>
+
+                    <li>
+                        Click <strong>Update Appointment</strong>.
+                    </li>
+
+                </ol>
+
+            </div>
+
+
+            <!-- CANCEL -->
+
+            <div class="help-card">
+
+                <h2>❌ 5. Cancel Appointment</h2>
+
+                <p>
+                    To cancel a booked appointment:
+                </p>
+
+                <ol>
+
+                    <li>
+                        Open the <strong>Appointments</strong> page.
+                    </li>
+
+                    <li>
+                        Find the required appointment.
+                    </li>
+
+                    <li>
+                        Click the <strong>Cancel</strong> button.
+                    </li>
+
+                    <li>
+                        Confirm the cancellation.
+                    </li>
+
+                    <li>
+                        The status will change to
+                        <strong>CANCELLED</strong>.
+                    </li>
+
+                </ol>
+
+            </div>
+
+
+            <!-- COMPLETE -->
+
+            <div class="help-card">
+
+                <h2>✅ 6. Complete Appointment</h2>
+
+                <p>
+                    After the patient receives treatment:
+                </p>
+
+                <ol>
+
+                    <li>
+                        Open <strong>Appointments</strong>.
+                    </li>
+
+                    <li>
+                        Find the patient's appointment.
+                    </li>
+
+                    <li>
+                        Click <strong>Complete</strong>.
+                    </li>
+
+                    <li>
+                        Confirm the action.
+                    </li>
+
+                    <li>
+                        The appointment status will become
+                        <strong>COMPLETED</strong>.
+                    </li>
+
+                </ol>
+
+            </div>
+
+
+            <!-- PATIENTS -->
+
+            <div class="help-card">
+
+                <h2>👤 7. Patient Management</h2>
+
+                <p>
+                    The Patients section can be used to
+                    view and search patient information.
+                </p>
+
+                <ul>
+
+                    <li>
+                        View registered patients.
+                    </li>
+
+                    <li>
+                        Search using patient name or phone.
+                    </li>
+
+                    <li>
+                        View patient contact details.
+                    </li>
+
+                    <li>
+                        View patient address.
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- BILLING -->
+
+            <div class="help-card">
+
+                <h2>💰 8. Generate Bill</h2>
+
+                <p>
+                    Bills can be generated after completing
+                    an appointment.
+                </p>
+
+                <ol>
+
+                    <li>
+                        Open <strong>Billing</strong>.
+                    </li>
+
+                    <li>
+                        Select the relevant appointment.
+                    </li>
+
+                    <li>
+                        Check the treatment cost.
+                    </li>
+
+                    <li>
+                        Add the consultation fee if applicable.
+                    </li>
+
+                    <li>
+                        Check the total amount.
+                    </li>
+
+                    <li>
+                        Generate and save the bill.
+                    </li>
+
+                </ol>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- IMPORTANT -->
+
+        <div class="important">
+
+            <strong>⚠️ Important:</strong>
+
+            Always check the patient name, appointment number,
+            date and time before saving or updating an appointment.
+
+        </div>
+
+
+        <!-- CONTACT -->
+
+        <div class="contact">
+
+            <h2>🦷 Sunrise Dental Clinic</h2>
+
+            <p>
+                For technical problems or system access issues,
+                please contact the system administrator.
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

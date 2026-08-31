@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Manage Dentists - Sunrise Dental Clinic</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f4f8fb;
+    min-height: 100vh;
+    padding: 30px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* HEADER */
+
+.header {
+    background: #075985;
+    color: white;
+    padding: 25px 30px;
+    border-radius: 12px 12px 0 0;
+}
+
+.header h1 {
+    font-size: 27px;
+    margin-bottom: 6px;
+}
+
+.header p {
+    font-size: 14px;
+    opacity: 0.95;
+}
+
+/* CONTENT */
+
+.content {
+    background: white;
+    padding: 30px;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.section-title {
+    color: #075985;
+    font-size: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e5eef3;
+}
+
+/* FORM */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 7px;
+}
+
+.required {
+    color: red;
+}
+
+input {
+    padding: 12px;
+    border: 1px solid #ccd6dc;
+    border-radius: 7px;
+    font-size: 15px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #087ea4;
+    box-shadow: 0 0 5px rgba(8,126,164,0.2);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 35px;
+}
+
+/* BUTTONS */
+
+button {
+    border: none;
+    border-radius: 7px;
+    padding: 11px 18px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add-btn {
+    background: #087ea4;
+    color: white;
+}
+
+.add-btn:hover {
+    background: #075985;
+}
+
+.deactivate-btn {
+    background: #dc3545;
+    color: white;
+}
+
+.deactivate-btn:hover {
+    background: #b02a37;
+}
+
+.activate-btn {
+    background: #198754;
+    color: white;
+}
+
+.activate-btn:hover {
+    background: #146c43;
+}
+
+/* TABLE */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th {
+    background: #075985;
+    color: white;
+    padding: 13px 12px;
+    text-align: left;
+    font-size: 14px;
+}
+
+td {
+    padding: 13px 12px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #333;
+    font-size: 14px;
+}
+
+tbody tr:hover {
+    background: #f4f8fb;
+}
+
+/* STATUS */
+
+.status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-active {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-inactive {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* MESSAGE */
+
+.message {
+    display: none;
+    padding: 12px 15px;
+    border-radius: 7px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.success-message {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.error-message {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 25px;
+    color: #777;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .header {
+        padding: 20px;
+    }
+
+    .header h1 {
+        font-size: 23px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>👨‍⚕️ Manage Dentists</h1>
+
+        <p>
+            Sunrise Dental Clinic - Dentist Management
+        </p>
+
+    </div>
+
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+        <!-- MESSAGE -->
+
+        <div id="message" class="message"></div>
+
+
+        <!-- ADD DENTIST -->
+
+        <h2 class="section-title">
+            Add New Dentist
+        </h2>
+
+        <form id="dentistForm">
+
+            <div class="form-grid">
+
+                <!-- Dentist Code -->
+
+                <div class="form-group">
+
+                    <label>
+                        Dentist Code
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        name="dentist_code"
+                        placeholder="Example: D004"
+                        pattern="D[0-9]{3,}"
+                        title="Dentist code must be like D004"
+                        required>
+
+                </div>
+
+
+                <!-- Dentist Name -->
+
+                <div class="form-group">
+
+                    <label>
+                        Dentist Name
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        name="dentist_name"
+                        placeholder="Enter dentist name"
+                        required>
+
+                </div>
+
+
+                <!-- Specialization -->
+
+                <div class="form-group">
+
+                    <label>
+                        Specialization
+                    </label>
+
+                    <input
+                        type="text"
+                        name="specialization"
+                        placeholder="Example: Orthodontics">
+
+                </div>
+
+
+                <!-- Contact -->
+
+                <div class="form-group">
+
+                    <label>
+                        Contact Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        name="contact_number"
+                        placeholder="0771234567"
+                        pattern="[0-9]{10}"
+                        maxlength="10">
+
+                </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button
+                    type="submit"
+                    class="add-btn">
+
+                    ➕ Add Dentist
+
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <!-- REGISTERED DENTISTS -->
+
+        <h2 class="section-title">
+            Registered Dentists
+        </h2>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Specialization</th>
+                        <th>Contact</th>
+                        <th>Status</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="dentistTable">
+
+                    <tr>
+
+                        <td
+                            colspan="7"
+                            class="empty-message">
+
+                            Loading dentists...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* ==========================================
+   SHOW MESSAGE
+========================================== */
+
+function showMessage(message, success) {
+
+    const messageBox =
+        document.getElementById("message");
+
+    messageBox.textContent = message;
+
+    messageBox.className =
+        "message " +
+        (success
+            ? "success-message"
+            : "error-message");
+
+    messageBox.style.display = "block";
+
+    setTimeout(function() {
+
+        messageBox.style.display = "none";
+
+    }, 4000);
+}
+
+
+/* ==========================================
+   LOAD DENTISTS
+========================================== */
+
+function loadDentists() {
+
+    fetch("dentists", {
+        method: "GET"
+    })
+
+    .then(function(response) {
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load dentists."
+            );
+
+        }
+
+        return response.json();
+
+    })
+
+    .then(function(data) {
+
+        const table =
+            document.getElementById("dentistTable");
+
+        table.innerHTML = "";
+
+
+        if (!Array.isArray(data) || data.length === 0) {
+
+            table.innerHTML =
+                '<tr>' +
+                '<td colspan="7" class="empty-message">' +
+                'No dentists registered yet.' +
+                '</td>' +
+                '</tr>';
+
+            return;
+        }
+
+
+        data.forEach(function(dentist) {
+
+            const row =
+                document.createElement("tr");
+
+
+            const statusClass =
+                dentist.status === "ACTIVE"
+                    ? "status-active"
+                    : "status-inactive";
+
+
+            let actionButton = "";
+
+
+            if (dentist.status === "ACTIVE") {
+
+                actionButton =
+                    '<button ' +
+                    'class="deactivate-btn" ' +
+                    'onclick="deactivateDentist(' +
+                    dentist.dentist_id +
+                    ')">' +
+                    'Deactivate' +
+                    '</button>';
+
+            } else {
+
+                actionButton =
+                    '<button ' +
+                    'class="activate-btn" ' +
+                    'onclick="activateDentist(' +
+                    dentist.dentist_id +
+                    ')">' +
+                    'Activate' +
+                    '</button>';
+
+            }
+
+
+            row.innerHTML =
+
+                "<td>" +
+                dentist.dentist_id +
+                "</td>" +
+
+                "<td>" +
+                dentist.dentist_code +
+                "</td>" +
+
+                "<td>" +
+                dentist.dentist_name +
+                "</td>" +
+
+                "<td>" +
+                (dentist.specialization || "-") +
+                "</td>" +
+
+                "<td>" +
+                (dentist.contact_number || "-") +
+                "</td>" +
+
+                "<td>" +
+
+                '<span class="status ' +
+                statusClass +
+                '">' +
+
+                dentist.status +
+
+                "</span>" +
+
+                "</td>" +
+
+                "<td>" +
+                actionButton +
+                "</td>";
+
+
+            table.appendChild(row);
+
+        });
+
+    })
+
+    .catch(function(error) {
+
+        console.error(error);
+
+        document.getElementById("dentistTable").innerHTML =
+
+            '<tr>' +
+            '<td colspan="7" class="empty-message">' +
+            'Unable to load dentists.' +
+            '</td>' +
+            '</tr>';
+
+        showMessage(
+            "Unable to load dentists.",
+            false
+        );
+
+    });
+
+}
+
+
+/* ==========================================
+   ADD DENTIST
+========================================== */
+
+document
+    .getElementById("dentistForm")
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            /*
+             * IMPORTANT:
+             * Do NOT use FormData here.
+             * URLSearchParams sends normal
+             * application/x-www-form-urlencoded
+             * parameters which the Servlet can read
+             * using request.getParameter().
+             */
+
+            const form =
+                document.getElementById("dentistForm");
+
+
+            const formData =
+                new URLSearchParams();
+
+
+            formData.append(
+                "action",
+                "add"
+            );
+
+            formData.append(
+                "dentist_code",
+                form.dentist_code.value.trim()
+            );
+
+            formData.append(
+                "dentist_name",
+                form.dentist_name.value.trim()
+            );
+
+            formData.append(
+                "specialization",
+                form.specialization.value.trim()
+            );
+
+            formData.append(
+                "contact_number",
+                form.contact_number.value.trim()
+            );
+
+
+            fetch("dentists", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/x-www-form-urlencoded"
+                },
+
+                body: formData.toString()
+
+            })
+
+            .then(function(response) {
+
+                return response.json();
+
+            })
+
+            .then(function(data) {
+
+                if (data.success) {
+
+                    showMessage(
+                        data.message,
+                        true
+                    );
+
+                    form.reset();
+
+                    loadDentists();
+
+                } else {
+
+                    showMessage(
+                        data.message ||
+                        "Dentist could not be added.",
+                        false
+                    );
+
+                }
+
+            })
+
+            .catch(function(error) {
+
+                console.error(error);
+
+                showMessage(
+                    "An error occurred while adding the dentist.",
+                    false
+                );
+
+            });
+
+        }
+    );
+
+
+/* ==========================================
+   DEACTIVATE DENTIST
+========================================== */
+
+function deactivateDentist(id) {
+
+    if (!confirm(
+        "Are you sure you want to deactivate this dentist?"
+    )) {
+
+        return;
+
+    }
+
+
+    const formData =
+        new URLSearchParams();
+
+
+    formData.append(
+        "action",
+        "deactivate"
+    );
+
+
+    formData.append(
+        "dentist_id",
+        id
+    );
+
+
+    fetch("dentists", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type":
+                "application/x-www-form-urlencoded"
+        },
+
+        body: formData.toString()
+
+    })
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+    .then(function(data) {
+
+        if (data.success) {
+
+            showMessage(
+                data.message,
+                true
+            );
+
+            loadDentists();
+
+        } else {
+
+            showMessage(
+                data.message ||
+                "Dentist could not be deactivated.",
+                false
+            );
+
+        }
+
+    })
+
+    .catch(function(error) {
+
+        console.error(error);
+
+        showMessage(
+            "An error occurred while deactivating the dentist.",
+            false
+        );
+
+    });
+
+}
+
+
+/* ==========================================
+   ACTIVATE DENTIST
+========================================== */
+
+function activateDentist(id) {
+
+    if (!confirm(
+        "Do you want to activate this dentist?"
+    )) {
+
+        return;
+
+    }
+
+
+    const formData =
+        new URLSearchParams();
+
+
+    formData.append(
+        "action",
+        "activate"
+    );
+
+
+    formData.append(
+        "dentist_id",
+        id
+    );
+
+
+    fetch("dentists", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type":
+                "application/x-www-form-urlencoded"
+        },
+
+        body: formData.toString()
+
+    })
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+    .then(function(data) {
+
+        if (data.success) {
+
+            showMessage(
+                data.message,
+                true
+            );
+
+            loadDentists();
+
+        } else {
+
+            showMessage(
+                data.message ||
+                "Dentist could not be activated.",
+                false
+            );
+
+        }
+
+    })
+
+    .catch(function(error) {
+
+        console.error(error);
+
+        showMessage(
+            "An error occurred while activating the dentist.",
+            false
+        );
+
+    });
+
+}
+
+
+/* ==========================================
+   LOAD PAGE
+========================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadDentists();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

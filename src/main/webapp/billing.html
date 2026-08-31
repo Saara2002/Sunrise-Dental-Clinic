@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Billing - Sunrise Dental Clinic</title>
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+        background: #f4f8fb;
+        min-height: 100vh;
+    }
+
+    /* ================= SIDEBAR ================= */
+
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        position: fixed;
+        background: #075985;
+        color: white;
+        padding: 25px 15px;
+    }
+
+    .logo {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .logo-icon {
+        font-size: 45px;
+    }
+
+    .logo h2 {
+        margin-top: 8px;
+        font-size: 20px;
+    }
+
+    .logo p {
+        margin-top: 5px;
+        font-size: 12px;
+        opacity: 0.8;
+    }
+
+    .menu {
+        list-style: none;
+    }
+
+    .menu li {
+        margin-bottom: 8px;
+    }
+
+    .menu a {
+        display: block;
+        padding: 13px 15px;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+
+    .menu a:hover,
+    .menu .active {
+        background: #087ea4;
+    }
+
+    .logout {
+        margin-top: 30px;
+        background: #dc3545 !important;
+    }
+
+    /* ================= MAIN ================= */
+
+    .main {
+        margin-left: 250px;
+        padding: 30px;
+    }
+
+    .topbar {
+        margin-bottom: 25px;
+    }
+
+    .topbar h1 {
+        color: #075985;
+        font-size: 28px;
+    }
+
+    .topbar p {
+        color: #666;
+        margin-top: 5px;
+    }
+
+    /* ================= FORM ================= */
+
+    .form-container {
+        background: white;
+        max-width: 750px;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .section-title {
+        color: #075985;
+        margin-bottom: 25px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 8px;
+        color: #333;
+    }
+
+    select,
+    input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccd6dc;
+        border-radius: 7px;
+        font-size: 15px;
+        outline: none;
+    }
+
+    select:focus,
+    input:focus {
+        border-color: #087ea4;
+    }
+
+    /* ================= APPOINTMENT DETAILS ================= */
+
+    .details {
+        background: #f8fafc;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border-left: 5px solid #087ea4;
+    }
+
+    .details p {
+        margin-bottom: 12px;
+        color: #444;
+    }
+
+    .details p:last-child {
+        margin-bottom: 0;
+    }
+
+    .amount {
+        font-size: 25px;
+        font-weight: bold;
+        color: #087ea4;
+    }
+
+    /* ================= BUTTONS ================= */
+
+    .buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-top: 25px;
+    }
+
+    button,
+    .back-btn {
+        padding: 12px 22px;
+        border: none;
+        border-radius: 7px;
+        font-size: 15px;
+        cursor: pointer;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .save-btn {
+        background: #087ea4;
+        color: white;
+    }
+
+    .save-btn:hover {
+        background: #075985;
+    }
+
+    .back-btn {
+        background: #6b7280;
+        color: white;
+    }
+
+    .back-btn:hover {
+        background: #4b5563;
+    }
+
+    /* ================= MESSAGE ================= */
+
+    .message {
+        display: none;
+        margin-top: 20px;
+        padding: 12px;
+        border-radius: 7px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .message.error {
+        display: block;
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @media (max-width: 800px) {
+
+        .sidebar {
+            width: 200px;
+        }
+
+        .main {
+            margin-left: 200px;
+        }
+    }
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- ================= SIDEBAR ================= -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">🦷</div>
+
+        <h2>Sunrise Dental</h2>
+
+        <p>Receptionist Panel</p>
+
+    </div>
+
+    <ul class="menu">
+
+        <li>
+            <a href="receptionist-dashboard.html">
+                🏠 Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="appointments.html">
+                📅 Appointments
+            </a>
+        </li>
+
+        <li>
+            <a href="patients.html">
+                👤 Patients
+            </a>
+        </li>
+
+        <li>
+            <a href="billing.html" class="active">
+                💰 Billing
+            </a>
+        </li>
+
+        <li>
+            <a href="help.html">
+                ❓ Help
+            </a>
+        </li>
+
+        <li>
+            <a href="login.html" class="logout">
+                🚪 Logout
+            </a>
+        </li>
+
+    </ul>
+
+</div>
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="main">
+
+    <div class="topbar">
+
+        <h1>💰 Billing</h1>
+
+        <p>
+            Generate bills for completed appointments
+        </p>
+
+    </div>
+
+
+    <!-- ================= BILL FORM ================= -->
+
+    <div class="form-container">
+
+        <h2 class="section-title">
+            Generate New Bill
+        </h2>
+
+
+        <form action="billing" method="post">
+
+            <!-- APPOINTMENT -->
+
+            <div class="form-group">
+
+                <label for="appointmentId">
+                    Select Appointment
+                </label>
+
+                <select
+                    id="appointmentId"
+                    name="appointmentId"
+                    required
+                    onchange="loadAppointment()">
+
+                    <option value="">
+                        Select Appointment
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- APPOINTMENT DETAILS -->
+
+            <div
+                id="appointmentDetails"
+                class="details"
+                style="display:none;">
+
+                <p>
+
+                    <strong>Patient:</strong>
+
+                    <span id="patientName"></span>
+
+                </p>
+
+
+                <p>
+
+                    <strong>Appointment:</strong>
+
+                    <span id="appointmentNumber"></span>
+
+                </p>
+
+
+                <p>
+
+                    <strong>Treatment:</strong>
+
+                    <span id="treatmentName"></span>
+
+                </p>
+
+
+                <p>
+
+                    <strong>Amount:</strong>
+
+                    Rs.
+
+                    <span
+                        id="amount"
+                        class="amount">
+                    </span>
+
+                </p>
+
+            </div>
+
+
+            <!-- HIDDEN VALUES -->
+
+            <input
+                type="hidden"
+                id="patientId"
+                name="patientId">
+
+            <input
+                type="hidden"
+                id="treatmentId"
+                name="treatmentId">
+
+            <input
+                type="hidden"
+                id="amountValue"
+                name="amount">
+
+
+            <!-- PAYMENT STATUS -->
+
+            <div class="form-group">
+
+                <label for="paymentStatus">
+                    Payment Status
+                </label>
+
+                <select
+                    id="paymentStatus"
+                    name="paymentStatus"
+                    required>
+
+                    <option value="PENDING">
+                        Pending
+                    </option>
+
+                    <option value="PAID">
+                        Paid
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- MESSAGE -->
+
+            <div
+                id="message"
+                class="message">
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="buttons">
+
+                <a
+                    href="receptionist-dashboard.html"
+                    class="back-btn">
+
+                    Back
+
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="save-btn">
+
+                    🧾 Generate and Print Bill
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+    /* ==========================================
+       LOAD COMPLETED APPOINTMENTS
+       ========================================== */
+
+    fetch("billing?action=list")
+
+        .then(response => {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Unable to load appointments"
+                );
+
+            }
+
+            return response.json();
+
+        })
+
+        .then(data => {
+
+            const select =
+                document.getElementById(
+                    "appointmentId"
+                );
+
+
+            if (data.error) {
+
+                showError(data.error);
+
+                return;
+
+            }
+
+
+            data.forEach(appointment => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value =
+                    appointment.appointmentId;
+
+
+                option.textContent =
+                    appointment.appointmentNumber +
+                    " - " +
+                    appointment.patientName +
+                    " - " +
+                    appointment.treatmentName;
+
+
+                select.appendChild(option);
+
+            });
+
+        })
+
+        .catch(error => {
+
+            console.error(
+                "Billing Error:",
+                error
+            );
+
+            showError(
+                "Unable to load appointments. Please check the server."
+            );
+
+        });
+
+
+    /* ==========================================
+       LOAD SELECTED APPOINTMENT
+       ========================================== */
+
+    function loadAppointment() {
+
+        const id =
+            document.getElementById(
+                "appointmentId"
+            ).value;
+
+
+        const details =
+            document.getElementById(
+                "appointmentDetails"
+            );
+
+
+        if (!id) {
+
+            details.style.display = "none";
+
+            return;
+
+        }
+
+
+        fetch(
+            "billing?action=details&id=" + id
+        )
+
+            .then(response => {
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Unable to load appointment details"
+                    );
+
+                }
+
+                return response.json();
+
+            })
+
+            .then(data => {
+
+                if (data.error) {
+
+                    alert(data.error);
+
+                    details.style.display =
+                        "none";
+
+                    return;
+
+                }
+
+
+                /* PATIENT */
+
+                document.getElementById(
+                    "patientName"
+                ).textContent =
+                    data.patientName;
+
+
+                /* APPOINTMENT NUMBER */
+
+                document.getElementById(
+                    "appointmentNumber"
+                ).textContent =
+                    data.appointmentNumber;
+
+
+                /* TREATMENT */
+
+                document.getElementById(
+                    "treatmentName"
+                ).textContent =
+                    data.treatmentName;
+
+
+                /* AMOUNT */
+
+                document.getElementById(
+                    "amount"
+                ).textContent =
+                    Number(data.amount).toFixed(2);
+
+
+                /* HIDDEN PATIENT ID */
+
+                document.getElementById(
+                    "patientId"
+                ).value =
+                    data.patientId;
+
+
+                /* HIDDEN TREATMENT ID */
+
+                document.getElementById(
+                    "treatmentId"
+                ).value =
+                    data.treatmentId;
+
+
+                /* HIDDEN AMOUNT */
+
+                document.getElementById(
+                    "amountValue"
+                ).value =
+                    data.amount;
+
+
+                /* SHOW DETAILS */
+
+                details.style.display =
+                    "block";
+
+            })
+
+            .catch(error => {
+
+                console.error(error);
+
+                alert(
+                    "Unable to load appointment details."
+                );
+
+            });
+
+    }
+
+
+    /* ==========================================
+       SHOW ERROR MESSAGE
+       ========================================== */
+
+    function showError(message) {
+
+        const box =
+            document.getElementById(
+                "message"
+            );
+
+        box.textContent = message;
+
+        box.className =
+            "message error";
+
+    }
+
+</script>
+```
+
+</body>
+
+</html>

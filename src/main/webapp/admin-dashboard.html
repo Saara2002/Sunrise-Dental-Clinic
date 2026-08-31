@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard - Sunrise Dental Clinic</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f4f8fb;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+    width: 250px;
+    background: #075985;
+    color: white;
+    padding: 25px 15px;
+    position: fixed;
+    height: 100vh;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.logo-icon {
+    font-size: 45px;
+}
+
+.logo h2 {
+    font-size: 20px;
+    margin-top: 8px;
+}
+
+.logo p {
+    font-size: 12px;
+    margin-top: 5px;
+    opacity: 0.8;
+}
+
+.menu {
+    list-style: none;
+}
+
+.menu li {
+    margin-bottom: 8px;
+}
+
+.menu a {
+    display: block;
+    padding: 13px 15px;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.menu a:hover,
+.menu .active {
+    background: #087ea4;
+}
+
+.logout {
+    margin-top: 30px;
+    background: #dc3545 !important;
+}
+
+/* ================= MAIN ================= */
+
+.main {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    padding: 30px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.topbar h1 {
+    color: #075985;
+    font-size: 28px;
+}
+
+.topbar p {
+    color: #666;
+    margin-top: 5px;
+}
+
+.admin-info {
+    background: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+/* ================= CARDS ================= */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.card-icon {
+    font-size: 35px;
+    margin-bottom: 12px;
+}
+
+.card h3 {
+    color: #555;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.card .number {
+    font-size: 28px;
+    font-weight: bold;
+    color: #075985;
+}
+
+/* ================= CONTENT ================= */
+
+.content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+}
+
+.panel {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.panel h2 {
+    color: #075985;
+    margin-bottom: 20px;
+}
+
+/* ================= TABLE ================= */
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    color: #555;
+    background: #f7fafc;
+}
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* ================= STATUS ================= */
+
+.status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-booked {
+    background: #e0f2fe;
+    color: #0369a1;
+}
+
+.status-completed {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-cancelled {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status-pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+/* ================= QUICK ACTIONS ================= */
+
+.quick-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.action-button {
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background: #087ea4;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.action-button:hover {
+    background: #075985;
+}
+
+/* ================= LOADING ================= */
+
+.loading {
+    text-align: center;
+    padding: 25px;
+    color: #777;
+}
+
+.error {
+    text-align: center;
+    padding: 25px;
+    color: #c62828;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1000px) {
+
+    .cards {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .content {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .sidebar {
+        width: 200px;
+    }
+
+    .main {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+        padding: 15px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+
+<div class="sidebar">
+
+```
+<div class="logo">
+
+    <div class="logo-icon">🦷</div>
+
+    <h2>Sunrise Dental</h2>
+
+    <p>Admin Panel</p>
+
+</div>
+
+<ul class="menu">
+
+    <li>
+        <a href="admin-dashboard.html" class="active">
+            🏠 Dashboard
+        </a>
+    </li>
+
+    <li>
+        <a href="appointments.html">
+            📅 Appointments
+        </a>
+    </li>
+
+    <li>
+        <a href="patients.html">
+            👤 Patients
+        </a>
+    </li>
+
+    <li>
+        <a href="billing.html">
+            💰 Billing
+        </a>
+    </li>
+
+    <li>
+        <a href="reports.html">
+            📊 Reports
+        </a>
+    </li>
+
+    <li>
+        <a href="user-management.html">
+            👥 User Management
+        </a>
+    </li>
+    
+    <li>
+    <a href="dentists.html">
+        👨‍⚕️ Manage Dentists
+    </a>
+</li>
+
+    <li>
+        <a href="help.html">
+            ❓ Help
+        </a>
+    </li>
+
+    <li>
+        <a href="login.html" class="logout">
+            🚪 Logout
+        </a>
+    </li>
+
+</ul>
+```
+
+</div>
+
+<!-- ================= MAIN ================= -->
+
+<div class="main">
+
+```
+<!-- TOP BAR -->
+
+<div class="topbar">
+
+    <div>
+
+        <h1>Admin Dashboard</h1>
+
+        <p>
+            Sunrise Dental Clinic Management System
+        </p>
+
+    </div>
+
+    <div class="admin-info">
+
+        👨‍💼
+        <strong>Administrator</strong>
+
+    </div>
+
+</div>
+
+
+<!-- ================= DASHBOARD CARDS ================= -->
+
+<div class="cards">
+
+    <!-- TODAY -->
+
+    <div class="card">
+
+        <div class="card-icon">
+            📅
+        </div>
+
+        <h3>
+            Today's Appointments
+        </h3>
+
+        <div
+            class="number"
+            id="todayAppointments">
+
+            0
+
+        </div>
+
+    </div>
+
+
+    <!-- PATIENTS -->
+
+    <div class="card">
+
+        <div class="card-icon">
+            👥
+        </div>
+
+        <h3>
+            Total Patients
+        </h3>
+
+        <div
+            class="number"
+            id="totalPatients">
+
+            0
+
+        </div>
+
+    </div>
+
+
+    <!-- COMPLETED -->
+
+    <div class="card">
+
+        <div class="card-icon">
+            ✅
+        </div>
+
+        <h3>
+            Completed Today
+        </h3>
+
+        <div
+            class="number"
+            id="completed">
+
+            0
+
+        </div>
+
+    </div>
+
+
+    <!-- CANCELLED -->
+
+    <div class="card">
+
+        <div class="card-icon">
+            ❌
+        </div>
+
+        <h3>
+            Cancelled Today
+        </h3>
+
+        <div
+            class="number"
+            id="cancelled">
+
+            0
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= CONTENT ================= -->
+
+<div class="content">
+
+
+    <!-- ================= TODAY APPOINTMENTS ================= -->
+
+    <div class="panel">
+
+        <h2>
+            Today's Appointments
+        </h2>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Appointment No.
+                        </th>
+
+                        <th>
+                            Patient
+                        </th>
+
+                        <th>
+                            Dentist
+                        </th>
+
+                        <th>
+                            Time
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody
+                    id="todayAppointmentsTable">
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="loading">
+
+                            Loading appointments...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= QUICK ACTIONS ================= -->
+
+    <div class="panel">
+
+        <h2>
+            Quick Actions
+        </h2>
+
+        <div class="quick-actions">
+
+            <button
+                class="action-button"
+                onclick="window.location.href='appointment.html'">
+
+                ➕ New Appointment
+
+            </button>
+
+
+            <button
+                class="action-button"
+                onclick="window.location.href='appointments.html'">
+
+                🔍 Search Appointment
+
+            </button>
+
+
+            <button
+                class="action-button"
+                onclick="window.location.href='patients.html'">
+
+                👤 Patients
+
+            </button>
+
+
+            <button
+                class="action-button"
+                onclick="window.location.href='billing.html'">
+
+                💰 Generate Bill
+
+            </button>
+
+
+            <button
+                class="action-button"
+                onclick="window.location.href='reports.html'">
+
+                📊 View Reports
+
+            </button>
+
+
+            <button
+                class="action-button"
+                onclick="window.location.href='help.html'">
+
+                ❓ Help
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+/* ==========================================
+   LOAD ADMIN DASHBOARD
+   ========================================== */
+
+function loadDashboard() {
+
+    fetch("admin-dashboard")
+
+        .then(response => {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Server returned HTTP " + response.status
+                );
+
+            }
+
+            return response.json();
+
+        })
+
+
+        .then(data => {
+
+            console.log("Dashboard Data:", data);
+
+
+            /* ==============================
+               SERVER ERROR
+               ============================== */
+
+            if (data.error) {
+
+                throw new Error(data.error);
+
+            }
+
+
+            /* ==============================
+               UPDATE CARDS
+               ============================== */
+
+            document.getElementById(
+                "todayAppointments"
+            ).textContent =
+                data.todayAppointments;
+
+
+            document.getElementById(
+                "totalPatients"
+            ).textContent =
+                data.totalPatients;
+
+
+            document.getElementById(
+                "completed"
+            ).textContent =
+                data.completed;
+
+
+            document.getElementById(
+                "cancelled"
+            ).textContent =
+                data.cancelled;
+
+
+            /* ==============================
+               UPDATE TABLE
+               ============================== */
+
+            const table =
+                document.getElementById(
+                    "todayAppointmentsTable"
+                );
+
+
+            table.innerHTML = "";
+
+
+            /* ==============================
+               NO APPOINTMENTS
+               ============================== */
+
+            if (
+                !data.appointments ||
+                data.appointments.length === 0
+            ) {
+
+                table.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="loading">
+
+                            No appointments for today.
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+                return;
+
+            }
+
+
+            /* ==============================
+               ADD APPOINTMENTS
+               ============================== */
+
+            data.appointments.forEach(
+                appointment => {
+
+                    const row =
+                        document.createElement("tr");
+
+
+                    let statusClass =
+                        "status-pending";
+
+
+                    const status =
+                        String(
+                            appointment.status || ""
+                        ).toUpperCase();
+
+
+                    if (status === "BOOKED") {
+
+                        statusClass =
+                            "status-booked";
+
+                    }
+
+                    else if (
+                        status === "COMPLETED"
+                    ) {
+
+                        statusClass =
+                            "status-completed";
+
+                    }
+
+                    else if (
+                        status === "CANCELLED"
+                    ) {
+
+                        statusClass =
+                            "status-cancelled";
+
+                    }
+
+
+                    row.innerHTML = `
+
+                        <td>
+                            ${appointment.appointmentNumber}
+                        </td>
+
+                        <td>
+                            ${appointment.patientName}
+                        </td>
+
+                        <td>
+                            ${appointment.dentistName}
+                        </td>
+
+                        <td>
+                            ${formatTime(
+                                appointment.appointmentTime
+                            )}
+                        </td>
+
+                        <td>
+
+                            <span
+                                class="status ${statusClass}">
+
+                                ${appointment.status}
+
+                            </span>
+
+                        </td>
+
+                    `;
+
+
+                    table.appendChild(row);
+
+                }
+            );
+
+        })
+
+
+        .catch(error => {
+
+            console.error(
+                "Admin Dashboard Error:",
+                error
+            );
+
+
+            document.getElementById(
+                "todayAppointments"
+            ).textContent = "0";
+
+
+            document.getElementById(
+                "totalPatients"
+            ).textContent = "0";
+
+
+            document.getElementById(
+                "completed"
+            ).textContent = "0";
+
+
+            document.getElementById(
+                "cancelled"
+            ).textContent = "0";
+
+
+            const table =
+                document.getElementById(
+                    "todayAppointmentsTable"
+                );
+
+
+            table.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="error">
+
+                        Unable to load dashboard data.
+
+                        <br><br>
+
+                        ${error.message}
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
+
+}
+
+
+/* ==========================================
+   FORMAT TIME
+   ========================================== */
+
+function formatTime(time) {
+
+    if (!time) {
+        return "";
+    }
+
+
+    time = String(time);
+
+
+    /* Already AM / PM */
+
+    if (
+        time.toUpperCase().includes("AM") ||
+        time.toUpperCase().includes("PM")
+    ) {
+
+        return time;
+
+    }
+
+
+    const parts =
+        time.split(":");
+
+
+    if (parts.length < 2) {
+
+        return time;
+
+    }
+
+
+    let hours =
+        parseInt(parts[0]);
+
+
+    const minutes =
+        parts[1];
+
+
+    const ampm =
+        hours >= 12 ? "PM" : "AM";
+
+
+    hours =
+        hours % 12;
+
+
+    if (hours === 0) {
+
+        hours = 12;
+
+    }
+
+
+    return (
+        hours +
+        ":" +
+        minutes +
+        " " +
+        ampm
+    );
+
+}
+
+
+/* ==========================================
+   FIRST LOAD
+   ========================================== */
+
+loadDashboard();
+
+
+/* ==========================================
+   AUTO REFRESH EVERY 30 SECONDS
+   ========================================== */
+
+setInterval(
+    loadDashboard,
+    30000
+);
+
+</script>
+
+</body>
+
+</html>

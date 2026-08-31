@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sunrise Dental Clinic - Login</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #dff6ff, #ffffff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            width: 900px;
+            min-height: 550px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            display: flex;
+            overflow: hidden;
+        }
+
+        .clinic-section {
+            width: 50%;
+            background: linear-gradient(135deg, #087ea4, #075985);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .clinic-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .clinic-section h1 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .clinic-section p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .login-section {
+            width: 50%;
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-section h2 {
+            color: #075985;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .login-subtitle {
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: #087ea4;
+            box-shadow: 0 0 5px rgba(8, 126, 164, 0.3);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #087ea4;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-button:hover {
+            background: #075985;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        @media (max-width: 750px) {
+
+            .login-container {
+                width: 95%;
+                flex-direction: column;
+            }
+
+            .clinic-section,
+            .login-section {
+                width: 100%;
+            }
+
+            .clinic-section {
+                padding: 30px;
+            }
+
+            .login-section {
+                padding: 40px 30px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="clinic-section">
+
+            <div class="clinic-icon">🦷</div>
+
+            <h1>Sunrise Dental Clinic</h1>
+
+            <p>
+                Professional Dental Care<br>
+                Appointment and Patient Management System
+            </p>
+
+        </div>
+
+
+        <div class="login-section">
+
+            <h2>Welcome Back</h2>
+
+            <p class="login-subtitle">
+                Please login to access the system
+            </p>
+
+
+            <form action="login" method="post">
+
+                <div class="input-group">
+
+                    <label for="username">Username</label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter your username"
+                        required>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="password">Password</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required>
+
+                </div>
+
+
+                <button type="submit" class="login-button">
+                    Login
+                </button>
+
+            </form>
+
+
+            <p class="footer-text">
+                © 2026 Sunrise Dental Clinic
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

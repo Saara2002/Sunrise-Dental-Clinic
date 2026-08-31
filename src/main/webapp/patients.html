@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Patients - Sunrise Dental Clinic</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f8fb;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            background: #075985;
+            color: white;
+            padding: 25px 15px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo-icon {
+            font-size: 45px;
+        }
+
+        .logo h2 {
+            margin-top: 8px;
+            font-size: 20px;
+        }
+
+        .logo p {
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        .menu {
+            list-style: none;
+        }
+
+        .menu li {
+            margin-bottom: 8px;
+        }
+
+        .menu a {
+            display: block;
+            padding: 13px 15px;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .menu a:hover,
+        .menu .active {
+            background: #06496b;
+        }
+
+        .logout {
+            margin-top: 30px;
+            background: #dc3545 !important;
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .topbar h1 {
+            color: #075985;
+            font-size: 28px;
+        }
+
+        .topbar p {
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccd6dc;
+            border-radius: 7px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #075985;
+            color: white;
+            padding: 14px 10px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 13px 10px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">🦷</div>
+
+            <h2>Sunrise Dental</h2>
+
+            <p>Receptionist Panel</p>
+
+        </div>
+
+
+        <ul class="menu">
+
+            <li>
+                <a href="receptionist-dashboard.html">
+                    🏠 Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="appointments.html">
+                    📅 Appointments
+                </a>
+            </li>
+
+            <li>
+                <a href="patients.html"class="active">
+                    👤 Patients
+                </a>
+            </li>
+
+            <li>
+                <a href="billing.html" >
+                    💰 Billing
+                </a>
+            </li>
+
+            <li>
+                <a href="help.html" >
+                    ❓ Help
+                </a>
+            </li>
+
+            <li>
+                <a href="login.html" class="logout">
+                    🚪 Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- MAIN -->
+
+    <div class="main">
+
+
+        <div class="topbar">
+
+            <div>
+
+                <h1>Patients</h1>
+
+                <p>
+                    Registered patients of Sunrise Dental Clinic
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="🔍 Search patient by name, phone or email..."
+                onkeyup="searchPatients()">
+
+        </div>
+
+
+        <!-- TABLE -->
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Patient ID</th>
+
+                        <th>Full Name</th>
+
+                        <th>Phone</th>
+
+                        <th>Email</th>
+
+                        <th>Address</th>
+
+                        <th>Date of Birth</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="patientBody">
+
+                    <tr>
+
+                        <td colspan="6" class="empty">
+
+                            Loading patients...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+    </div>
+
+
+    <script>
+
+        function searchPatients() {
+
+            let input =
+                document.getElementById("searchInput")
+                .value
+                .toLowerCase();
+
+            let rows =
+                document
+                .getElementById("patientBody")
+                .getElementsByTagName("tr");
+
+
+            for (let i = 0; i < rows.length; i++) {
+
+                let text =
+                    rows[i].textContent.toLowerCase();
+
+                if (text.includes(input)) {
+
+                    rows[i].style.display = "";
+
+                } else {
+
+                    rows[i].style.display = "none";
+
+                }
+
+            }
+
+        }
+
+
+        // Load patients from servlet
+
+        fetch("patients")
+
+            .then(response => response.text())
+
+            .then(data => {
+
+                document
+                    .getElementById("patientBody")
+                    .innerHTML = data;
+
+            })
+
+            .catch(error => {
+
+                console.log(error);
+
+                document
+                    .getElementById("patientBody")
+                    .innerHTML =
+                    "<tr>" +
+                    "<td colspan='6' class='empty'>" +
+                    "Unable to load patients." +
+                    "</td>" +
+                    "</tr>";
+
+            });
+
+    </script>
+
+
+</body>
+
+</html>
