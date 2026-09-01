@@ -2,14 +2,11 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Help - Sunrise Dental Clinic</title>
 
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -22,13 +19,17 @@
             min-height: 100vh;
         }
 
+        /* SIDEBAR */
         .sidebar {
             width: 250px;
             height: 100vh;
             position: fixed;
-            background: #075985;
+            left: 0;
+            top: 0;
+            background: linear-gradient(180deg, #075985, #087ea4);
             color: white;
             padding: 25px 15px;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.08);
         }
 
         .logo {
@@ -37,17 +38,18 @@
         }
 
         .logo-icon {
-            font-size: 45px;
+            font-size: 48px;
+            margin-bottom: 8px;
         }
 
         .logo h2 {
-            margin-top: 8px;
-            font-size: 20px;
+            font-size: 21px;
+            margin-bottom: 5px;
         }
 
         .logo p {
-            margin-top: 5px;
             font-size: 12px;
+            opacity: 0.85;
         }
 
         .menu {
@@ -59,16 +61,21 @@
         }
 
         .menu a {
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             padding: 13px 15px;
             color: white;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 9px;
+            transition: 0.3s;
+            font-size: 14px;
         }
 
         .menu a:hover,
         .menu .active {
-            background: #06496b;
+            background: rgba(255, 255, 255, 0.18);
+            transform: translateX(3px);
         }
 
         .logout {
@@ -76,54 +83,79 @@
             background: #dc3545 !important;
         }
 
+        .logout:hover {
+            background: #b91c1c !important;
+        }
+
+        /* MAIN */
         .main {
             margin-left: 250px;
             padding: 30px;
         }
 
+        /* TOP BAR */
         .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 25px;
         }
 
         .topbar h1 {
             color: #075985;
             font-size: 30px;
+            margin-bottom: 6px;
         }
 
         .topbar p {
             color: #666;
-            margin-top: 6px;
+            font-size: 14px;
         }
 
+        .page-badge {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+            color: #075985;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* WELCOME */
         .welcome {
             background: white;
             padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-radius: 14px;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
         }
 
         .welcome h2 {
             color: #075985;
             margin-bottom: 10px;
+            font-size: 20px;
         }
 
         .welcome p {
             color: #555;
             line-height: 1.6;
+            font-size: 14px;
         }
 
+        /* HELP GRID */
         .help-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
 
+        /* HELP CARD */
         .help-card {
             background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
         }
 
         .help-card h2 {
@@ -136,20 +168,22 @@
             color: #555;
             line-height: 1.6;
             margin-bottom: 12px;
+            font-size: 14px;
         }
 
-        .help-card ol {
-            padding-left: 22px;
-            color: #444;
-            line-height: 1.8;
-        }
-
+        .help-card ol,
         .help-card ul {
             padding-left: 22px;
             color: #444;
             line-height: 1.8;
+            font-size: 14px;
         }
 
+        .help-card li {
+            margin-bottom: 3px;
+        }
+
+        /* STEP */
         .step {
             background: #f0f9ff;
             border-left: 4px solid #087ea4;
@@ -158,73 +192,102 @@
             border-radius: 5px;
         }
 
+        /* IMPORTANT */
         .important {
             background: #fff7ed;
             border-left: 4px solid #f59e0b;
             padding: 15px;
-            margin-top: 15px;
-            border-radius: 5px;
+            margin-top: 22px;
+            border-radius: 7px;
+            color: #444;
+            font-size: 14px;
         }
 
         .important strong {
             color: #b45309;
         }
 
+        /* CONTACT */
         .contact {
-            margin-top: 25px;
+            margin-top: 22px;
             background: #075985;
             color: white;
             padding: 25px;
-            border-radius: 12px;
+            border-radius: 14px;
             text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
         }
 
         .contact h2 {
             margin-bottom: 10px;
+            font-size: 20px;
         }
 
         .contact p {
             line-height: 1.7;
+            font-size: 14px;
         }
 
-        @media (max-width: 800px) {
-
+        /* RESPONSIVE */
+        @media (max-width: 850px) {
             .sidebar {
-                width: 200px;
+                width: 210px;
             }
 
             .main {
-                margin-left: 200px;
+                margin-left: 210px;
+                padding: 20px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+                gap: 15px;
             }
 
             .help-grid {
                 grid-template-columns: 1fr;
             }
-
         }
 
+        @media (max-width: 650px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .topbar {
+                flex-direction: column;
+            }
+
+            .page-badge {
+                width: 100%;
+            }
+
+            .help-card,
+            .welcome,
+            .contact {
+                padding: 18px;
+            }
+        }
     </style>
-
 </head>
-
 
 <body>
 
-
     <!-- SIDEBAR -->
-
     <div class="sidebar">
 
         <div class="logo">
-
             <div class="logo-icon">🦷</div>
-
             <h2>Sunrise Dental</h2>
-
             <p>Receptionist Panel</p>
-
         </div>
-
 
         <ul class="menu">
 
@@ -270,23 +333,24 @@
 
 
     <!-- MAIN -->
-
     <div class="main">
 
-
+        <!-- TOP BAR -->
         <div class="topbar">
 
-            <h1>❓ Help and User Guide</h1>
+            <div>
+                <h1>❓ Help and User Guide</h1>
+                <p>Sunrise Dental Clinic Management System</p>
+            </div>
 
-            <p>
-                Sunrise Dental Clinic Management System
-            </p>
+            <div class="page-badge">
+                ❓ Help And Support
+            </div>
 
         </div>
 
 
         <!-- WELCOME -->
-
         <div class="welcome">
 
             <h2>Welcome to Sunrise Dental Clinic</h2>
@@ -302,12 +366,9 @@
 
 
         <!-- HELP CARDS -->
-
         <div class="help-grid">
 
-
             <!-- LOGIN -->
-
             <div class="help-card">
 
                 <h2>🔐 1. Login</h2>
@@ -318,35 +379,20 @@
                 </p>
 
                 <ol>
-
-                    <li>
-                        Open the Sunrise Dental Clinic system.
-                    </li>
-
-                    <li>
-                        Enter your username.
-                    </li>
-
-                    <li>
-                        Enter your password.
-                    </li>
-
-                    <li>
-                        Click the <strong>Login</strong> button.
-                    </li>
-
+                    <li>Open the Sunrise Dental Clinic system.</li>
+                    <li>Enter your username.</li>
+                    <li>Enter your password.</li>
+                    <li>Click the <strong>Login</strong> button.</li>
                     <li>
                         You will be redirected to the
                         appropriate dashboard.
                     </li>
-
                 </ol>
 
             </div>
 
 
             <!-- REGISTER APPOINTMENT -->
-
             <div class="help-card">
 
                 <h2>📅 2. Register Appointment</h2>
@@ -356,42 +402,21 @@
                 </p>
 
                 <ol>
-
-                    <li>
-                        Open <strong>Appointments</strong>.
-                    </li>
-
-                    <li>
-                        Click <strong>New Appointment</strong>.
-                    </li>
-
-                    <li>
-                        Enter the patient details.
-                    </li>
-
-                    <li>
-                        Select the dentist.
-                    </li>
-
-                    <li>
-                        Select the treatment.
-                    </li>
-
-                    <li>
-                        Select the appointment date and time.
-                    </li>
-
+                    <li>Open <strong>Appointments</strong>.</li>
+                    <li>Click <strong>New Appointment</strong>.</li>
+                    <li>Enter the patient details.</li>
+                    <li>Select the dentist.</li>
+                    <li>Select the treatment.</li>
+                    <li>Select the appointment date and time.</li>
                     <li>
                         Click <strong>Register Appointment</strong>.
                     </li>
-
                 </ol>
 
             </div>
 
 
             <!-- SEARCH -->
-
             <div class="help-card">
 
                 <h2>🔍 3. Search Appointment</h2>
@@ -401,31 +426,21 @@
                 </p>
 
                 <ol>
-
-                    <li>
-                        Open the <strong>Appointments</strong> page.
-                    </li>
-
-                    <li>
-                        Click the search box.
-                    </li>
-
+                    <li>Open the <strong>Appointments</strong> page.</li>
+                    <li>Click the search box.</li>
                     <li>
                         Enter the appointment number
                         or patient name.
                     </li>
-
                     <li>
                         The matching appointments will be displayed.
                     </li>
-
                 </ol>
 
             </div>
 
 
             <!-- EDIT -->
-
             <div class="help-card">
 
                 <h2>✏️ 4. Edit Appointment</h2>
@@ -435,34 +450,19 @@
                 </p>
 
                 <ol>
-
-                    <li>
-                        Open <strong>Appointments</strong>.
-                    </li>
-
-                    <li>
-                        Find the required appointment.
-                    </li>
-
-                    <li>
-                        Click the <strong>Edit</strong> button.
-                    </li>
-
-                    <li>
-                        Change the required information.
-                    </li>
-
+                    <li>Open <strong>Appointments</strong>.</li>
+                    <li>Find the required appointment.</li>
+                    <li>Click the <strong>Edit</strong> button.</li>
+                    <li>Change the required information.</li>
                     <li>
                         Click <strong>Update Appointment</strong>.
                     </li>
-
                 </ol>
 
             </div>
 
 
             <!-- CANCEL -->
-
             <div class="help-card">
 
                 <h2>❌ 5. Cancel Appointment</h2>
@@ -472,35 +472,20 @@
                 </p>
 
                 <ol>
-
-                    <li>
-                        Open the <strong>Appointments</strong> page.
-                    </li>
-
-                    <li>
-                        Find the required appointment.
-                    </li>
-
-                    <li>
-                        Click the <strong>Cancel</strong> button.
-                    </li>
-
-                    <li>
-                        Confirm the cancellation.
-                    </li>
-
+                    <li>Open the <strong>Appointments</strong> page.</li>
+                    <li>Find the required appointment.</li>
+                    <li>Click the <strong>Cancel</strong> button.</li>
+                    <li>Confirm the cancellation.</li>
                     <li>
                         The status will change to
                         <strong>CANCELLED</strong>.
                     </li>
-
                 </ol>
 
             </div>
 
 
             <!-- COMPLETE -->
-
             <div class="help-card">
 
                 <h2>✅ 6. Complete Appointment</h2>
@@ -510,35 +495,20 @@
                 </p>
 
                 <ol>
-
-                    <li>
-                        Open <strong>Appointments</strong>.
-                    </li>
-
-                    <li>
-                        Find the patient's appointment.
-                    </li>
-
-                    <li>
-                        Click <strong>Complete</strong>.
-                    </li>
-
-                    <li>
-                        Confirm the action.
-                    </li>
-
+                    <li>Open <strong>Appointments</strong>.</li>
+                    <li>Find the patient's appointment.</li>
+                    <li>Click <strong>Complete</strong>.</li>
+                    <li>Confirm the action.</li>
                     <li>
                         The appointment status will become
                         <strong>COMPLETED</strong>.
                     </li>
-
                 </ol>
 
             </div>
 
 
             <!-- PATIENTS -->
-
             <div class="help-card">
 
                 <h2>👤 7. Patient Management</h2>
@@ -549,30 +519,16 @@
                 </p>
 
                 <ul>
-
-                    <li>
-                        View registered patients.
-                    </li>
-
-                    <li>
-                        Search using patient name or phone.
-                    </li>
-
-                    <li>
-                        View patient contact details.
-                    </li>
-
-                    <li>
-                        View patient address.
-                    </li>
-
+                    <li>View registered patients.</li>
+                    <li>Search using patient name or phone.</li>
+                    <li>View patient contact details.</li>
+                    <li>View patient address.</li>
                 </ul>
 
             </div>
 
 
             <!-- BILLING -->
-
             <div class="help-card">
 
                 <h2>💰 8. Generate Bill</h2>
@@ -583,41 +539,20 @@
                 </p>
 
                 <ol>
-
-                    <li>
-                        Open <strong>Billing</strong>.
-                    </li>
-
-                    <li>
-                        Select the relevant appointment.
-                    </li>
-
-                    <li>
-                        Check the treatment cost.
-                    </li>
-
-                    <li>
-                        Add the consultation fee if applicable.
-                    </li>
-
-                    <li>
-                        Check the total amount.
-                    </li>
-
-                    <li>
-                        Generate and save the bill.
-                    </li>
-
+                    <li>Open <strong>Billing</strong>.</li>
+                    <li>Select the relevant appointment.</li>
+                    <li>Check the treatment cost.</li>
+                    <li>Add the consultation fee if applicable.</li>
+                    <li>Check the total amount.</li>
+                    <li>Generate and save the bill.</li>
                 </ol>
 
             </div>
-
 
         </div>
 
 
         <!-- IMPORTANT -->
-
         <div class="important">
 
             <strong>⚠️ Important:</strong>
@@ -629,7 +564,6 @@
 
 
         <!-- CONTACT -->
-
         <div class="contact">
 
             <h2>🦷 Sunrise Dental Clinic</h2>
@@ -641,9 +575,7 @@
 
         </div>
 
-
     </div>
-
 
 </body>
 
