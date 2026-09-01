@@ -23,15 +23,18 @@
         min-height: 100vh;
     }
 
-    /* ================= SIDEBAR ================= */
+    /* SIDEBAR */
 
     .sidebar {
         width: 250px;
         height: 100vh;
         position: fixed;
-        background: #075985;
+        left: 0;
+        top: 0;
+        background: linear-gradient(180deg, #075985, #087ea4);
         color: white;
         padding: 25px 15px;
+        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.08);
     }
 
     .logo {
@@ -40,18 +43,18 @@
     }
 
     .logo-icon {
-        font-size: 45px;
+        font-size: 48px;
+        margin-bottom: 8px;
     }
 
     .logo h2 {
-        margin-top: 8px;
-        font-size: 20px;
+        font-size: 21px;
+        margin-bottom: 5px;
     }
 
     .logo p {
-        margin-top: 5px;
         font-size: 12px;
-        opacity: 0.8;
+        opacity: 0.85;
     }
 
     .menu {
@@ -63,17 +66,21 @@
     }
 
     .menu a {
-        display: block;
+        display: flex;
+        align-items: center;
+        gap: 10px;
         padding: 13px 15px;
         color: white;
         text-decoration: none;
-        border-radius: 8px;
+        border-radius: 9px;
         transition: 0.3s;
+        font-size: 14px;
     }
 
     .menu a:hover,
     .menu .active {
-        background: #087ea4;
+        background: rgba(255, 255, 255, 0.18);
+        transform: translateX(3px);
     }
 
     .logout {
@@ -81,41 +88,75 @@
         background: #dc3545 !important;
     }
 
-    /* ================= MAIN ================= */
+    .logout:hover {
+        background: #b91c1c !important;
+    }
+
+    /* MAIN */
 
     .main {
         margin-left: 250px;
         padding: 30px;
     }
 
+    /* TOP BAR */
+
     .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         margin-bottom: 25px;
     }
 
     .topbar h1 {
         color: #075985;
-        font-size: 28px;
+        font-size: 30px;
+        margin-bottom: 6px;
     }
 
     .topbar p {
         color: #666;
-        margin-top: 5px;
+        font-size: 14px;
     }
 
-    /* ================= FORM ================= */
-
-    .form-container {
+    .page-badge {
         background: white;
-        max-width: 750px;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        padding: 12px 18px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+        color: #075985;
+        font-size: 14px;
+        font-weight: bold;
     }
 
-    .section-title {
-        color: #075985;
-        margin-bottom: 25px;
+    /* BILLING CARD */
+
+    .billing-container {
+        background: white;
+        padding: 25px;
+        border-radius: 14px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+        max-width: 900px;
     }
+
+    .billing-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 22px;
+    }
+
+    .billing-header h2 {
+        color: #075985;
+        font-size: 20px;
+    }
+
+    .billing-header span {
+        color: #777;
+        font-size: 13px;
+    }
+
+    /* FORM */
 
     .form-group {
         margin-bottom: 20px;
@@ -123,52 +164,73 @@
 
     label {
         display: block;
+        color: #075985;
         font-weight: bold;
-        margin-bottom: 8px;
-        color: #333;
+        margin-bottom: 9px;
+        font-size: 14px;
     }
 
     select,
     input {
         width: 100%;
-        padding: 12px;
+        padding: 14px 16px;
         border: 1px solid #ccd6dc;
-        border-radius: 7px;
+        border-radius: 9px;
         font-size: 15px;
         outline: none;
+        transition: 0.3s;
     }
 
     select:focus,
     input:focus {
         border-color: #087ea4;
+        box-shadow: 0 0 0 3px rgba(8, 126, 164, 0.12);
     }
 
-    /* ================= APPOINTMENT DETAILS ================= */
+    /* APPOINTMENT DETAILS */
 
     .details {
-        background: #f8fafc;
+        background: #f0f9ff;
         padding: 20px;
-        border-radius: 8px;
-        margin-bottom: 20px;
+        border-radius: 10px;
+        margin-bottom: 22px;
         border-left: 5px solid #087ea4;
     }
 
-    .details p {
-        margin-bottom: 12px;
-        color: #444;
+    .details h3 {
+        color: #075985;
+        margin-bottom: 15px;
+        font-size: 17px;
     }
 
-    .details p:last-child {
-        margin-bottom: 0;
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #dbeafe;
+    }
+
+    .detail-row:last-child {
+        border-bottom: none;
+    }
+
+    .detail-label {
+        color: #666;
+        font-weight: bold;
+    }
+
+    .detail-value {
+        color: #333;
+        font-weight: 500;
     }
 
     .amount {
+        color: #087ea4;
         font-size: 25px;
         font-weight: bold;
-        color: #087ea4;
     }
 
-    /* ================= BUTTONS ================= */
+    /* BUTTONS */
 
     .buttons {
         display: flex;
@@ -179,10 +241,10 @@
 
     button,
     .back-btn {
-        padding: 12px 22px;
+        padding: 13px 22px;
         border: none;
-        border-radius: 7px;
-        font-size: 15px;
+        border-radius: 8px;
+        font-size: 14px;
         cursor: pointer;
         text-decoration: none;
         font-weight: bold;
@@ -206,13 +268,13 @@
         background: #4b5563;
     }
 
-    /* ================= MESSAGE ================= */
+    /* MESSAGE */
 
     .message {
         display: none;
         margin-top: 20px;
-        padding: 12px;
-        border-radius: 7px;
+        padding: 13px;
+        border-radius: 8px;
         text-align: center;
         font-weight: bold;
     }
@@ -223,27 +285,70 @@
         color: #991b1b;
     }
 
-    /* ================= RESPONSIVE ================= */
+    /* RESPONSIVE */
 
-    @media (max-width: 800px) {
+    @media (max-width: 850px) {
 
         .sidebar {
-            width: 200px;
+            width: 210px;
         }
 
         .main {
-            margin-left: 200px;
+            margin-left: 210px;
+            padding: 20px;
+        }
+
+        .topbar {
+            align-items: flex-start;
+            gap: 15px;
+        }
+    }
+
+    @media (max-width: 650px) {
+
+        .sidebar {
+            position: relative;
+            width: 100%;
+            height: auto;
+        }
+
+        .main {
+            margin-left: 0;
+            padding: 15px;
+        }
+
+        .topbar {
+            flex-direction: column;
+        }
+
+        .page-badge {
+            width: 100%;
+        }
+
+        .billing-container {
+            padding: 18px;
+        }
+
+        .buttons {
+            flex-direction: column;
+        }
+
+        button,
+        .back-btn {
+            width: 100%;
+            text-align: center;
         }
     }
 
 </style>
+
 
 </head>
 
 <body>
 
 
-<!-- ================= SIDEBAR ================= -->
+<!-- SIDEBAR -->
 
 <div class="sidebar">
 
@@ -300,29 +405,45 @@
 </div>
 
 
-<!-- ================= MAIN ================= -->
+<!-- MAIN -->
 
 <div class="main">
 
     <div class="topbar">
 
-        <h1>💰 Billing</h1>
+        <div>
 
-        <p>
-            Generate bills for completed appointments
-        </p>
+            <h1>💰 Billing</h1>
+
+            <p>
+                Generate bills for completed appointments
+            </p>
+
+        </div>
+
+        <div class="page-badge">
+            🧾 Billing Management
+        </div>
 
     </div>
 
 
-    <!-- ================= BILL FORM ================= -->
+    <!-- BILLING CONTAINER -->
 
-    <div class="form-container">
+    <div class="billing-container">
 
-        <h2 class="section-title">
-            Generate New Bill
-        </h2>
+        <div class="billing-header">
 
+            <h2>Generate New Bill</h2>
+
+            <span>
+                Select a completed appointment
+            </span>
+
+        </div>
+
+
+        <!-- FORM -->
 
         <form action="billing" method="post">
 
@@ -356,45 +477,64 @@
                 class="details"
                 style="display:none;">
 
-                <p>
+                <h3>
+                    📋 Appointment Details
+                </h3>
 
-                    <strong>Patient:</strong>
+                <div class="detail-row">
 
-                    <span id="patientName"></span>
-
-                </p>
-
-
-                <p>
-
-                    <strong>Appointment:</strong>
-
-                    <span id="appointmentNumber"></span>
-
-                </p>
-
-
-                <p>
-
-                    <strong>Treatment:</strong>
-
-                    <span id="treatmentName"></span>
-
-                </p>
-
-
-                <p>
-
-                    <strong>Amount:</strong>
-
-                    Rs.
-
-                    <span
-                        id="amount"
-                        class="amount">
+                    <span class="detail-label">
+                        Patient
                     </span>
 
-                </p>
+                    <span
+                        id="patientName"
+                        class="detail-value">
+                    </span>
+
+                </div>
+
+                <div class="detail-row">
+
+                    <span class="detail-label">
+                        Appointment
+                    </span>
+
+                    <span
+                        id="appointmentNumber"
+                        class="detail-value">
+                    </span>
+
+                </div>
+
+                <div class="detail-row">
+
+                    <span class="detail-label">
+                        Treatment
+                    </span>
+
+                    <span
+                        id="treatmentName"
+                        class="detail-value">
+                    </span>
+
+                </div>
+
+                <div class="detail-row">
+
+                    <span class="detail-label">
+                        Total Amount
+                    </span>
+
+                    <span>
+                        Rs.
+                        <span
+                            id="amount"
+                            class="amount">
+                        </span>
+                    </span>
+
+                </div>
 
             </div>
 
@@ -463,7 +603,6 @@
 
                 </a>
 
-
                 <button
                     type="submit"
                     class="save-btn">
@@ -481,13 +620,13 @@
 </div>
 
 
-<!-- ================= JAVASCRIPT ================= -->
+<!-- JAVASCRIPT -->
 
 <script>
 
     /* ==========================================
        LOAD COMPLETED APPOINTMENTS
-       ========================================== */
+    ========================================== */
 
     fetch("billing?action=list")
 
@@ -512,7 +651,6 @@
                     "appointmentId"
                 );
 
-
             if (data.error) {
 
                 showError(data.error);
@@ -521,7 +659,6 @@
 
             }
 
-
             data.forEach(appointment => {
 
                 const option =
@@ -529,10 +666,8 @@
                         "option"
                     );
 
-
                 option.value =
                     appointment.appointmentId;
-
 
                 option.textContent =
                     appointment.appointmentNumber +
@@ -540,7 +675,6 @@
                     appointment.patientName +
                     " - " +
                     appointment.treatmentName;
-
 
                 select.appendChild(option);
 
@@ -564,7 +698,7 @@
 
     /* ==========================================
        LOAD SELECTED APPOINTMENT
-       ========================================== */
+    ========================================== */
 
     function loadAppointment() {
 
@@ -573,12 +707,10 @@
                 "appointmentId"
             ).value;
 
-
         const details =
             document.getElementById(
                 "appointmentDetails"
             );
-
 
         if (!id) {
 
@@ -587,7 +719,6 @@
             return;
 
         }
-
 
         fetch(
             "billing?action=details&id=" + id
@@ -620,16 +751,11 @@
 
                 }
 
-
-                /* PATIENT */
-
                 document.getElementById(
                     "patientName"
                 ).textContent =
                     data.patientName;
 
-
-                /* APPOINTMENT NUMBER */
 
                 document.getElementById(
                     "appointmentNumber"
@@ -637,15 +763,11 @@
                     data.appointmentNumber;
 
 
-                /* TREATMENT */
-
                 document.getElementById(
                     "treatmentName"
                 ).textContent =
                     data.treatmentName;
 
-
-                /* AMOUNT */
 
                 document.getElementById(
                     "amount"
@@ -653,15 +775,11 @@
                     Number(data.amount).toFixed(2);
 
 
-                /* HIDDEN PATIENT ID */
-
                 document.getElementById(
                     "patientId"
                 ).value =
                     data.patientId;
 
-
-                /* HIDDEN TREATMENT ID */
 
                 document.getElementById(
                     "treatmentId"
@@ -669,15 +787,11 @@
                     data.treatmentId;
 
 
-                /* HIDDEN AMOUNT */
-
                 document.getElementById(
                     "amountValue"
                 ).value =
                     data.amount;
 
-
-                /* SHOW DETAILS */
 
                 details.style.display =
                     "block";
@@ -699,7 +813,7 @@
 
     /* ==========================================
        SHOW ERROR MESSAGE
-       ========================================== */
+    ========================================== */
 
     function showError(message) {
 
@@ -716,7 +830,7 @@
     }
 
 </script>
-```
+
 
 </body>
 
