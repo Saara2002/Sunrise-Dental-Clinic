@@ -1,15 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Patients - Sunrise Dental Clinic</title>
 
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -22,13 +20,17 @@
             min-height: 100vh;
         }
 
+        /* SIDEBAR */
         .sidebar {
             width: 250px;
             height: 100vh;
             position: fixed;
-            background: #075985;
+            left: 0;
+            top: 0;
+            background: linear-gradient(180deg, #075985, #087ea4);
             color: white;
             padding: 25px 15px;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.08);
         }
 
         .logo {
@@ -37,17 +39,18 @@
         }
 
         .logo-icon {
-            font-size: 45px;
+            font-size: 48px;
+            margin-bottom: 8px;
         }
 
         .logo h2 {
-            margin-top: 8px;
-            font-size: 20px;
+            font-size: 21px;
+            margin-bottom: 5px;
         }
 
         .logo p {
-            margin-top: 5px;
             font-size: 12px;
+            opacity: 0.85;
         }
 
         .menu {
@@ -59,16 +62,21 @@
         }
 
         .menu a {
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             padding: 13px 15px;
             color: white;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 9px;
+            transition: 0.3s;
+            font-size: 14px;
         }
 
         .menu a:hover,
         .menu .active {
-            background: #06496b;
+            background: rgba(255, 255, 255, 0.18);
+            transform: translateX(3px);
         }
 
         .logout {
@@ -76,11 +84,17 @@
             background: #dc3545 !important;
         }
 
+        .logout:hover {
+            background: #b91c1c !important;
+        }
+
+        /* MAIN */
         .main {
             margin-left: 250px;
             padding: 30px;
         }
 
+        /* TOP BAR */
         .topbar {
             display: flex;
             justify-content: space-between;
@@ -90,90 +104,180 @@
 
         .topbar h1 {
             color: #075985;
-            font-size: 28px;
+            font-size: 30px;
+            margin-bottom: 6px;
         }
 
         .topbar p {
             color: #666;
-            margin-top: 5px;
+            font-size: 14px;
         }
 
+        .page-badge {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+            color: #075985;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* SEARCH */
         .search-box {
             background: white;
             padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-radius: 14px;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+        }
+
+        .search-label {
+            display: block;
+            color: #075985;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 14px;
         }
 
         .search-box input {
             width: 100%;
-            padding: 12px;
+            padding: 14px 16px;
             border: 1px solid #ccd6dc;
-            border-radius: 7px;
+            border-radius: 9px;
             font-size: 15px;
             outline: none;
+            transition: 0.3s;
         }
 
+        .search-box input:focus {
+            border-color: #087ea4;
+            box-shadow: 0 0 0 3px rgba(8, 126, 164, 0.12);
+        }
+
+        /* TABLE */
         .table-container {
             background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
             overflow-x: auto;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .table-header h2 {
+            color: #075985;
+            font-size: 20px;
+        }
+
+        .table-header span {
+            color: #777;
+            font-size: 13px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 750px;
         }
 
         th {
             background: #075985;
             color: white;
-            padding: 14px 10px;
+            padding: 15px 12px;
             text-align: left;
-            font-size: 14px;
+            font-size: 13px;
+        }
+
+        th:first-child {
+            border-radius: 7px 0 0 7px;
+        }
+
+        th:last-child {
+            border-radius: 0 7px 7px 0;
         }
 
         td {
-            padding: 13px 10px;
+            padding: 14px 12px;
             border-bottom: 1px solid #e5e7eb;
             font-size: 14px;
+            color: #444;
         }
 
-        tr:hover {
-            background: #f8fafc;
+        tbody tr {
+            transition: 0.2s;
+        }
+
+        tbody tr:hover {
+            background: #f0f9ff;
         }
 
         .empty {
             text-align: center;
-            padding: 30px;
+            padding: 35px;
             color: #777;
         }
 
+        /* RESPONSIVE */
+        @media (max-width: 850px) {
+            .sidebar {
+                width: 210px;
+            }
+
+            .main {
+                margin-left: 210px;
+                padding: 20px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .topbar {
+                flex-direction: column;
+            }
+
+            .page-badge {
+                width: 100%;
+            }
+
+            .table-container {
+                padding: 15px;
+            }
+        }
     </style>
-
 </head>
-
 
 <body>
 
-
     <!-- SIDEBAR -->
-
     <div class="sidebar">
 
         <div class="logo">
-
             <div class="logo-icon">🦷</div>
-
             <h2>Sunrise Dental</h2>
-
             <p>Receptionist Panel</p>
-
         </div>
-
 
         <ul class="menu">
 
@@ -190,19 +294,19 @@
             </li>
 
             <li>
-                <a href="patients.html"class="active">
+                <a href="patients.html" class="active">
                     👤 Patients
                 </a>
             </li>
 
             <li>
-                <a href="billing.html" >
+                <a href="billing.html">
                     💰 Billing
                 </a>
             </li>
 
             <li>
-                <a href="help.html" >
+                <a href="help.html">
                     ❓ Help
                 </a>
             </li>
@@ -214,80 +318,79 @@
             </li>
 
         </ul>
-
     </div>
 
 
     <!-- MAIN -->
-
     <div class="main">
 
-
+        <!-- TOP BAR -->
         <div class="topbar">
 
             <div>
-
                 <h1>Patients</h1>
-
                 <p>
                     Registered patients of Sunrise Dental Clinic
                 </p>
+            </div>
 
+            <div class="page-badge">
+                👥 Patient Management
             </div>
 
         </div>
 
 
         <!-- SEARCH -->
-
         <div class="search-box">
+
+            <label class="search-label">
+                🔍 Search Patients
+            </label>
 
             <input
                 type="text"
                 id="searchInput"
-                placeholder="🔍 Search patient by name, phone or email..."
+                placeholder="Search by patient name, phone or email..."
                 onkeyup="searchPatients()">
 
         </div>
 
 
         <!-- TABLE -->
-
         <div class="table-container">
+
+            <div class="table-header">
+
+                <h2>Patient Records</h2>
+
+                <span>
+                    Sunrise Dental Clinic
+                </span>
+
+            </div>
 
             <table>
 
                 <thead>
 
                     <tr>
-
                         <th>Patient ID</th>
-
                         <th>Full Name</th>
-
                         <th>Phone</th>
-
                         <th>Email</th>
-
                         <th>Address</th>
-
                         <th>Date of Birth</th>
-
                     </tr>
 
                 </thead>
 
-
                 <tbody id="patientBody">
 
                     <tr>
-
                         <td colspan="6" class="empty">
-
                             Loading patients...
-
                         </td>
-
                     </tr>
 
                 </tbody>
@@ -295,7 +398,6 @@
             </table>
 
         </div>
-
 
     </div>
 
@@ -306,14 +408,13 @@
 
             let input =
                 document.getElementById("searchInput")
-                .value
-                .toLowerCase();
+                    .value
+                    .toLowerCase();
 
             let rows =
                 document
-                .getElementById("patientBody")
-                .getElementsByTagName("tr");
-
+                    .getElementById("patientBody")
+                    .getElementsByTagName("tr");
 
             for (let i = 0; i < rows.length; i++) {
 
@@ -329,9 +430,7 @@
                     rows[i].style.display = "none";
 
                 }
-
             }
-
         }
 
 
@@ -366,7 +465,7 @@
 
     </script>
 
-
 </body>
 
 </html>
+
