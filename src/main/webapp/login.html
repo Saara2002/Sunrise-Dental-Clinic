@@ -7,150 +7,232 @@
 
     <title>Sunrise Dental Clinic - Login</title>
 
-    <style>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
 
+    body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 25px;
+        background:
+            radial-gradient(circle at top left, #dff8ff 0%, transparent 35%),
+            radial-gradient(circle at bottom right, #e0f2fe 0%, transparent 35%),
+            linear-gradient(135deg, #f0fbff, #ffffff);
+    }
+
+    .login-container {
+        width: 920px;
+        min-height: 570px;
+        display: flex;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 24px;
+        box-shadow: 0 25px 60px rgba(7, 89, 133, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    /* Clinic Branding Section */
+    .clinic-section {
+        width: 48%;
+        padding: 50px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        background: linear-gradient(145deg, #0891b2, #075985);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .clinic-section::before {
+        content: "";
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        top: -100px;
+        right: -90px;
+    }
+
+    .clinic-section::after {
+        content: "";
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.06);
+        bottom: -100px;
+        left: -80px;
+    }
+
+    .clinic-icon {
+        width: 120px;
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 65px;
+        margin-bottom: 25px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        position: relative;
+        z-index: 1;
+    }
+
+    .clinic-section h1 {
+        font-size: 34px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .clinic-section p {
+        max-width: 320px;
+        font-size: 15px;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.9);
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Login Section */
+    .login-section {
+        width: 52%;
+        padding: 60px 55px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: #ffffff;
+    }
+
+    .login-section h2 {
+        color: #075985;
+        font-size: 31px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .login-subtitle {
+        color: #64748b;
+        font-size: 14px;
+        margin-bottom: 32px;
+    }
+
+    .input-group {
+        margin-bottom: 22px;
+    }
+
+    .input-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #334155;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid #d7e2ea;
+        border-radius: 10px;
+        background: #f8fbfd;
+        color: #1e293b;
+        font-size: 15px;
+        outline: none;
+        transition: all 0.25s ease;
+    }
+
+    .input-group input::placeholder {
+        color: #94a3b8;
+    }
+
+    .input-group input:focus {
+        border-color: #0891b2;
+        background: #ffffff;
+        box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.10);
+    }
+
+    .login-button {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #0891b2, #075985);
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(7, 89, 133, 0.20);
+        transition: all 0.25s ease;
+    }
+
+    .login-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(7, 89, 133, 0.28);
+    }
+
+    .login-button:active {
+        transform: translateY(0);
+    }
+
+    .footer-text {
+        text-align: center;
+        margin-top: 28px;
+        font-size: 12px;
+        color: #94a3b8;
+    }
+
+    @media (max-width: 750px) {
         body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #dff6ff, #ffffff);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding: 15px;
         }
 
         .login-container {
-            width: 900px;
-            min-height: 550px;
-            background: white;
+            width: 100%;
+            min-height: auto;
+            flex-direction: column;
             border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-            display: flex;
-            overflow: hidden;
+        }
+
+        .clinic-section,
+        .login-section {
+            width: 100%;
         }
 
         .clinic-section {
-            width: 50%;
-            background: linear-gradient(135deg, #087ea4, #075985);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px;
-            text-align: center;
+            padding: 40px 25px;
         }
 
         .clinic-icon {
-            font-size: 80px;
-            margin-bottom: 20px;
+            width: 95px;
+            height: 95px;
+            font-size: 50px;
         }
 
         .clinic-section h1 {
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
-
-        .clinic-section p {
-            font-size: 16px;
-            line-height: 1.6;
+            font-size: 27px;
         }
 
         .login-section {
-            width: 50%;
-            padding: 60px 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            padding: 40px 28px;
         }
+    }
+</style>
 
-        .login-section h2 {
-            color: #075985;
-            font-size: 30px;
-            margin-bottom: 10px;
-        }
-
-        .login-subtitle {
-            color: #777;
-            margin-bottom: 30px;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: bold;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 13px 15px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 15px;
-            outline: none;
-        }
-
-        .input-group input:focus {
-            border-color: #087ea4;
-            box-shadow: 0 0 5px rgba(8, 126, 164, 0.3);
-        }
-
-        .login-button {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            background: #087ea4;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .login-button:hover {
-            background: #075985;
-        }
-
-        .footer-text {
-            text-align: center;
-            margin-top: 25px;
-            font-size: 13px;
-            color: #888;
-        }
-
-        @media (max-width: 750px) {
-
-            .login-container {
-                width: 95%;
-                flex-direction: column;
-            }
-
-            .clinic-section,
-            .login-section {
-                width: 100%;
-            }
-
-            .clinic-section {
-                padding: 30px;
-            }
-
-            .login-section {
-                padding: 40px 30px;
-            }
-        }
-
-    </style>
 </head>
 
 <body>
