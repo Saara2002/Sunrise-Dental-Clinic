@@ -15,161 +15,289 @@
 <style>
 
     * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: Arial, Helvetica, sans-serif;
-    }
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
 
-    body {
-        background: #f4f8fb;
-        min-height: 100vh;
-        padding: 30px;
-    }
+body {
+background: linear-gradient(135deg, #e8f6fb, #f8fbfd);
+min-height: 100vh;
+padding: 35px 20px;
+color: #263238;
+}
 
-    .container {
-        max-width: 1000px;
-        margin: auto;
-    }
+.container {
+max-width: 1050px;
+margin: 0 auto;
+}
 
-    .header {
-        background: #075985;
-        color: white;
-        padding: 25px 30px;
-        border-radius: 12px 12px 0 0;
-    }
+/* ==============================
+HEADER
+============================== */
 
-    .header h1 {
-        font-size: 27px;
-        margin-bottom: 6px;
-    }
+.header {
+background: linear-gradient(135deg, #075985, #087ea4);
+color: white;
+padding: 30px 35px;
+border-radius: 16px 16px 0 0;
+box-shadow: 0 8px 25px rgba(7, 89, 133, 0.18);
+}
 
-    .header p {
-        font-size: 14px;
-    }
+.header h1 {
+font-size: 30px;
+font-weight: 700;
+margin-bottom: 8px;
+}
 
-    .form-container {
-        background: white;
-        padding: 35px;
-        border-radius: 0 0 12px 12px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-    }
+.header p {
+font-size: 15px;
+opacity: 0.9;
+}
 
-    .section-title {
-        color: #075985;
-        font-size: 20px;
-        margin-bottom: 20px;
-        padding-bottom: 8px;
-        border-bottom: 2px solid #e5eef3;
-    }
+/* ==============================
+FORM CONTAINER
+============================== */
 
-    .form-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        margin-bottom: 30px;
-    }
+.form-container {
+background: #ffffff;
+padding: 40px;
+border-radius: 0 0 16px 16px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
 
-    .form-group {
-        display: flex;
-        flex-direction: column;
-    }
+/* ==============================
+SECTION TITLES
+============================== */
 
-    .form-group.full {
-        grid-column: 1 / 3;
-    }
+.section-title {
+color: #075985;
+font-size: 21px;
+font-weight: 700;
+margin-bottom: 24px;
+padding-bottom: 12px;
+border-bottom: 2px solid #e4eef3;
+position: relative;
+}
 
-    label {
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 8px;
-    }
+.section-title::after {
+content: "";
+display: block;
+width: 65px;
+height: 3px;
+background: #087ea4;
+position: absolute;
+bottom: -2px;
+left: 0;
+border-radius: 5px;
+}
 
-    .required {
-        color: red;
-    }
+/* ==============================
+FORM GRID
+============================== */
 
-    input,
-    select {
-        padding: 12px;
-        border: 1px solid #ccd6dc;
-        border-radius: 7px;
-        font-size: 15px;
-        outline: none;
-    }
+.form-grid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 22px 25px;
+margin-bottom: 35px;
+}
 
-    input:focus,
-    select:focus {
-        border-color: #087ea4;
-        box-shadow: 0 0 5px rgba(8,126,164,0.2);
-    }
+.form-group {
+display: flex;
+flex-direction: column;
+}
 
-    .buttons {
-        display: flex;
-        gap: 12px;
-        justify-content: flex-end;
-    }
+.form-group.full {
+grid-column: 1 / 3;
+}
 
-    button {
-        padding: 13px 25px;
-        border: none;
-        border-radius: 7px;
-        font-size: 15px;
-        cursor: pointer;
-        font-weight: bold;
-    }
+/* ==============================
+LABELS
+============================== */
 
-    .save-btn {
-        background: #087ea4;
-        color: white;
-    }
+label {
+font-size: 14px;
+font-weight: 600;
+color: #374151;
+margin-bottom: 8px;
+}
 
-    .save-btn:hover {
-        background: #075985;
-    }
+.required {
+color: #dc2626;
+margin-left: 3px;
+}
 
-    .clear-btn {
-        background: #e5e7eb;
-        color: #333;
-    }
+/* ==============================
+INPUTS & SELECTS
+============================== */
 
-    .back-btn {
-        background: #6b7280;
-        color: white;
-    }
+input,
+select {
+width: 100%;
+padding: 13px 14px;
+border: 1px solid #cbd5dc;
+border-radius: 9px;
+background: #ffffff;
+color: #263238;
+font-size: 15px;
+outline: none;
+transition: all 0.25s ease;
+}
 
-    .loading {
-        color: #666;
-    }
+input::placeholder {
+color: #9ca3af;
+}
 
-    .error-message {
-        color: #dc2626;
-        font-size: 13px;
-        margin-top: 6px;
-    }
+input:hover,
+select:hover {
+border-color: #9bbdca;
+}
 
-    @media (max-width: 700px) {
+input:focus,
+select:focus {
+border-color: #087ea4;
+box-shadow: 0 0 0 3px rgba(8, 126, 164, 0.12);
+background: #fbfeff;
+}
 
-        .form-grid {
-            grid-template-columns: 1fr;
-        }
+/* ==============================
+ERROR MESSAGE
+============================== */
 
-        .form-group.full {
-            grid-column: 1;
-        }
+.error-message {
+color: #dc2626;
+font-size: 13px;
+margin-top: 7px;
+line-height: 1.4;
+}
 
-        body {
-            padding: 10px;
-        }
+/* ==============================
+BUTTONS
+============================== */
 
-        .buttons {
-            flex-direction: column;
-        }
+.buttons {
+display: flex;
+justify-content: flex-end;
+align-items: center;
+gap: 12px;
+padding-top: 10px;
+border-top: 1px solid #edf2f5;
+}
 
-        button {
-            width: 100%;
-        }
-    }
+button {
+min-width: 120px;
+padding: 13px 24px;
+border: none;
+border-radius: 9px;
+font-size: 15px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.25s ease;
+}
+
+/* Register Button */
+
+.save-btn {
+background: linear-gradient(135deg, #087ea4, #075985);
+color: white;
+box-shadow: 0 5px 12px rgba(8, 126, 164, 0.22);
+}
+
+.save-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 8px 18px rgba(8, 126, 164, 0.28);
+}
+
+/* Clear Button */
+
+.clear-btn {
+background: #eef1f3;
+color: #374151;
+}
+
+.clear-btn:hover {
+background: #dfe5e8;
+}
+
+/* Back Button */
+
+.back-btn {
+background: #6b7280;
+color: white;
+}
+
+.back-btn:hover {
+background: #4b5563;
+transform: translateY(-1px);
+}
+
+/* ==============================
+RESPONSIVE DESIGN
+============================== */
+
+@media (max-width: 750px) {
+
+
+body {
+    padding: 15px;
+}
+
+.header {
+    padding: 25px;
+}
+
+.header h1 {
+    font-size: 24px;
+}
+
+.form-container {
+    padding: 25px 20px;
+}
+
+.form-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+}
+
+.form-group.full {
+    grid-column: 1;
+}
+
+.buttons {
+    flex-direction: column-reverse;
+    align-items: stretch;
+}
+
+button {
+    width: 100%;
+}
+
+
+}
+
+@media (max-width: 450px) {
+
+
+.header h1 {
+    font-size: 21px;
+}
+
+.header p {
+    font-size: 13px;
+}
+
+.section-title {
+    font-size: 18px;
+}
+
+input,
+select {
+    padding: 12px;
+}
+
+}
 
 </style>
 
