@@ -18,121 +18,185 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: Arial, sans-serif;
+        font-family: "Segoe UI", Arial, Helvetica, sans-serif;
     }
 
     body {
-        background: #f4f7fb;
-        color: #333;
+        background: #f4f8fb;
+        min-height: 100vh;
+        color: #334155;
     }
 
+    /* ================= SIDEBAR ================= */
+
     .sidebar {
-        width: 240px;
+        width: 255px;
         height: 100vh;
-        background: #123c69;
         position: fixed;
         left: 0;
         top: 0;
-        padding: 25px 15px;
+        background: linear-gradient(180deg, #075985, #087ea4);
+        color: white;
+        padding: 28px 16px;
+        box-shadow: 5px 0 20px rgba(0, 0, 0, 0.08);
     }
 
     .logo {
-        color: white;
         text-align: center;
-        margin-bottom: 35px;
+        margin-bottom: 40px;
+        padding-bottom: 25px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .logo-icon {
+        width: 72px;
+        height: 72px;
+        margin: 0 auto 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.14);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
     }
 
     .logo h2 {
-        font-size: 22px;
+        margin-top: 8px;
+        font-size: 21px;
+        font-weight: 700;
     }
 
     .logo p {
+        margin-top: 6px;
         font-size: 12px;
-        margin-top: 5px;
+        color: rgba(255, 255, 255, 0.78);
     }
+
+    /* ================= MENU ================= */
 
     .menu {
         list-style: none;
     }
 
     .menu li {
-        margin-bottom: 10px;
+        margin-bottom: 9px;
     }
 
     .menu a {
-        display: block;
-        text-decoration: none;
-        color: white;
+        display: flex;
+        align-items: center;
         padding: 13px 15px;
-        border-radius: 8px;
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        font-size: 14px;
+        transition: all 0.25s ease;
     }
 
     .menu a:hover,
     .menu a.active {
-        background: #1f5f9c;
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateX(3px);
     }
 
-    .main {
-        margin-left: 240px;
-        padding: 30px;
+    /* ================= LOGOUT ================= */
+
+    .logout {
+        margin-top: 15px;
+        background: rgba(220, 53, 69, 0.95) !important;
     }
+
+    .logout:hover {
+        background: #c82333 !important;
+    }
+
+    /* ================= MAIN ================= */
+
+    .main {
+        margin-left: 255px;
+        padding: 35px;
+    }
+
+    /* ================= TOPBAR ================= */
 
     .topbar {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 30px;
+        margin-bottom: 35px;
     }
 
     .topbar h1 {
-        color: #123c69;
+        color: #075985;
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 6px;
     }
 
     .admin-name {
         background: white;
-        padding: 10px 18px;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        padding: 12px 20px;
+        border-radius: 12px;
+        color: #334155;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
     }
+
+    /* ================= REPORT CARDS ================= */
 
     .report-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+        gap: 22px;
         margin-bottom: 30px;
     }
 
     .report-card {
         background: white;
         padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        border-radius: 16px;
+        border: 1px solid #e5edf2;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+        transition: all 0.25s ease;
+    }
+
+    .report-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 30px rgba(7, 89, 133, 0.12);
     }
 
     .report-card h3 {
-        color: #666;
-        font-size: 15px;
-        margin-bottom: 15px;
+        color: #64748b;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 8px;
     }
 
     .report-number {
+        color: #075985;
         font-size: 32px;
-        font-weight: bold;
-        color: #123c69;
+        font-weight: 700;
     }
+
+    /* ================= REPORT SECTIONS ================= */
 
     .report-section {
         background: white;
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        padding: 28px;
+        border-radius: 16px;
+        border: 1px solid #e5edf2;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
         margin-bottom: 25px;
     }
 
     .report-section h2 {
-        color: #123c69;
-        margin-bottom: 20px;
+        color: #075985;
+        font-size: 21px;
+        margin-bottom: 22px;
     }
+
+    /* ================= TABLE ================= */
 
     table {
         width: 100%;
@@ -141,36 +205,51 @@
 
     th,
     td {
-        padding: 14px;
+        padding: 12px;
         text-align: left;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid #e5edf2;
     }
 
     th {
-        background: #f0f4f8;
-        color: #123c69;
+        color: #64748b;
+        background: #f7fafc;
+        font-size: 14px;
     }
 
+    td {
+        font-size: 14px;
+    }
+
+    tbody tr:hover {
+        background: #f8fafc;
+    }
+
+    /* ================= STATUS ================= */
+
     .status {
+        display: inline-block;
         padding: 5px 10px;
         border-radius: 15px;
         font-size: 12px;
+        font-weight: 600;
     }
 
     .booked {
-        background: #fff3cd;
-        color: #856404;
+        background: #e0f2fe;
+        color: #0369a1;
     }
 
     .completed {
-        background: #d4edda;
-        color: #155724;
+        background: #dcfce7;
+        color: #166534;
     }
 
     .cancelled {
-        background: #f8d7da;
-        color: #721c24;
+        background: #fee2e2;
+        color: #991b1b;
     }
+
+    /* ================= LOADING / ERROR ================= */
 
     .loading {
         text-align: center;
@@ -184,43 +263,61 @@
         color: #c62828;
     }
 
+    /* ================= PRINT BUTTON ================= */
+
     .print-btn {
-        background: #123c69;
+        float: right;
+        background: linear-gradient(135deg, #0891b2, #075985);
         color: white;
         border: none;
-        padding: 10px 18px;
-        border-radius: 7px;
+        padding: 12px 20px;
+        border-radius: 10px;
         cursor: pointer;
-        float: right;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0 6px 15px rgba(7, 89, 133, 0.15);
+        transition: all 0.25s ease;
     }
 
     .print-btn:hover {
-        background: #1f5f9c;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 22px rgba(7, 89, 133, 0.22);
     }
 
-    @media (max-width: 900px) {
+    /* ================= RESPONSIVE ================= */
+
+    @media (max-width: 1100px) {
 
         .report-grid {
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
         }
-
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 750px) {
 
         .sidebar {
-            width: 190px;
+            width: 100%;
+            height: auto;
+            position: relative;
         }
 
         .main {
-            margin-left: 190px;
+            margin-left: 0;
+            padding: 25px;
+        }
+
+        .topbar {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
         }
 
         .report-grid {
             grid-template-columns: 1fr;
         }
-
     }
+
+    /* ================= PRINT ================= */
 
     @media print {
 
@@ -232,8 +329,13 @@
 
         .main {
             margin-left: 0;
+            padding: 0;
         }
 
+        .report-section {
+            box-shadow: none;
+            border: 1px solid #ddd;
+        }
     }
 
 </style>
@@ -243,103 +345,106 @@
 
 <body>
 
-```
-<!-- Sidebar -->
+
+<!-- ================= SIDEBAR ================= -->
 
 <div class="sidebar">
 
     <div class="logo">
 
-        <h2>🦷 Sunrise</h2>
+        <div class="logo-icon">🦷</div>
 
-        <p>Dental Clinic</p>
+        <h2>Sunrise Dental</h2>
+
+        <p>Admin Panel</p>
 
     </div>
-
 
     <ul class="menu">
 
         <li>
-
             <a href="admin-dashboard.html">
-
                 🏠 Dashboard
-
             </a>
-
         </li>
 
-
         <li>
-
-            <a href="user-management.html">
-
-                👥 User Management
-
+            <a href="appointments.html">
+                📅 Appointments
             </a>
-
         </li>
 
+        <li>
+            <a href="patients.html">
+                👤 Patients
+            </a>
+        </li>
 
         <li>
+            <a href="billing.html">
+                💰 Billing
+            </a>
+        </li>
 
-            <a href="reports.html"
-               class="active">
-
+        <li>
+            <a href="reports.html" class="active">
                 📊 Reports
-
             </a>
-
         </li>
 
+        <li>
+            <a href="user-management.html">
+                👥 User Management
+            </a>
+        </li>
 
         <li>
+            <a href="dentists.html">
+                👨‍⚕️ Manage Dentists
+            </a>
+        </li>
 
+        <li>
             <a href="help.html">
-
                 ❓ Help
-
             </a>
-
         </li>
 
-
         <li>
-
-            <a href="login.html">
-
+            <a href="login.html" class="logout">
                 🚪 Logout
-
             </a>
-
         </li>
 
     </ul>
 
 </div>
 
-
-<!-- Main -->
+<!-- ================= MAIN ================= -->
 
 <div class="main">
 
+    <!-- TOP BAR -->
+
     <div class="topbar">
 
-        <h1>Reports</h1>
+        <div>
+
+            <h1>Reports</h1>
+
+        </div>
 
         <div class="admin-name">
 
-            👤 Administrator
+            👤 <strong>Administrator</strong>
 
         </div>
 
     </div>
 
-
-    <!-- Summary Cards -->
+    <!-- ================= SUMMARY CARDS ================= -->
 
     <div class="report-grid">
-
 
         <div class="report-card">
 
@@ -347,13 +452,10 @@
 
             <div class="report-number"
                  id="totalAppointments">
-
                 0
-
             </div>
 
         </div>
-
 
         <div class="report-card">
 
@@ -361,13 +463,10 @@
 
             <div class="report-number"
                  id="todayAppointments">
-
                 0
-
             </div>
 
         </div>
-
 
         <div class="report-card">
 
@@ -375,13 +474,10 @@
 
             <div class="report-number"
                  id="pendingAppointments">
-
                 0
-
             </div>
 
         </div>
-
 
         <div class="report-card">
 
@@ -389,13 +485,10 @@
 
             <div class="report-number"
                  id="completedAppointments">
-
                 0
-
             </div>
 
         </div>
-
 
         <div class="report-card">
 
@@ -403,13 +496,10 @@
 
             <div class="report-number"
                  id="cancelledAppointments">
-
                 0
-
             </div>
 
         </div>
-
 
         <div class="report-card">
 
@@ -417,25 +507,20 @@
 
             <div class="report-number"
                  id="totalPatients">
-
                 0
-
             </div>
 
         </div>
 
     </div>
 
-
-    <!-- Appointment Status Report -->
+    <!-- ================= APPOINTMENT STATUS REPORT ================= -->
 
     <div class="report-section">
 
         <button class="print-btn"
                 onclick="window.print()">
-
             🖨 Print Report
-
         </button>
 
         <h2>Appointment Status Report</h2>
@@ -445,11 +530,8 @@
             <thead>
 
                 <tr>
-
                     <th>Status</th>
-
                     <th>Number of Appointments</th>
-
                 </tr>
 
             </thead>
@@ -459,47 +541,33 @@
                 <tr>
 
                     <td>
-
                         <span class="status booked">
-
                             BOOKED
-
                         </span>
-
                     </td>
 
                     <td id="bookedCount">0</td>
 
                 </tr>
 
-
                 <tr>
 
                     <td>
-
                         <span class="status completed">
-
                             COMPLETED
-
                         </span>
-
                     </td>
 
                     <td id="completedCount">0</td>
 
                 </tr>
 
-
                 <tr>
 
                     <td>
-
                         <span class="status cancelled">
-
                             CANCELLED
-
                         </span>
-
                     </td>
 
                     <td id="cancelledCount">0</td>
@@ -512,8 +580,7 @@
 
     </div>
 
-
-    <!-- Treatment Report -->
+    <!-- ================= TREATMENT REPORT ================= -->
 
     <div class="report-section">
 
@@ -524,11 +591,8 @@
             <thead>
 
                 <tr>
-
                     <th>Treatment ID</th>
-
                     <th>Number of Appointments</th>
-
                 </tr>
 
             </thead>
@@ -539,9 +603,7 @@
 
                     <td colspan="2"
                         class="loading">
-
                         Loading treatment report...
-
                     </td>
 
                 </tr>
@@ -554,6 +616,7 @@
 
 </div>
 
+<!-- ================= JAVASCRIPT ================= -->
 
 <script>
 
@@ -585,60 +648,50 @@
 
                 }
 
-
                 document.getElementById(
                     "totalAppointments"
                 ).textContent =
                     data.totalAppointments;
-
 
                 document.getElementById(
                     "todayAppointments"
                 ).textContent =
                     data.todayAppointments;
 
-
                 document.getElementById(
                     "pendingAppointments"
                 ).textContent =
                     data.pendingAppointments;
-
 
                 document.getElementById(
                     "completedAppointments"
                 ).textContent =
                     data.completedAppointments;
 
-
                 document.getElementById(
                     "cancelledAppointments"
                 ).textContent =
                     data.cancelledAppointments;
-
 
                 document.getElementById(
                     "totalPatients"
                 ).textContent =
                     data.totalPatients;
 
-
                 document.getElementById(
                     "bookedCount"
                 ).textContent =
                     data.bookedCount;
-
 
                 document.getElementById(
                     "completedCount"
                 ).textContent =
                     data.completedCount;
 
-
                 document.getElementById(
                     "cancelledCount"
                 ).textContent =
                     data.cancelledCount;
-
 
                 const treatmentBody =
                     document.getElementById(
@@ -646,7 +699,6 @@
                     );
 
                 treatmentBody.innerHTML = "";
-
 
                 data.treatments.forEach(
                     treatment => {
@@ -682,11 +734,10 @@
 
     }
 
-
     loadReports();
 
 </script>
-```
+
 
 </body>
 
