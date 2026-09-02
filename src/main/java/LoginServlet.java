@@ -1,5 +1,5 @@
+
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -56,12 +56,8 @@ public class LoginServlet extends HttpServlet {
 
             } else {
 
-                response.setContentType("text/html");
-
-                PrintWriter out = response.getWriter();
-
-                out.println("<h2>Invalid username or password!</h2>");
-                out.println("<a href='login.html'>Try Again</a>");
+                // Invalid username or password
+                response.sendRedirect("login.html?error=invalid");
             }
 
         } catch (Exception e) {
@@ -70,10 +66,14 @@ public class LoginServlet extends HttpServlet {
 
             response.setContentType("text/html");
 
-            PrintWriter out = response.getWriter();
+            response.getWriter().println(
+                "<h2>Database Error</h2>"
+            );
 
-            out.println("<h2>Database Error</h2>");
-            out.println("<p>" + e.getMessage() + "</p>");
+            response.getWriter().println(
+                "<p>" + e.getMessage() + "</p>"
+            );
         }
     }
 }
+
