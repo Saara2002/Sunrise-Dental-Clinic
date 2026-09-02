@@ -3,639 +3,1125 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    <title>Manage Dentists - Sunrise Dental Clinic</title>
 
-<title>Manage Dentists - Sunrise Dental Clinic</title>
+    <style>
 
-<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-}
+        body {
+            background: #f4f8fb;
+            color: #334155;
+        }
 
-body {
-    background: #f4f8fb;
-    min-height: 100vh;
-    padding: 30px;
-}
+        /* =========================
+           SIDEBAR - ADMIN DASHBOARD
+           ========================= */
 
-.container {
-    max-width: 1100px;
-    margin: auto;
-}
+        .sidebar {
+            width: 255px;
+            height: 100vh;
 
-/* HEADER */
+            position: fixed;
+            left: 0;
+            top: 0;
 
-.header {
-    background: #075985;
-    color: white;
-    padding: 25px 30px;
-    border-radius: 12px 12px 0 0;
-}
+            background: linear-gradient(
+                180deg,
+                #075985,
+                #087ea4
+            );
 
-.header h1 {
-    font-size: 27px;
-    margin-bottom: 6px;
-}
+            padding: 28px 16px;
 
-.header p {
-    font-size: 14px;
-    opacity: 0.95;
-}
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.08);
 
-/* CONTENT */
+            overflow-y: auto;
+        }
 
-.content {
-    background: white;
-    padding: 30px;
-    border-radius: 0 0 12px 12px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-}
+        .logo {
+            color: white;
+            text-align: center;
 
-.section-title {
-    color: #075985;
-    font-size: 20px;
-    margin-bottom: 20px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #e5eef3;
-}
+            margin-bottom: 40px;
+            padding-bottom: 25px;
 
-/* FORM */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.20);
+        }
 
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-    margin-bottom: 20px;
-}
+        .logo-icon {
+            width: 72px;
+            height: 72px;
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
+            margin: 0 auto 12px;
 
-label {
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 7px;
-}
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-.required {
-    color: red;
-}
+            font-size: 40px;
 
-input {
-    padding: 12px;
-    border: 1px solid #ccd6dc;
-    border-radius: 7px;
-    font-size: 15px;
-    outline: none;
-}
+            background: rgba(255, 255, 255, 0.15);
 
-input:focus {
-    border-color: #087ea4;
-    box-shadow: 0 0 5px rgba(8,126,164,0.2);
-}
+            border-radius: 50%;
 
-.form-actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 35px;
-}
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+        }
 
-/* BUTTONS */
+        .logo h2 {
+            font-size: 21px;
+            font-weight: 700;
+        }
 
-button {
-    border: none;
-    border-radius: 7px;
-    padding: 11px 18px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-}
+        .logo p {
+            font-size: 12px;
+            margin-top: 5px;
+            color: rgba(255, 255, 255, 0.80);
+        }
 
-.add-btn {
-    background: #087ea4;
-    color: white;
-}
+        .menu {
+            list-style: none;
+        }
 
-.add-btn:hover {
-    background: #075985;
-}
+        .menu li {
+            margin-bottom: 9px;
+        }
 
-.deactivate-btn {
-    background: #dc3545;
-    color: white;
-}
+        .menu a {
+            display: flex;
+            align-items: center;
 
-.deactivate-btn:hover {
-    background: #b02a37;
-}
+            text-decoration: none;
 
-.activate-btn {
-    background: #198754;
-    color: white;
-}
+            color: white;
 
-.activate-btn:hover {
-    background: #146c43;
-}
+            padding: 13px 15px;
 
-/* TABLE */
+            border-radius: 10px;
 
-.table-wrapper {
-    overflow-x: auto;
-}
+            font-size: 14px;
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
+            transition: all 0.25s ease;
+        }
 
-th {
-    background: #075985;
-    color: white;
-    padding: 13px 12px;
-    text-align: left;
-    font-size: 14px;
-}
+        .menu a:hover,
+        .menu a.active {
+            background: rgba(255, 255, 255, 0.15);
 
-td {
-    padding: 13px 12px;
-    border-bottom: 1px solid #e5e7eb;
-    color: #333;
-    font-size: 14px;
-}
+            transform: translateX(3px);
+        }
 
-tbody tr:hover {
-    background: #f4f8fb;
-}
+        .menu a.logout {
+            margin-top: 15px;
 
-/* STATUS */
+            background: rgba(220, 53, 69, 0.95);
+        }
 
-.status {
-    display: inline-block;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: bold;
-}
+        .menu a.logout:hover {
+            background: #c82333;
+        }
 
-.status-active {
-    background: #d1fae5;
-    color: #065f46;
-}
 
-.status-inactive {
-    background: #fee2e2;
-    color: #991b1b;
-}
+        /* =========================
+           MAIN
+           ========================= */
 
-/* MESSAGE */
+        .main {
+            margin-left: 255px;
 
-.message {
-    display: none;
-    padding: 12px 15px;
-    border-radius: 7px;
-    margin-bottom: 20px;
-    font-size: 14px;
-    font-weight: bold;
-}
+            padding: 35px;
+        }
 
-.success-message {
-    background: #d1fae5;
-    color: #065f46;
-}
 
-.error-message {
-    background: #fee2e2;
-    color: #991b1b;
-}
+        /* =========================
+           TOP BAR
+           ========================= */
 
-.empty-message {
-    text-align: center;
-    padding: 25px;
-    color: #777;
-}
+        .topbar {
+            display: flex;
 
-/* MOBILE */
+            justify-content: space-between;
 
-@media (max-width: 700px) {
+            align-items: center;
 
-    body {
-        padding: 10px;
-    }
+            margin-bottom: 30px;
+        }
 
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
+        .topbar h1 {
+            color: #075985;
 
-    .content {
-        padding: 20px;
-    }
+            font-size: 30px;
 
-    .header {
-        padding: 20px;
-    }
+            font-weight: 700;
+        }
 
-    .header h1 {
-        font-size: 23px;
-    }
-}
+        .admin-name {
+            background: white;
 
-</style>
+            padding: 11px 18px;
+
+            border-radius: 10px;
+
+            border: 1px solid #e2e8f0;
+
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+
+            font-size: 14px;
+
+            color: #475569;
+        }
+
+
+        /* =========================
+           CONTENT CARD
+           ========================= */
+
+        .content {
+            background: white;
+
+            padding: 28px;
+
+            border-radius: 16px;
+
+            border: 1px solid #e2e8f0;
+
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .section-title {
+            color: #075985;
+
+            font-size: 21px;
+
+            font-weight: 700;
+
+            margin-bottom: 20px;
+
+            padding-bottom: 12px;
+
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+
+        /* =========================
+           FORM
+           ========================= */
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 18px;
+
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+
+            color: #334155;
+
+            margin-bottom: 7px;
+
+            font-size: 14px;
+        }
+
+        .required {
+            color: #dc2626;
+        }
+
+        input {
+            padding: 11px 12px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            outline: none;
+
+            color: #334155;
+
+            background: white;
+
+            transition: 0.2s ease;
+        }
+
+        input:focus {
+            border-color: #0891b2;
+
+            box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.10);
+        }
+
+        .form-actions {
+            display: flex;
+
+            justify-content: flex-end;
+
+            margin-bottom: 35px;
+        }
+
+
+        /* =========================
+           BUTTONS
+           ========================= */
+
+        button {
+            border: none;
+
+            border-radius: 9px;
+
+            padding: 10px 17px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: all 0.2s ease;
+        }
+
+        .add-btn {
+            background: linear-gradient(
+                135deg,
+                #0891b2,
+                #075985
+            );
+
+            color: white;
+
+            box-shadow: 0 4px 10px rgba(7, 89, 133, 0.18);
+        }
+
+        .add-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow: 0 6px 14px rgba(7, 89, 133, 0.25);
+        }
+
+        .deactivate-btn {
+            background: #dc2626;
+
+            color: white;
+
+            padding: 7px 12px;
+        }
+
+        .deactivate-btn:hover {
+            background: #b91c1c;
+
+            transform: translateY(-1px);
+        }
+
+        .activate-btn {
+            background: #16a34a;
+
+            color: white;
+
+            padding: 7px 12px;
+        }
+
+        .activate-btn:hover {
+            background: #15803d;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           TABLE
+           ========================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            margin-top: 10px;
+        }
+
+        th {
+            background: #f7fafc;
+
+            color: #075985;
+
+            padding: 13px 12px;
+
+            text-align: left;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        td {
+            padding: 13px 12px;
+
+            border-bottom: 1px solid #e2e8f0;
+
+            color: #334155;
+
+            font-size: 14px;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+
+
+        /* =========================
+           STATUS
+           ========================= */
+
+        .status {
+            display: inline-block;
+
+            padding: 6px 11px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: #dcfce7;
+
+            color: #166534;
+        }
+
+        .status-inactive {
+            background: #fee2e2;
+
+            color: #991b1b;
+        }
+
+
+        /* =========================
+           MESSAGE
+           ========================= */
+
+        .message {
+            display: none;
+
+            padding: 12px 15px;
+
+            border-radius: 9px;
+
+            margin-bottom: 20px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+        .success-message {
+            background: #dcfce7;
+
+            color: #166534;
+        }
+
+        .error-message {
+            background: #fee2e2;
+
+            color: #991b1b;
+        }
+
+        .empty-message {
+            text-align: center;
+
+            padding: 25px;
+
+            color: #64748b;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+           ========================= */
+
+        @media (max-width: 1100px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 750px) {
+
+            .sidebar {
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+
+                padding: 20px;
+            }
+
+            .logo {
+                margin-bottom: 25px;
+            }
+
+            .main {
+                margin-left: 0;
+
+                padding: 20px;
+            }
+
+            .topbar {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 15px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                justify-content: stretch;
+            }
+
+            .add-btn {
+                width: 100%;
+            }
+
+            table {
+                min-width: 750px;
+            }
+
+        }
+
+    </style>
 
 </head>
 
+
 <body>
 
-<div class="container">
 
-    <!-- HEADER -->
+    <!-- =========================
+         SIDEBAR
+         ========================= -->
 
-    <div class="header">
+    <div class="sidebar">
 
-        <h1>👨‍⚕️ Manage Dentists</h1>
+        <div class="logo">
 
-        <p>
-            Sunrise Dental Clinic - Dentist Management
-        </p>
+            <div class="logo-icon">
+                🦷
+            </div>
+
+            <h2>Sunrise Dental</h2>
+
+            <p>Admin Panel</p>
+
+        </div>
+
+
+        <ul class="menu">
+
+            <li>
+                <a href="admin-dashboard.html">
+                    🏠 Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="appointment-management.html">
+                    📅 Appointments
+                </a>
+            </li>
+
+            <li>
+                <a href="patients.html">
+                    👨‍⚕️ Patients
+                </a>
+            </li>
+
+            <li>
+                <a href="billing.html">
+                    💳 Billing
+                </a>
+            </li>
+
+            <li>
+                <a href="reports.html">
+                    📊 Reports
+                </a>
+            </li>
+
+            <li>
+                <a href="user-management.html">
+                    👥 User Management
+                </a>
+            </li>
+
+            <li>
+                <a href="dentists.html" class="active">
+                    🧑‍⚕️ Manage Dentists
+                </a>
+            </li>
+
+            <li>
+                <a href="help.html">
+                    ❓ Help
+                </a>
+            </li>
+
+            <li>
+                <a href="login.html" class="logout">
+                    🚪 Logout
+                </a>
+            </li>
+
+        </ul>
 
     </div>
 
 
-    <!-- CONTENT -->
+    <!-- =========================
+         MAIN CONTENT
+         ========================= -->
 
-    <div class="content">
-
-        <!-- MESSAGE -->
-
-        <div id="message" class="message"></div>
+    <div class="main">
 
 
-        <!-- ADD DENTIST -->
+        <div class="topbar">
 
-        <h2 class="section-title">
-            Add New Dentist
-        </h2>
+            <h1>Manage Dentists</h1>
 
-        <form id="dentistForm">
+            <div class="admin-name">
+                👤 Administrator
+            </div>
 
-            <div class="form-grid">
-
-                <!-- Dentist Code -->
-
-                <div class="form-group">
-
-                    <label>
-                        Dentist Code
-                        <span class="required">*</span>
-                    </label>
-
-                    <input
-                        type="text"
-                        name="dentist_code"
-                        placeholder="Example: D004"
-                        pattern="D[0-9]{3,}"
-                        title="Dentist code must be like D004"
-                        required>
-
-                </div>
+        </div>
 
 
-                <!-- Dentist Name -->
-
-                <div class="form-group">
-
-                    <label>
-                        Dentist Name
-                        <span class="required">*</span>
-                    </label>
-
-                    <input
-                        type="text"
-                        name="dentist_name"
-                        placeholder="Enter dentist name"
-                        required>
-
-                </div>
+        <div class="content">
 
 
-                <!-- Specialization -->
+            <!-- MESSAGE -->
 
-                <div class="form-group">
-
-                    <label>
-                        Specialization
-                    </label>
-
-                    <input
-                        type="text"
-                        name="specialization"
-                        placeholder="Example: Orthodontics">
-
-                </div>
-
-
-                <!-- Contact -->
-
-                <div class="form-group">
-
-                    <label>
-                        Contact Number
-                    </label>
-
-                    <input
-                        type="tel"
-                        name="contact_number"
-                        placeholder="0771234567"
-                        pattern="[0-9]{10}"
-                        maxlength="10">
-
-                </div>
-
+            <div
+                id="message"
+                class="message">
             </div>
 
 
-            <div class="form-actions">
+            <!-- ADD DENTIST -->
 
-                <button
-                    type="submit"
-                    class="add-btn">
+            <h2 class="section-title">
+                Add New Dentist
+            </h2>
 
-                    ➕ Add Dentist
 
-                </button>
+            <form id="dentistForm">
+
+
+                <div class="form-grid">
+
+
+                    <!-- Dentist Code -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Dentist Code
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="dentist_code"
+                            placeholder="Example: D004"
+                            pattern="D[0-9]{3,}"
+                            title="Dentist code must be like D004"
+                            required>
+
+                    </div>
+
+
+                    <!-- Dentist Name -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Dentist Name
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="dentist_name"
+                            placeholder="Enter dentist name"
+                            required>
+
+                    </div>
+
+
+                    <!-- Specialization -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Specialization
+                        </label>
+
+                        <input
+                            type="text"
+                            name="specialization"
+                            placeholder="Example: Orthodontics">
+
+                    </div>
+
+
+                    <!-- Contact -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Contact Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            name="contact_number"
+                            placeholder="0771234567"
+                            pattern="[0-9]{10}"
+                            maxlength="10">
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button
+                        type="submit"
+                        class="add-btn">
+
+                        ➕ Add Dentist
+
+                    </button>
+
+                </div>
+
+
+            </form>
+
+
+            <!-- REGISTERED DENTISTS -->
+
+            <h2 class="section-title">
+                Registered Dentists
+            </h2>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Code</th>
+
+                            <th>Name</th>
+
+                            <th>Specialization</th>
+
+                            <th>Contact</th>
+
+                            <th>Status</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="dentistTable">
+
+                        <tr>
+
+                            <td
+                                colspan="7"
+                                class="empty-message">
+
+                                Loading dentists...
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
 
             </div>
 
-        </form>
-
-
-        <!-- REGISTERED DENTISTS -->
-
-        <h2 class="section-title">
-            Registered Dentists
-        </h2>
-
-
-        <div class="table-wrapper">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>ID</th>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Specialization</th>
-                        <th>Contact</th>
-                        <th>Status</th>
-                        <th>Action</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="dentistTable">
-
-                    <tr>
-
-                        <td
-                            colspan="7"
-                            class="empty-message">
-
-                            Loading dentists...
-
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
 
         </div>
 
     </div>
 
-</div>
+
+    <!-- =========================
+         JAVASCRIPT
+         ========================= -->
+
+    <script>
+
+        /* ==========================================
+           SHOW MESSAGE
+        ========================================== */
+
+        function showMessage(message, success) {
+
+            const messageBox =
+                document.getElementById("message");
+
+            messageBox.textContent = message;
+
+            messageBox.className =
+                "message " +
+                (
+                    success
+                        ? "success-message"
+                        : "error-message"
+                );
+
+            messageBox.style.display = "block";
+
+            setTimeout(function() {
+
+                messageBox.style.display = "none";
+
+            }, 4000);
+
+        }
 
 
-<script>
+        /* ==========================================
+           LOAD DENTISTS
+        ========================================== */
 
-/* ==========================================
-   SHOW MESSAGE
-========================================== */
+        function loadDentists() {
 
-function showMessage(message, success) {
+            fetch("dentists", {
 
-    const messageBox =
-        document.getElementById("message");
+                method: "GET"
 
-    messageBox.textContent = message;
+            })
 
-    messageBox.className =
-        "message " +
-        (success
-            ? "success-message"
-            : "error-message");
+            .then(function(response) {
 
-    messageBox.style.display = "block";
+                if (!response.ok) {
 
-    setTimeout(function() {
+                    throw new Error(
+                        "Unable to load dentists."
+                    );
 
-        messageBox.style.display = "none";
+                }
 
-    }, 4000);
-}
+                return response.json();
+
+            })
+
+            .then(function(data) {
+
+                const table =
+                    document.getElementById(
+                        "dentistTable"
+                    );
+
+                table.innerHTML = "";
 
 
-/* ==========================================
-   LOAD DENTISTS
-========================================== */
+                if (
+                    !Array.isArray(data) ||
+                    data.length === 0
+                ) {
 
-function loadDentists() {
+                    table.innerHTML =
+                        '<tr>' +
+                        '<td colspan="7" class="empty-message">' +
+                        'No dentists registered yet.' +
+                        '</td>' +
+                        '</tr>';
 
-    fetch("dentists", {
-        method: "GET"
-    })
+                    return;
 
-    .then(function(response) {
+                }
 
-        if (!response.ok) {
 
-            throw new Error(
-                "Unable to load dentists."
+                data.forEach(function(dentist) {
+
+                    const row =
+                        document.createElement("tr");
+
+
+                    const statusClass =
+                        dentist.status === "ACTIVE"
+                            ? "status-active"
+                            : "status-inactive";
+
+
+                    let actionButton = "";
+
+
+                    if (dentist.status === "ACTIVE") {
+
+                        actionButton =
+                            '<button ' +
+                            'class="deactivate-btn" ' +
+                            'onclick="deactivateDentist(' +
+                            dentist.dentist_id +
+                            ')">' +
+                            'Deactivate' +
+                            '</button>';
+
+                    } else {
+
+                        actionButton =
+                            '<button ' +
+                            'class="activate-btn" ' +
+                            'onclick="activateDentist(' +
+                            dentist.dentist_id +
+                            ')">' +
+                            'Activate' +
+                            '</button>';
+
+                    }
+
+
+                    row.innerHTML =
+                        "<td>" +
+                        dentist.dentist_id +
+                        "</td>" +
+
+                        "<td>" +
+                        dentist.dentist_code +
+                        "</td>" +
+
+                        "<td>" +
+                        dentist.dentist_name +
+                        "</td>" +
+
+                        "<td>" +
+                        (dentist.specialization || "-") +
+                        "</td>" +
+
+                        "<td>" +
+                        (dentist.contact_number || "-") +
+                        "</td>" +
+
+                        "<td>" +
+                        '<span class="status ' +
+                        statusClass +
+                        '">' +
+                        dentist.status +
+                        "</span>" +
+                        "</td>" +
+
+                        "<td>" +
+                        actionButton +
+                        "</td>";
+
+
+                    table.appendChild(row);
+
+                });
+
+            })
+
+            .catch(function(error) {
+
+                console.error(error);
+
+                document.getElementById(
+                    "dentistTable"
+                ).innerHTML =
+
+                    '<tr>' +
+                    '<td colspan="7" class="empty-message">' +
+                    'Unable to load dentists.' +
+                    '</td>' +
+                    '</tr>';
+
+                showMessage(
+                    "Unable to load dentists.",
+                    false
+                );
+
+            });
+
+        }
+
+
+        /* ==========================================
+           ADD DENTIST
+        ========================================== */
+
+        document
+            .getElementById("dentistForm")
+            .addEventListener(
+                "submit",
+                function(event) {
+
+                    event.preventDefault();
+
+
+                    const form =
+                        document.getElementById(
+                            "dentistForm"
+                        );
+
+
+                    const formData =
+                        new URLSearchParams();
+
+
+                    formData.append(
+                        "action",
+                        "add"
+                    );
+
+                    formData.append(
+                        "dentist_code",
+                        form.dentist_code.value.trim()
+                    );
+
+                    formData.append(
+                        "dentist_name",
+                        form.dentist_name.value.trim()
+                    );
+
+                    formData.append(
+                        "specialization",
+                        form.specialization.value.trim()
+                    );
+
+                    formData.append(
+                        "contact_number",
+                        form.contact_number.value.trim()
+                    );
+
+
+                    fetch("dentists", {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/x-www-form-urlencoded"
+
+                        },
+
+                        body: formData.toString()
+
+                    })
+
+                    .then(function(response) {
+
+                        return response.json();
+
+                    })
+
+                    .then(function(data) {
+
+                        if (data.success) {
+
+                            showMessage(
+                                data.message,
+                                true
+                            );
+
+                            form.reset();
+
+                            loadDentists();
+
+                        } else {
+
+                            showMessage(
+                                data.message ||
+                                "Dentist could not be added.",
+                                false
+                            );
+
+                        }
+
+                    })
+
+                    .catch(function(error) {
+
+                        console.error(error);
+
+                        showMessage(
+                            "An error occurred while adding the dentist.",
+                            false
+                        );
+
+                    });
+
+                }
             );
 
-        }
 
-        return response.json();
+        /* ==========================================
+           DEACTIVATE DENTIST
+        ========================================== */
 
-    })
+        function deactivateDentist(id) {
 
-    .then(function(data) {
+            if (!confirm(
+                "Are you sure you want to deactivate this dentist?"
+            )) {
 
-        const table =
-            document.getElementById("dentistTable");
-
-        table.innerHTML = "";
-
-
-        if (!Array.isArray(data) || data.length === 0) {
-
-            table.innerHTML =
-                '<tr>' +
-                '<td colspan="7" class="empty-message">' +
-                'No dentists registered yet.' +
-                '</td>' +
-                '</tr>';
-
-            return;
-        }
-
-
-        data.forEach(function(dentist) {
-
-            const row =
-                document.createElement("tr");
-
-
-            const statusClass =
-                dentist.status === "ACTIVE"
-                    ? "status-active"
-                    : "status-inactive";
-
-
-            let actionButton = "";
-
-
-            if (dentist.status === "ACTIVE") {
-
-                actionButton =
-                    '<button ' +
-                    'class="deactivate-btn" ' +
-                    'onclick="deactivateDentist(' +
-                    dentist.dentist_id +
-                    ')">' +
-                    'Deactivate' +
-                    '</button>';
-
-            } else {
-
-                actionButton =
-                    '<button ' +
-                    'class="activate-btn" ' +
-                    'onclick="activateDentist(' +
-                    dentist.dentist_id +
-                    ')">' +
-                    'Activate' +
-                    '</button>';
+                return;
 
             }
-
-
-            row.innerHTML =
-
-                "<td>" +
-                dentist.dentist_id +
-                "</td>" +
-
-                "<td>" +
-                dentist.dentist_code +
-                "</td>" +
-
-                "<td>" +
-                dentist.dentist_name +
-                "</td>" +
-
-                "<td>" +
-                (dentist.specialization || "-") +
-                "</td>" +
-
-                "<td>" +
-                (dentist.contact_number || "-") +
-                "</td>" +
-
-                "<td>" +
-
-                '<span class="status ' +
-                statusClass +
-                '">' +
-
-                dentist.status +
-
-                "</span>" +
-
-                "</td>" +
-
-                "<td>" +
-                actionButton +
-                "</td>";
-
-
-            table.appendChild(row);
-
-        });
-
-    })
-
-    .catch(function(error) {
-
-        console.error(error);
-
-        document.getElementById("dentistTable").innerHTML =
-
-            '<tr>' +
-            '<td colspan="7" class="empty-message">' +
-            'Unable to load dentists.' +
-            '</td>' +
-            '</tr>';
-
-        showMessage(
-            "Unable to load dentists.",
-            false
-        );
-
-    });
-
-}
-
-
-/* ==========================================
-   ADD DENTIST
-========================================== */
-
-document
-    .getElementById("dentistForm")
-    .addEventListener(
-        "submit",
-        function(event) {
-
-            event.preventDefault();
-
-
-            /*
-             * IMPORTANT:
-             * Do NOT use FormData here.
-             * URLSearchParams sends normal
-             * application/x-www-form-urlencoded
-             * parameters which the Servlet can read
-             * using request.getParameter().
-             */
-
-            const form =
-                document.getElementById("dentistForm");
 
 
             const formData =
@@ -644,27 +1130,12 @@ document
 
             formData.append(
                 "action",
-                "add"
+                "deactivate"
             );
 
             formData.append(
-                "dentist_code",
-                form.dentist_code.value.trim()
-            );
-
-            formData.append(
-                "dentist_name",
-                form.dentist_name.value.trim()
-            );
-
-            formData.append(
-                "specialization",
-                form.specialization.value.trim()
-            );
-
-            formData.append(
-                "contact_number",
-                form.contact_number.value.trim()
+                "dentist_id",
+                id
             );
 
 
@@ -673,8 +1144,10 @@ document
                 method: "POST",
 
                 headers: {
+
                     "Content-Type":
                         "application/x-www-form-urlencoded"
+
                 },
 
                 body: formData.toString()
@@ -696,15 +1169,13 @@ document
                         true
                     );
 
-                    form.reset();
-
                     loadDentists();
 
                 } else {
 
                     showMessage(
                         data.message ||
-                        "Dentist could not be added.",
+                        "Dentist could not be deactivated.",
                         false
                     );
 
@@ -717,204 +1188,117 @@ document
                 console.error(error);
 
                 showMessage(
-                    "An error occurred while adding the dentist.",
+                    "An error occurred while deactivating the dentist.",
                     false
                 );
 
             });
 
         }
-    );
 
 
-/* ==========================================
-   DEACTIVATE DENTIST
-========================================== */
+        /* ==========================================
+           ACTIVATE DENTIST
+        ========================================== */
 
-function deactivateDentist(id) {
+        function activateDentist(id) {
 
-    if (!confirm(
-        "Are you sure you want to deactivate this dentist?"
-    )) {
+            if (!confirm(
+                "Do you want to activate this dentist?"
+            )) {
 
-        return;
+                return;
 
-    }
-
-
-    const formData =
-        new URLSearchParams();
+            }
 
 
-    formData.append(
-        "action",
-        "deactivate"
-    );
+            const formData =
+                new URLSearchParams();
 
 
-    formData.append(
-        "dentist_id",
-        id
-    );
-
-
-    fetch("dentists", {
-
-        method: "POST",
-
-        headers: {
-            "Content-Type":
-                "application/x-www-form-urlencoded"
-        },
-
-        body: formData.toString()
-
-    })
-
-    .then(function(response) {
-
-        return response.json();
-
-    })
-
-    .then(function(data) {
-
-        if (data.success) {
-
-            showMessage(
-                data.message,
-                true
+            formData.append(
+                "action",
+                "activate"
             );
 
-            loadDentists();
-
-        } else {
-
-            showMessage(
-                data.message ||
-                "Dentist could not be deactivated.",
-                false
+            formData.append(
+                "dentist_id",
+                id
             );
+
+
+            fetch("dentists", {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/x-www-form-urlencoded"
+
+                },
+
+                body: formData.toString()
+
+            })
+
+            .then(function(response) {
+
+                return response.json();
+
+            })
+
+            .then(function(data) {
+
+                if (data.success) {
+
+                    showMessage(
+                        data.message,
+                        true
+                    );
+
+                    loadDentists();
+
+                } else {
+
+                    showMessage(
+                        data.message ||
+                        "Dentist could not be activated.",
+                        false
+                    );
+
+                }
+
+            })
+
+            .catch(function(error) {
+
+                console.error(error);
+
+                showMessage(
+                    "An error occurred while activating the dentist.",
+                    false
+                );
+
+            });
 
         }
 
-    })
 
-    .catch(function(error) {
+        /* ==========================================
+           LOAD PAGE
+        ========================================== */
 
-        console.error(error);
+        document.addEventListener(
+            "DOMContentLoaded",
+            function() {
 
-        showMessage(
-            "An error occurred while deactivating the dentist.",
-            false
+                loadDentists();
+
+            }
         );
 
-    });
-
-}
-
-
-/* ==========================================
-   ACTIVATE DENTIST
-========================================== */
-
-function activateDentist(id) {
-
-    if (!confirm(
-        "Do you want to activate this dentist?"
-    )) {
-
-        return;
-
-    }
-
-
-    const formData =
-        new URLSearchParams();
-
-
-    formData.append(
-        "action",
-        "activate"
-    );
-
-
-    formData.append(
-        "dentist_id",
-        id
-    );
-
-
-    fetch("dentists", {
-
-        method: "POST",
-
-        headers: {
-            "Content-Type":
-                "application/x-www-form-urlencoded"
-        },
-
-        body: formData.toString()
-
-    })
-
-    .then(function(response) {
-
-        return response.json();
-
-    })
-
-    .then(function(data) {
-
-        if (data.success) {
-
-            showMessage(
-                data.message,
-                true
-            );
-
-            loadDentists();
-
-        } else {
-
-            showMessage(
-                data.message ||
-                "Dentist could not be activated.",
-                false
-            );
-
-        }
-
-    })
-
-    .catch(function(error) {
-
-        console.error(error);
-
-        showMessage(
-            "An error occurred while activating the dentist.",
-            false
-        );
-
-    });
-
-}
-
-
-/* ==========================================
-   LOAD PAGE
-========================================== */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        loadDentists();
-
-    }
-);
-
-</script>
+    </script>
 
 </body>
 
