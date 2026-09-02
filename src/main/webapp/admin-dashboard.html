@@ -15,44 +15,59 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
 }
 
 body {
     background: #f4f8fb;
-    display: flex;
     min-height: 100vh;
+    color: #334155;
 }
 
 /* ================= SIDEBAR ================= */
 
 .sidebar {
-    width: 250px;
-    background: #075985;
-    color: white;
-    padding: 25px 15px;
-    position: fixed;
+    width: 255px;
     height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: linear-gradient(180deg, #075985, #087ea4);
+    color: white;
+    padding: 28px 16px;
+    box-shadow: 5px 0 20px rgba(0, 0, 0, 0.08);
 }
 
 .logo {
     text-align: center;
-    margin-bottom: 35px;
+    margin-bottom: 40px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .logo-icon {
-    font-size: 45px;
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 .logo h2 {
-    font-size: 20px;
     margin-top: 8px;
+    font-size: 21px;
+    font-weight: 700;
 }
 
 .logo p {
+    margin-top: 6px;
     font-size: 12px;
-    margin-top: 5px;
-    opacity: 0.8;
+    color: rgba(255, 255, 255, 0.78);
 }
 
 .menu {
@@ -60,91 +75,116 @@ body {
 }
 
 .menu li {
-    margin-bottom: 8px;
+    margin-bottom: 9px;
 }
 
 .menu a {
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 13px 15px;
     color: white;
     text-decoration: none;
-    border-radius: 8px;
-    transition: 0.3s;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: all 0.25s ease;
 }
 
 .menu a:hover,
 .menu .active {
-    background: #087ea4;
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(3px);
 }
 
 .logout {
-    margin-top: 30px;
-    background: #dc3545 !important;
+    margin-top: 15px;
+    background: rgba(220, 53, 69, 0.95) !important;
 }
 
-/* ================= MAIN ================= */
+.logout:hover {
+    background: #c82333 !important;
+}
+
+/* ================= MAIN CONTENT ================= */
 
 .main {
-    margin-left: 250px;
-    width: calc(100% - 250px);
-    padding: 30px;
+    margin-left: 255px;
+    padding: 35px;
 }
 
 .topbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 
 .topbar h1 {
     color: #075985;
-    font-size: 28px;
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 6px;
 }
 
 .topbar p {
-    color: #666;
-    margin-top: 5px;
+    color: #64748b;
+    font-size: 14px;
 }
 
 .admin-info {
     background: white;
-    padding: 10px 18px;
-    border-radius: 8px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    padding: 12px 20px;
+    border-radius: 12px;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
 }
 
-/* ================= CARDS ================= */
+/* ================= DASHBOARD CARDS ================= */
 
 .cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 22px;
     margin-bottom: 30px;
 }
 
 .card {
     background: white;
     padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border-radius: 16px;
+    border: 1px solid #e5edf2;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    transition: all 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(7, 89, 133, 0.12);
 }
 
 .card-icon {
-    font-size: 35px;
-    margin-bottom: 12px;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 17px;
+    border-radius: 12px;
+    background: #e6f7fb;
+    font-size: 27px;
 }
 
 .card h3 {
-    color: #555;
-    font-size: 15px;
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 600;
     margin-bottom: 8px;
 }
 
 .card .number {
-    font-size: 28px;
-    font-weight: bold;
     color: #075985;
+    font-size: 32px;
+    font-weight: 700;
 }
 
 /* ================= CONTENT ================= */
@@ -157,14 +197,16 @@ body {
 
 .panel {
     background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    padding: 28px;
+    border-radius: 16px;
+    border: 1px solid #e5edf2;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
 }
 
 .panel h2 {
     color: #075985;
-    margin-bottom: 20px;
+    font-size: 21px;
+    margin-bottom: 22px;
 }
 
 /* ================= TABLE ================= */
@@ -182,12 +224,17 @@ th,
 td {
     padding: 12px;
     text-align: left;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #e5edf2;
 }
 
 th {
-    color: #555;
+    color: #64748b;
     background: #f7fafc;
+    font-size: 14px;
+}
+
+td {
+    font-size: 14px;
 }
 
 tbody tr:hover {
@@ -201,7 +248,7 @@ tbody tr:hover {
     padding: 5px 10px;
     border-radius: 15px;
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .status-booked {
@@ -228,22 +275,30 @@ tbody tr:hover {
 
 .quick-actions {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
 }
 
 .action-button {
-    padding: 15px;
+    padding: 17px 14px;
     border: none;
-    border-radius: 8px;
-    background: #087ea4;
+    border-radius: 11px;
+    background: linear-gradient(135deg, #0891b2, #075985);
     color: white;
-    cursor: pointer;
     font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(7, 89, 133, 0.15);
+    transition: all 0.25s ease;
 }
 
 .action-button:hover {
-    background: #075985;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(7, 89, 133, 0.22);
+}
+
+.action-button:active {
+    transform: translateY(0);
 }
 
 /* ================= LOADING ================= */
@@ -262,31 +317,33 @@ tbody tr:hover {
 
 /* ================= RESPONSIVE ================= */
 
-@media (max-width: 1000px) {
-
+@media (max-width: 1100px) {
     .cards {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .content {
         grid-template-columns: 1fr;
     }
-
 }
 
-@media (max-width: 600px) {
-
+@media (max-width: 750px) {
     .sidebar {
-        width: 200px;
+        width: 100%;
+        height: auto;
+        position: relative;
     }
 
     .main {
-        margin-left: 200px;
-        width: calc(100% - 200px);
-        padding: 15px;
+        margin-left: 0;
+        padding: 25px;
     }
 
     .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-actions {
         grid-template-columns: 1fr;
     }
 
@@ -295,7 +352,6 @@ tbody tr:hover {
         align-items: flex-start;
         gap: 15px;
     }
-
 }
 
 </style>
