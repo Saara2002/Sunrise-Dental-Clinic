@@ -24,85 +24,111 @@ body {
     color: #334155;
 }
 
-/* ================= SIDEBAR ================= */
+/* =========================
+           SIDEBAR STYLE
+           ========================= */
 
-.sidebar {
-    width: 255px;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: linear-gradient(180deg, #075985, #087ea4);
-    color: white;
-    padding: 28px 16px;
-    box-shadow: 5px 0 20px rgba(0, 0, 0, 0.08);
-}
+        .sidebar {
+            width: 255px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
 
-.logo {
-    text-align: center;
-    margin-bottom: 40px;
-    padding-bottom: 25px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-}
+            background: linear-gradient(
+                180deg,
+                #075985,
+                #087ea4
+            );
 
-.logo-icon {
-    width: 72px;
-    height: 72px;
-    margin: 0 auto 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.14);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
+            padding: 28px 16px;
 
-.logo h2 {
-    margin-top: 8px;
-    font-size: 21px;
-    font-weight: 700;
-}
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.08);
 
-.logo p {
-    margin-top: 6px;
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.78);
-}
+            overflow-y: auto;
+        }
 
-.menu {
-    list-style: none;
-}
+        .logo {
+            color: white;
+            text-align: center;
 
-.menu li {
-    margin-bottom: 9px;
-}
+            margin-bottom: 40px;
+            padding-bottom: 25px;
 
-.menu a {
-    display: flex;
-    align-items: center;
-    padding: 13px 15px;
-    color: white;
-    text-decoration: none;
-    border-radius: 10px;
-    font-size: 14px;
-    transition: all 0.25s ease;
-}
+            border-bottom: 1px solid rgba(255, 255, 255, 0.20);
+        }
 
-.menu a:hover,
-.menu .active {
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateX(3px);
-}
+        .logo-icon {
+            width: 72px;
+            height: 72px;
 
-.logout {
-    margin-top: 15px;
-    background: rgba(220, 53, 69, 0.95) !important;
-}
+            margin: 0 auto 12px;
 
-.logout:hover {
-    background: #c82333 !important;
-}
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 40px;
+
+            background: rgba(255, 255, 255, 0.15);
+
+            border-radius: 50%;
+
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+        }
+
+        .logo h2 {
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        .logo p {
+            font-size: 12px;
+            margin-top: 5px;
+            color: rgba(255, 255, 255, 0.80);
+        }
+
+        .menu {
+            list-style: none;
+        }
+
+        .menu li {
+            margin-bottom: 9px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+
+            text-decoration: none;
+            color: white;
+
+            padding: 13px 15px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+
+            transition: all 0.25s ease;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: rgba(255, 255, 255, 0.15);
+
+            transform: translateX(3px);
+        }
+
+        .menu a.logout {
+            margin-top: 15px;
+
+            background: rgba(220, 53, 69, 0.95);
+        }
+
+        .menu a.logout:hover {
+            background: #c82333;
+        }
+
 
 /* ================= MAIN CONTENT ================= */
 
@@ -360,81 +386,85 @@ tbody tr:hover {
 
 <body>
 
-<!-- ================= SIDEBAR ================= -->
+<!-- =========================
+         SIDEBAR
+         ========================= -->
 
-<div class="sidebar">
+    <div class="sidebar">
 
-```
-<div class="logo">
+        <div class="logo">
 
-    <div class="logo-icon">🦷</div>
+            <div class="logo-icon">
+                🦷
+            </div>
 
-    <h2>Sunrise Dental</h2>
+            <h2>Sunrise Dental</h2>
 
-    <p>Admin Panel</p>
+            <p>Admin Panel</p>
 
-</div>
+        </div>
 
-<ul class="menu">
 
-    <li>
-        <a href="admin-dashboard.html" class="active">
-            🏠 Dashboard
-        </a>
-    </li>
+        <ul class="menu">
 
-    <li>
-        <a href="appointments.html">
-            📅 Appointments
-        </a>
-    </li>
+            <li>
+                <a href="admin-dashboard.html"class="active">
+                    🏠 Dashboard
+                </a>
+            </li>
 
-    <li>
-        <a href="patients.html">
-            👤 Patients
-        </a>
-    </li>
+            <li>
+                <a href="appointments.html">
+                    📅 Appointments
+                </a>
+            </li>
 
-    <li>
-        <a href="billing.html">
-            💰 Billing
-        </a>
-    </li>
+            <li>
+                <a href="patients.html">
+                    👨‍⚕️ Patients
+                </a>
+            </li>
 
-    <li>
-        <a href="reports.html">
-            📊 Reports
-        </a>
-    </li>
+            <li>
+                <a href="billing.html">
+                    💳 Billing
+                </a>
+            </li>
 
-    <li>
-        <a href="user-management.html">
-            👥 User Management
-        </a>
-    </li>
-    
-    <li>
-    <a href="dentists.html">
-        👨‍⚕️ Manage Dentists
-    </a>
-</li>
+            <li>
+                <a href="reports.html">
+                    📊 Reports
+                </a>
+            </li>
 
-    <li>
-        <a href="help.html">
-            ❓ Help
-        </a>
-    </li>
+            <li>
+                <a href="user-management.html" >
+                    👥 User Management
+                </a>
+            </li>
 
-    <li>
-        <a href="login.html" class="logout">
-            🚪 Logout
-        </a>
-    </li>
+            <li>
+                <a href="dentists.html">
+                    🧑‍⚕️ Manage Dentists
+                </a>
+            </li>
 
-</ul>
-```
+            <li>
+                <a href="help.html">
+                    ❓ Help
+                </a>
+            </li>
 
-</div>
+            <li>
+                <a href="login.html" class="logout">
+                    🚪 Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
 
 <!-- ================= MAIN ================= -->
 
