@@ -1,850 +1,686 @@
+
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Billing - Sunrise Dental Clinic</title>
 
-<title>Billing - Sunrise Dental Clinic</title>
-
-<style>
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body {
-    background:
-        linear-gradient(
-            rgba(244, 248, 251, 0.88),
-            rgba(244, 248, 251, 0.88)
-        ),
-        url("images/dental-clinic-background.png");
-
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-
-    min-height: 100vh;
-
-    color: #334155;
-}
-
-    /* SIDEBAR */
-
-    .sidebar {
-        width: 250px;
-        height: 100vh;
-        position: fixed;
-        left: 0;
-        top: 0;
-        background: linear-gradient(180deg, #075985, #087ea4);
-        color: white;
-        padding: 25px 15px;
-        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.08);
-    }
-
-    .logo {
-        text-align: center;
-        margin-bottom: 35px;
-    }
-
-    .logo-icon {
-        font-size: 48px;
-        margin-bottom: 8px;
-    }
-
-    .logo h2 {
-        font-size: 21px;
-        margin-bottom: 5px;
-    }
-
-    .logo p {
-        font-size: 12px;
-        opacity: 0.85;
-    }
-
-    .menu {
-        list-style: none;
-    }
-
-    .menu li {
-        margin-bottom: 8px;
-    }
-
-    .menu a {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 13px 15px;
-        color: white;
-        text-decoration: none;
-        border-radius: 9px;
-        transition: 0.3s;
-        font-size: 14px;
-    }
-
-    .menu a:hover,
-    .menu .active {
-        background: rgba(255, 255, 255, 0.18);
-        transform: translateX(3px);
-    }
-
-    .logout {
-        margin-top: 30px;
-        background: #dc3545 !important;
-    }
-
-    .logout:hover {
-        background: #b91c1c !important;
-    }
-
-    /* MAIN */
-
-    .main {
-        margin-left: 250px;
-        padding: 30px;
-    }
-
-    /* TOP BAR */
-
-    .topbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 25px;
-    }
-
-    .topbar h1 {
-        color: #075985;
-        font-size: 30px;
-        margin-bottom: 6px;
-    }
-
-    .topbar p {
-        color: #666;
-        font-size: 14px;
-    }
-
-    .page-badge {
-        background: white;
-        padding: 12px 18px;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
-        color: #075985;
-        font-size: 14px;
-        font-weight: bold;
-    }
-
-    /* BILLING CARD */
-
-    .billing-container {
-        background: white;
-        padding: 25px;
-        border-radius: 14px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
-        max-width: 900px;
-    }
-
-    .billing-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 22px;
-    }
-
-    .billing-header h2 {
-        color: #075985;
-        font-size: 20px;
-    }
-
-    .billing-header span {
-        color: #777;
-        font-size: 13px;
-    }
-
-    /* FORM */
-
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    label {
-        display: block;
-        color: #075985;
-        font-weight: bold;
-        margin-bottom: 9px;
-        font-size: 14px;
-    }
-
-    select,
-    input {
-        width: 100%;
-        padding: 14px 16px;
-        border: 1px solid #ccd6dc;
-        border-radius: 9px;
-        font-size: 15px;
-        outline: none;
-        transition: 0.3s;
-    }
-
-    select:focus,
-    input:focus {
-        border-color: #087ea4;
-        box-shadow: 0 0 0 3px rgba(8, 126, 164, 0.12);
-    }
-
-    /* APPOINTMENT DETAILS */
-
-    .details {
-        background: #f0f9ff;
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 22px;
-        border-left: 5px solid #087ea4;
-    }
-
-    .details h3 {
-        color: #075985;
-        margin-bottom: 15px;
-        font-size: 17px;
-    }
-
-    .detail-row {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px 0;
-        border-bottom: 1px solid #dbeafe;
-    }
-
-    .detail-row:last-child {
-        border-bottom: none;
-    }
-
-    .detail-label {
-        color: #666;
-        font-weight: bold;
-    }
-
-    .detail-value {
-        color: #333;
-        font-weight: 500;
-    }
-
-    .amount {
-        color: #087ea4;
-        font-size: 25px;
-        font-weight: bold;
-    }
-
-    /* BUTTONS */
-
-    .buttons {
-        display: flex;
-        justify-content: flex-end;
-        gap: 12px;
-        margin-top: 25px;
-    }
-
-    button,
-    .back-btn {
-        padding: 13px 22px;
-        border: none;
-        border-radius: 8px;
-        font-size: 14px;
-        cursor: pointer;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .save-btn {
-        background: #087ea4;
-        color: white;
-    }
-
-    .save-btn:hover {
-        background: #075985;
-    }
-
-    .back-btn {
-        background: #6b7280;
-        color: white;
-    }
-
-    .back-btn:hover {
-        background: #4b5563;
-    }
-
-    /* MESSAGE */
-
-    .message {
-        display: none;
-        margin-top: 20px;
-        padding: 13px;
-        border-radius: 8px;
-        text-align: center;
-        font-weight: bold;
-    }
-
-    .message.error {
-        display: block;
-        background: #fee2e2;
-        color: #991b1b;
-    }
-
-    /* RESPONSIVE */
-
-    @media (max-width: 850px) {
-
-        .sidebar {
-            width: 210px;
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 240px;
+            background: #0b4f6c;
+            color: white;
+            padding: 25px 15px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo .icon {
+            font-size: 40px;
+        }
+
+        .logo h2 {
+            font-size: 20px;
+            margin-top: 8px;
+        }
+
+        .logo p {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .menu {
+            list-style: none;
+        }
+
+        .menu li {
+            margin-bottom: 8px;
+        }
+
+        .menu a {
+            display: block;
+            padding: 13px 15px;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: #087ea4;
+        }
+
+        /* MAIN */
+
         .main {
-            margin-left: 210px;
+            flex: 1;
+            padding: 30px;
+        }
+
+        .topbar {
+            margin-bottom: 25px;
+        }
+
+        .topbar h1 {
+            color: #0b4f6c;
+            font-size: 28px;
+        }
+
+        .topbar p {
+            color: #777;
+            margin-top: 5px;
+        }
+
+        .billing-card {
+            background: white;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+            background: white;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #087ea4;
+        }
+
+        /* RECEIPT PREVIEW */
+
+        .receipt-preview {
+            display: none;
+            margin-top: 25px;
             padding: 20px;
+            background: #fafafa;
+            border: 1px dashed #aaa;
+            border-radius: 8px;
         }
 
-        .topbar {
-            align-items: flex-start;
-            gap: 15px;
-        }
-    }
-
-    @media (max-width: 650px) {
-
-        .sidebar {
-            position: relative;
-            width: 100%;
-            height: auto;
+        .receipt-preview h3 {
+            text-align: center;
+            color: #0b4f6c;
+            margin-bottom: 15px;
         }
 
-        .main {
-            margin-left: 0;
-            padding: 15px;
+        .preview-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dotted #ccc;
         }
 
-        .topbar {
-            flex-direction: column;
+        .preview-row:last-child {
+            border-bottom: none;
         }
 
-        .page-badge {
-            width: 100%;
+        .preview-label {
+            font-weight: bold;
         }
 
-        .billing-container {
-            padding: 18px;
+        .total-preview {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 2px solid #0b4f6c;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            color: #0b4f6c;
         }
+
+        .payment-status {
+            margin-top: 20px;
+        }
+
+        /* BUTTONS */
 
         .buttons {
-            flex-direction: column;
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
         }
 
-        button,
-        .back-btn {
-            width: 100%;
+        .btn {
+            flex: 1;
+            padding: 13px;
+            border: none;
+            border-radius: 7px;
+            font-size: 15px;
+            cursor: pointer;
+            text-decoration: none;
             text-align: center;
+            font-weight: bold;
         }
-    }
 
-</style>
+        .btn-print {
+            background: #0b4f6c;
+            color: white;
+        }
 
+        .btn-print:hover {
+            background: #087ea4;
+        }
 
+        .btn-back {
+            background: #087ea4;
+            color: white;
+        }
+
+        .btn-back:hover {
+            background: #0b4f6c;
+        }
+
+        .message {
+            margin-top: 15px;
+            text-align: center;
+            color: #d9534f;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                padding: 15px;
+            }
+
+            .billing-card {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
+<div class="container">
 
-<!-- SIDEBAR -->
+    <!-- SIDEBAR -->
 
-<div class="sidebar">
+    <aside class="sidebar">
 
-    <div class="logo">
+        <div class="logo">
+            <div class="icon">🦷</div>
 
-        <div class="logo-icon">🦷</div>
+            <h2>Sunrise Dental</h2>
 
-        <h2>Sunrise Dental</h2>
+            <p>Clinic Management System</p>
+        </div>
 
-        <p>Receptionist Panel</p>
+        <ul class="menu">
 
-    </div>
+            <li>
+                <a href="receptionist-dashboard.html">
+                    🏠 Dashboard
+                </a>
+            </li>
 
-    <ul class="menu">
+            <li>
+                <a href="appointments.html">
+                    📅 Appointments
+                </a>
+            </li>
 
-        <li>
-            <a href="receptionist-dashboard.html">
-                🏠 Dashboard
-            </a>
-        </li>
+            <li>
+                <a href="patients.html">
+                    👤 Patients
+                </a>
+            </li>
 
-        <li>
-            <a href="appointments.html">
-                📅 Appointments
-            </a>
-        </li>
+            <li>
+                <a href="billing.html" class="active">
+                    💰 Billing
+                </a>
+            </li>
 
-        <li>
-            <a href="patients.html">
-                👤 Patients
-            </a>
-        </li>
+            <li>
+                <a href="help.html">
+                    ❓ Help
+                </a>
+            </li>
 
-        <li>
-            <a href="billing.html" class="active">
-                💰 Billing
-            </a>
-        </li>
+            <li>
+                <a href="login.html">
+                    🚪 Logout
+                </a>
+            </li>
 
-        <li>
-            <a href="help.html">
-                ❓ Help
-            </a>
-        </li>
+        </ul>
 
-        <li>
-            <a href="login.html" class="logout">
-                🚪 Logout
-            </a>
-        </li>
-
-    </ul>
-
-</div>
+    </aside>
 
 
-<!-- MAIN -->
+    <!-- MAIN CONTENT -->
 
-<div class="main">
+    <main class="main">
 
-    <div class="topbar">
-
-        <div>
+        <div class="topbar">
 
             <h1>💰 Billing</h1>
 
             <p>
-                Generate bills for completed appointments
+                Generate thermal printer style payment receipts
             </p>
 
         </div>
 
-        <div class="page-badge">
-            🧾 Billing Management
-        </div>
 
-    </div>
+        <div class="billing-card">
 
+            <form action="billing" method="post">
 
-    <!-- BILLING CONTAINER -->
+                <!-- SELECT APPOINTMENT -->
 
-    <div class="billing-container">
+                <div class="form-group">
 
-        <div class="billing-header">
+                    <label for="appointmentId">
+                        Select Completed Appointment
+                    </label>
 
-            <h2>Generate New Bill</h2>
+                    <select
+                        id="appointmentId"
+                        name="appointmentId"
+                        onchange="loadAppointment()"
+                        required>
 
-            <span>
-                Select a completed appointment
-            </span>
+                        <option value="">
+                            Loading appointments...
+                        </option>
 
-        </div>
-
-
-        <!-- FORM -->
-
-        <form action="billing" method="post">
-
-            <!-- APPOINTMENT -->
-
-            <div class="form-group">
-
-                <label for="appointmentId">
-                    Select Appointment
-                </label>
-
-                <select
-                    id="appointmentId"
-                    name="appointmentId"
-                    required
-                    onchange="loadAppointment()">
-
-                    <option value="">
-                        Select Appointment
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- APPOINTMENT DETAILS -->
-
-            <div
-                id="appointmentDetails"
-                class="details"
-                style="display:none;">
-
-                <h3>
-                    📋 Appointment Details
-                </h3>
-
-                <div class="detail-row">
-
-                    <span class="detail-label">
-                        Patient
-                    </span>
-
-                    <span
-                        id="patientName"
-                        class="detail-value">
-                    </span>
+                    </select>
 
                 </div>
 
-                <div class="detail-row">
 
-                    <span class="detail-label">
-                        Appointment
-                    </span>
+                <!-- RECEIPT PREVIEW -->
 
-                    <span
-                        id="appointmentNumber"
-                        class="detail-value">
-                    </span>
+                <div
+                    class="receipt-preview"
+                    id="receiptPreview">
 
-                </div>
+                    <h3>
+                        🧾 Receipt Preview
+                    </h3>
 
-                <div class="detail-row">
 
-                    <span class="detail-label">
-                        Treatment
-                    </span>
+                    <div class="preview-row">
 
-                    <span
-                        id="treatmentName"
-                        class="detail-value">
-                    </span>
-
-                </div>
-
-                <div class="detail-row">
-
-                    <span class="detail-label">
-                        Total Amount
-                    </span>
-
-                    <span>
-                        Rs.
-                        <span
-                            id="amount"
-                            class="amount">
+                        <span class="preview-label">
+                            Patient
                         </span>
-                    </span>
+
+                        <span id="patientName">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="preview-row">
+
+                        <span class="preview-label">
+                            Appointment
+                        </span>
+
+                        <span id="appointmentNumber">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="preview-row">
+
+                        <span class="preview-label">
+                            Treatment
+                        </span>
+
+                        <span id="treatmentName">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="total-preview">
+
+                        <span>
+                            TOTAL
+                        </span>
+
+                        <span id="amount">
+                            Rs. 0.00
+                        </span>
+
+                    </div>
 
                 </div>
 
-            </div>
+
+                <!-- HIDDEN VALUES -->
+
+                <input
+                    type="hidden"
+                    name="patientId"
+                    id="patientId">
+
+                <input
+                    type="hidden"
+                    name="treatmentId"
+                    id="treatmentId">
+
+                <input
+                    type="hidden"
+                    name="amount"
+                    id="amountInput">
 
 
-            <!-- HIDDEN VALUES -->
+                <!-- PAYMENT STATUS -->
 
-            <input
-                type="hidden"
-                id="patientId"
-                name="patientId">
+                <div class="form-group payment-status">
 
-            <input
-                type="hidden"
-                id="treatmentId"
-                name="treatmentId">
+                    <label for="paymentStatus">
+                        Payment Status
+                    </label>
 
-            <input
-                type="hidden"
-                id="amountValue"
-                name="amount">
+                    <select
+                        id="paymentStatus"
+                        name="paymentStatus"
+                        required>
 
+                        <option value="PENDING">
+                            PENDING
+                        </option>
 
-            <!-- PAYMENT STATUS -->
+                        <option value="PAID">
+                            PAID
+                        </option>
 
-            <div class="form-group">
+                    </select>
 
-                <label for="paymentStatus">
-                    Payment Status
-                </label>
-
-                <select
-                    id="paymentStatus"
-                    name="paymentStatus"
-                    required>
-
-                    <option value="PENDING">
-                        Pending
-                    </option>
-
-                    <option value="PAID">
-                        Paid
-                    </option>
-
-                </select>
-
-            </div>
+                </div>
 
 
-            <!-- MESSAGE -->
+                <!-- BUTTONS -->
+
+                <div class="buttons">
+
+                    <a
+                        href="receptionist-dashboard.html"
+                        class="btn btn-back">
+
+                        ← Back
+
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn btn-print">
+
+                        🧾 Generate Receipt
+
+                    </button>
+
+                </div>
+
+            </form>
+
 
             <div
-                id="message"
-                class="message">
+                class="message"
+                id="message">
             </div>
 
+        </div>
 
-            <!-- BUTTONS -->
-
-            <div class="buttons">
-
-                <a
-                    href="receptionist-dashboard.html"
-                    class="back-btn">
-
-                    Back
-
-                </a>
-
-                <button
-                    type="submit"
-                    class="save-btn">
-
-                    🧾 Generate and Print Bill
-
-                </button>
-
-            </div>
-
-        </form>
-
-    </div>
+    </main>
 
 </div>
 
 
-<!-- JAVASCRIPT -->
-
 <script>
 
-    /* ==========================================
-       LOAD COMPLETED APPOINTMENTS
-    ========================================== */
+    const appointmentSelect =
+        document.getElementById("appointmentId");
+
+    const receiptPreview =
+        document.getElementById("receiptPreview");
+
+    const patientName =
+        document.getElementById("patientName");
+
+    const appointmentNumber =
+        document.getElementById("appointmentNumber");
+
+    const treatmentName =
+        document.getElementById("treatmentName");
+
+    const amount =
+        document.getElementById("amount");
+
+    const patientId =
+        document.getElementById("patientId");
+
+    const treatmentId =
+        document.getElementById("treatmentId");
+
+    const amountInput =
+        document.getElementById("amountInput");
+
+    const message =
+        document.getElementById("message");
+
+
+    /* LOAD COMPLETED APPOINTMENTS */
 
     fetch("billing?action=list")
 
-        .then(response => {
+        .then(function(response) {
 
             if (!response.ok) {
 
                 throw new Error(
-                    "Unable to load appointments"
+                    "Unable to load appointments."
                 );
-
             }
 
             return response.json();
 
         })
 
-        .then(data => {
+        .then(function(data) {
 
-            const select =
-                document.getElementById(
-                    "appointmentId"
-                );
+            appointmentSelect.innerHTML =
+                '<option value="">Select Completed Appointment</option>';
 
-            if (data.error) {
 
-                showError(data.error);
+            if (data.length === 0) {
+
+                appointmentSelect.innerHTML =
+                    '<option value="">No completed appointments available</option>';
 
                 return;
-
             }
 
-            data.forEach(appointment => {
+
+            data.forEach(function(item) {
 
                 const option =
-                    document.createElement(
-                        "option"
-                    );
+                    document.createElement("option");
+
 
                 option.value =
-                    appointment.appointmentId;
+                    item.appointmentId;
+
 
                 option.textContent =
-                    appointment.appointmentNumber +
+                    item.appointmentNumber +
                     " - " +
-                    appointment.patientName +
+                    item.patientName +
                     " - " +
-                    appointment.treatmentName;
+                    item.treatmentName;
 
-                select.appendChild(option);
+
+                appointmentSelect.appendChild(
+                    option
+                );
 
             });
 
         })
 
-        .catch(error => {
+        .catch(function(error) {
 
-            console.error(
-                "Billing Error:",
-                error
-            );
+            console.error(error);
 
-            showError(
-                "Unable to load appointments. Please check the server."
-            );
+            appointmentSelect.innerHTML =
+                '<option value="">Unable to load appointments</option>';
+
+
+            message.textContent =
+                "Unable to load completed appointments.";
 
         });
 
 
-    /* ==========================================
-       LOAD SELECTED APPOINTMENT
-    ========================================== */
+    /* LOAD APPOINTMENT DETAILS */
 
     function loadAppointment() {
 
         const id =
-            document.getElementById(
-                "appointmentId"
-            ).value;
+            appointmentSelect.value;
 
-        const details =
-            document.getElementById(
-                "appointmentDetails"
-            );
 
         if (!id) {
 
-            details.style.display = "none";
+            receiptPreview.style.display =
+                "none";
 
             return;
-
         }
 
+
         fetch(
-            "billing?action=details&id=" + id
+            "billing?action=details&id=" +
+            encodeURIComponent(id)
         )
 
-            .then(response => {
+        .then(function(response) {
 
-                if (!response.ok) {
+            if (!response.ok) {
 
-                    throw new Error(
-                        "Unable to load appointment details"
-                    );
-
-                }
-
-                return response.json();
-
-            })
-
-            .then(data => {
-
-                if (data.error) {
-
-                    alert(data.error);
-
-                    details.style.display =
-                        "none";
-
-                    return;
-
-                }
-
-                document.getElementById(
-                    "patientName"
-                ).textContent =
-                    data.patientName;
-
-
-                document.getElementById(
-                    "appointmentNumber"
-                ).textContent =
-                    data.appointmentNumber;
-
-
-                document.getElementById(
-                    "treatmentName"
-                ).textContent =
-                    data.treatmentName;
-
-
-                document.getElementById(
-                    "amount"
-                ).textContent =
-                    Number(data.amount).toFixed(2);
-
-
-                document.getElementById(
-                    "patientId"
-                ).value =
-                    data.patientId;
-
-
-                document.getElementById(
-                    "treatmentId"
-                ).value =
-                    data.treatmentId;
-
-
-                document.getElementById(
-                    "amountValue"
-                ).value =
-                    data.amount;
-
-
-                details.style.display =
-                    "block";
-
-            })
-
-            .catch(error => {
-
-                console.error(error);
-
-                alert(
+                throw new Error(
                     "Unable to load appointment details."
                 );
+            }
 
-            });
+            return response.json();
 
-    }
+        })
+
+        .then(function(data) {
+
+            patientName.textContent =
+                data.patientName;
 
 
-    /* ==========================================
-       SHOW ERROR MESSAGE
-    ========================================== */
+            appointmentNumber.textContent =
+                data.appointmentNumber;
 
-    function showError(message) {
 
-        const box =
-            document.getElementById(
-                "message"
-            );
+            treatmentName.textContent =
+                data.treatmentName;
 
-        box.textContent = message;
 
-        box.className =
-            "message error";
+            amount.textContent =
+                "Rs. " +
+                Number(data.amount).toLocaleString(
+                    "en-LK",
+                    {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    }
+                );
+
+
+            patientId.value =
+                data.patientId;
+
+
+            treatmentId.value =
+                data.treatmentId;
+
+
+            amountInput.value =
+                data.amount;
+
+
+            receiptPreview.style.display =
+                "block";
+
+        })
+
+        .catch(function(error) {
+
+            console.error(error);
+
+            message.textContent =
+                "Unable to load appointment details.";
+
+        });
 
     }
 
 </script>
 
-
 </body>
-
 </html>
+

@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,314 +17,55 @@ public class BillingServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    // =====================================================
-    // GET
-    // =====================================================
-
     @Override
     protected void doGet(
             HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
 
-        String action = request.getParameter("action");
+        String action =
+                request.getParameter("action");
 
         if ("list".equals(action)) {
 
-            loadAppointments(request, response);
+            loadAppointments(response);
 
         } else if ("details".equals(action)) {
 
-            loadAppointmentDetails(request, response);
+            loadAppointmentDetails(
+                    request,
+                    response
+            );
 
         } else if ("print".equals(action)) {
 
-            printBill(request, response);
+            printBill(
+                    request,
+                    response
+            );
 
         } else {
 
-            response.sendRedirect("billing.html");
-        }
-    }
-
-
-    // =====================================================
-    // LOAD COMPLETED APPOINTMENTS
-    // =====================================================
-
-    private void loadAppointments(
-            HttpServletRequest request,
-            HttpServletResponse response)
-            throws IOException {
-
-        response.setContentType(
-                "application/json;charset=UTF-8"
-        );
-
-        PrintWriter out = response.getWriter();
-
-        String sql =
-                "SELECT " +
-                "a.appointment_id, " +
-                "a.appointment_number, " +
-                "p.full_name, " +
-                "a.treatment_id " +
-                "FROM appointments a " +
-                "INNER JOIN patients p " +
-                "ON a.patient_id = p.patient_id " +
-                "WHERE a.status = 'COMPLETED' " +
-                "ORDER BY a.appointment_date DESC";
-
-        try {
-
-            Connection connection =
-                    DBConnection.getConnection();
-
-            PreparedStatement statement =
-                    connection.prepareStatement(sql);
-
-            ResultSet result =
-                    statement.executeQuery();
-
-            out.print("[");
-
-            boolean first = true;
-
-            while (result.next()) {
-
-                if (!first) {
-                    out.print(",");
-                }
-
-                first = false;
-
-                int appointmentId =
-                        result.getInt("appointment_id");
-
-                String appointmentNumber =
-                        result.getString(
-                                "appointment_number"
-                        );
-
-                String patientName =
-                        result.getString("full_name");
-
-                int treatmentId =
-                        result.getInt("treatment_id");
-
-                out.print("{");
-
-                out.print(
-                        "\"appointmentId\":" +
-                        appointmentId +
-                        ","
-                );
-
-                out.print(
-                        "\"appointmentNumber\":\"" +
-                        escapeJson(appointmentNumber) +
-                        "\","
-                );
-
-                out.print(
-                        "\"patientName\":\"" +
-                        escapeJson(patientName) +
-                        "\","
-                );
-
-                out.print(
-                        "\"treatmentName\":\"" +
-                        escapeJson(
-                                getTreatmentName(treatmentId)
-                        ) +
-                        "\""
-                );
-
-                out.print("}");
-            }
-
-            out.print("]");
-
-            result.close();
-            statement.close();
-            connection.close();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-            response.setStatus(
-                    HttpServletResponse
-                            .SC_INTERNAL_SERVER_ERROR
-            );
-
-            out.print(
-                    "{\"error\":\"" +
-                    escapeJson(e.getMessage()) +
-                    "\"}"
+            response.sendRedirect(
+                    "billing.html"
             );
         }
     }
 
-
-    // =====================================================
-    // LOAD APPOINTMENT DETAILS
-    // =====================================================
-
-    private void loadAppointmentDetails(
-            HttpServletRequest request,
-            HttpServletResponse response)
-            throws IOException {
-
-        response.setContentType(
-                "application/json;charset=UTF-8"
-        );
-
-        PrintWriter out =
-                response.getWriter();
-
-        String id =
-                request.getParameter("id");
-
-        if (id == null || id.trim().isEmpty()) {
-
-            out.print(
-                    "{\"error\":\"Appointment ID is required\"}"
-            );
-
-            return;
-        }
-
-        String sql =
-                "SELECT " +
-                "a.appointment_id, " +
-                "a.appointment_number, " +
-                "a.patient_id, " +
-                "p.full_name, " +
-                "a.treatment_id " +
-                "FROM appointments a " +
-                "INNER JOIN patients p " +
-                "ON a.patient_id = p.patient_id " +
-                "WHERE a.appointment_id = ?";
-
-        try {
-
-            Connection connection =
-                    DBConnection.getConnection();
-
-            PreparedStatement statement =
-                    connection.prepareStatement(sql);
-
-            statement.setInt(
-                    1,
-                    Integer.parseInt(id)
-            );
-
-            ResultSet result =
-                    statement.executeQuery();
-
-            if (result.next()) {
-
-                int patientId =
-                        result.getInt("patient_id");
-
-                String patientName =
-                        result.getString("full_name");
-
-                String appointmentNumber =
-                        result.getString(
-                                "appointment_number"
-                        );
-
-                int treatmentId =
-                        result.getInt("treatment_id");
-
-                double amount =
-                        getTreatmentAmount(treatmentId);
-
-                out.print("{");
-
-                out.print(
-                        "\"patientId\":" +
-                        patientId +
-                        ","
-                );
-
-                out.print(
-                        "\"patientName\":\"" +
-                        escapeJson(patientName) +
-                        "\","
-                );
-
-                out.print(
-                        "\"appointmentNumber\":\"" +
-                        escapeJson(
-                                appointmentNumber
-                        ) +
-                        "\","
-                );
-
-                out.print(
-                        "\"treatmentId\":" +
-                        treatmentId +
-                        ","
-                );
-
-                out.print(
-                        "\"treatmentName\":\"" +
-                        escapeJson(
-                                getTreatmentName(
-                                        treatmentId
-                                )
-                        ) +
-                        "\","
-                );
-
-                out.print(
-                        "\"amount\":" +
-                        amount
-                );
-
-                out.print("}");
-
-            } else {
-
-                out.print(
-                        "{\"error\":\"Appointment not found\"}"
-                );
-            }
-
-            result.close();
-            statement.close();
-            connection.close();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-            response.setStatus(
-                    HttpServletResponse
-                            .SC_INTERNAL_SERVER_ERROR
-            );
-
-            out.print(
-                    "{\"error\":\"" +
-                    escapeJson(e.getMessage()) +
-                    "\"}"
-            );
-        }
-    }
-
-
-    // =====================================================
-    // POST - GENERATE BILL
-    // =====================================================
 
     @Override
     protected void doPost(
             HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
+
+        response.setContentType(
+                "text/html;charset=UTF-8"
+        );
+
+        PrintWriter out =
+                response.getWriter();
+
 
         String appointmentId =
                 request.getParameter(
@@ -351,211 +93,297 @@ public class BillingServlet extends HttpServlet {
                 );
 
 
-        // =================================================
-        // VALIDATION
-        // =================================================
-
-        if (appointmentId == null ||
-            patientId == null ||
-            treatmentId == null ||
-            amount == null ||
-            paymentStatus == null ||
-            appointmentId.trim().isEmpty() ||
-            patientId.trim().isEmpty() ||
-            treatmentId.trim().isEmpty() ||
-            amount.trim().isEmpty()) {
-
-            response.setContentType(
-                    "text/html;charset=UTF-8"
-            );
-
-            PrintWriter out =
-                    response.getWriter();
-
-            out.println(
-                    "<h2>Invalid bill details.</h2>"
-            );
-
-            out.println(
-                    "<a href='billing.html'>Back to Billing</a>"
-            );
-
-            return;
-        }
-
-
-        String sql =
-                "INSERT INTO bills " +
-                "(appointment_id, patient_id, " +
-                "treatment_id, amount, " +
-                "payment_status, bill_date) " +
-                "VALUES (?, ?, ?, ?, ?, CURDATE())";
+        Connection connection = null;
 
 
         try {
 
-            Connection connection =
+            connection =
                     DBConnection.getConnection();
 
-            PreparedStatement statement =
-                    connection.prepareStatement(
-                            sql,
-                            PreparedStatement
-                                    .RETURN_GENERATED_KEYS
-                    );
+
+            String sql =
+                    "INSERT INTO bills " +
+                    "(appointment_id, patient_id, treatment_id, " +
+                    "amount, payment_status, bill_date) " +
+                    "VALUES (?, ?, ?, ?, ?, NOW())";
 
 
-            statement.setInt(
-                    1,
-                    Integer.parseInt(appointmentId)
-            );
-
-            statement.setInt(
-                    2,
-                    Integer.parseInt(patientId)
-            );
-
-            statement.setInt(
-                    3,
-                    Integer.parseInt(treatmentId)
-            );
-
-            statement.setDouble(
-                    4,
-                    Double.parseDouble(amount)
-            );
-
-            statement.setString(
-                    5,
-                    paymentStatus
-            );
+            int billId;
 
 
-            int rows =
-                    statement.executeUpdate();
+            try (PreparedStatement statement =
+                         connection.prepareStatement(
+                                 sql,
+                                 Statement.RETURN_GENERATED_KEYS
+                         )) {
 
+                statement.setInt(
+                        1,
+                        Integer.parseInt(
+                                appointmentId
+                        )
+                );
 
-            if (rows > 0) {
+                statement.setInt(
+                        2,
+                        Integer.parseInt(
+                                patientId
+                        )
+                );
 
-                int billId = 0;
+                statement.setInt(
+                        3,
+                        Integer.parseInt(
+                                treatmentId
+                        )
+                );
 
-                ResultSet keys =
-                        statement.getGeneratedKeys();
+                statement.setDouble(
+                        4,
+                        Double.parseDouble(
+                                amount
+                        )
+                );
 
-                if (keys.next()) {
-
-                    billId =
-                            keys.getInt(1);
-                }
-
-                keys.close();
-                statement.close();
-                connection.close();
-
-
-                // =========================================
-                // OPEN PRINTABLE BILL
-                // =========================================
-
-                printBillPage(
-                        response,
-                        billId,
-                        appointmentId,
-                        patientId,
-                        treatmentId,
-                        amount,
+                statement.setString(
+                        5,
                         paymentStatus
                 );
 
 
-            } else {
+                statement.executeUpdate();
 
-                statement.close();
-                connection.close();
 
-                response.setContentType(
-                        "text/html;charset=UTF-8"
-                );
+                try (ResultSet keys =
+                             statement.getGeneratedKeys()) {
 
-                PrintWriter out =
-                        response.getWriter();
+                    if (keys.next()) {
 
-                out.println(
-                        "<h2>Bill was not generated.</h2>"
-                );
+                        billId =
+                                keys.getInt(1);
 
-                out.println(
-                        "<a href='billing.html'>" +
-                        "Back to Billing" +
-                        "</a>"
-                );
+                    } else {
+
+                        throw new Exception(
+                                "Bill ID could not be generated."
+                        );
+                    }
+                }
             }
+
+
+            printBillPage(
+                    response,
+                    billId
+            );
 
 
         } catch (Exception e) {
 
             e.printStackTrace();
 
-            response.setContentType(
-                    "text/html;charset=UTF-8"
-            );
-
-            PrintWriter out =
-                    response.getWriter();
 
             out.println(
                     "<h2>Database Error</h2>"
             );
 
+
             out.println(
                     "<p>" +
-                    escapeHtml(e.getMessage()) +
+                    escapeHtml(
+                            e.getMessage()
+                    ) +
                     "</p>"
             );
 
-            out.println(
-                    "<a href='billing.html'>" +
-                    "Back to Billing" +
-                    "</a>"
-            );
+
+        } finally {
+
+            try {
+
+                if (connection != null) {
+                    connection.close();
+                }
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
         }
     }
 
 
-    // =====================================================
-    // PRINT BILL PAGE
-    // =====================================================
+    /* =====================================================
+       LOAD COMPLETED APPOINTMENTS
+       ===================================================== */
 
-    private void printBillPage(
-            HttpServletResponse response,
-            int billId,
-            String appointmentId,
-            String patientId,
-            String treatmentId,
-            String amount,
-            String paymentStatus)
+    private void loadAppointments(
+            HttpServletResponse response)
             throws IOException {
 
         response.setContentType(
-                "text/html;charset=UTF-8"
+                "application/json;charset=UTF-8"
         );
+
 
         PrintWriter out =
                 response.getWriter();
 
 
-        String patientName = "";
-        String appointmentNumber = "";
-        String treatmentName = "";
+        String sql =
+                "SELECT " +
+                "a.appointment_id, " +
+                "a.appointment_number, " +
+                "p.full_name, " +
+                "a.treatment_id " +
+                "FROM appointments a " +
+                "INNER JOIN patients p " +
+                "ON a.patient_id = p.patient_id " +
+                "WHERE a.status = 'COMPLETED' " +
+                "ORDER BY a.appointment_date DESC";
 
 
-        // ================================================
-        // GET BILL DETAILS
-        // ================================================
+        StringBuilder json =
+                new StringBuilder("[");
+
+
+        try (
+                Connection connection =
+                        DBConnection.getConnection();
+
+                PreparedStatement statement =
+                        connection.prepareStatement(sql);
+
+                ResultSet result =
+                        statement.executeQuery()
+        ) {
+
+            boolean first = true;
+
+
+            while (result.next()) {
+
+                if (!first) {
+                    json.append(",");
+                }
+
+                first = false;
+
+
+                int appointmentId =
+                        result.getInt(
+                                "appointment_id"
+                        );
+
+
+                String appointmentNumber =
+                        result.getString(
+                                "appointment_number"
+                        );
+
+
+                String patientName =
+                        result.getString(
+                                "full_name"
+                        );
+
+
+                int treatmentId =
+                        result.getInt(
+                                "treatment_id"
+                        );
+
+
+                String treatmentName =
+                        getTreatmentName(
+                                treatmentId
+                        );
+
+
+                json.append("{");
+
+
+                json.append(
+                        "\"appointmentId\":" +
+                        appointmentId +
+                        ","
+                );
+
+
+                json.append(
+                        "\"appointmentNumber\":\"" +
+                        escapeJson(
+                                appointmentNumber
+                        ) +
+                        "\","
+                );
+
+
+                json.append(
+                        "\"patientName\":\"" +
+                        escapeJson(
+                                patientName
+                        ) +
+                        "\","
+                );
+
+
+                json.append(
+                        "\"treatmentName\":\"" +
+                        escapeJson(
+                                treatmentName
+                        ) +
+                        "\""
+                );
+
+
+                json.append("}");
+            }
+
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+
+        json.append("]");
+
+
+        out.print(
+                json.toString()
+        );
+    }
+
+
+    /* =====================================================
+       LOAD APPOINTMENT DETAILS
+       ===================================================== */
+
+    private void loadAppointmentDetails(
+            HttpServletRequest request,
+            HttpServletResponse response)
+            throws IOException {
+
+        response.setContentType(
+                "application/json;charset=UTF-8"
+        );
+
+
+        PrintWriter out =
+                response.getWriter();
+
+
+        String id =
+                request.getParameter("id");
+
 
         String sql =
                 "SELECT " +
+                "a.appointment_id, " +
                 "a.appointment_number, " +
+                "a.patient_id, " +
                 "p.full_name, " +
                 "a.treatment_id " +
                 "FROM appointments a " +
@@ -564,382 +392,146 @@ public class BillingServlet extends HttpServlet {
                 "WHERE a.appointment_id = ?";
 
 
-        try {
+        try (
+                Connection connection =
+                        DBConnection.getConnection();
 
-            Connection connection =
-                    DBConnection.getConnection();
-
-            PreparedStatement statement =
-                    connection.prepareStatement(sql);
+                PreparedStatement statement =
+                        connection.prepareStatement(sql)
+        ) {
 
             statement.setInt(
                     1,
-                    Integer.parseInt(appointmentId)
+                    Integer.parseInt(id)
             );
 
-            ResultSet result =
-                    statement.executeQuery();
 
-            if (result.next()) {
+            try (ResultSet result =
+                         statement.executeQuery()) {
 
-                appointmentNumber =
-                        result.getString(
-                                "appointment_number"
-                        );
+                if (result.next()) {
 
-                patientName =
-                        result.getString(
-                                "full_name"
-                        );
+                    String appointmentNumber =
+                            result.getString(
+                                    "appointment_number"
+                            );
 
-                int treatment =
-                        result.getInt(
-                                "treatment_id"
-                        );
 
-                treatmentName =
-                        getTreatmentName(treatment);
+                    String patientName =
+                            result.getString(
+                                    "full_name"
+                            );
+
+
+                    int patientId =
+                            result.getInt(
+                                    "patient_id"
+                            );
+
+
+                    int treatmentId =
+                            result.getInt(
+                                    "treatment_id"
+                            );
+
+
+                    String treatmentName =
+                            getTreatmentName(
+                                    treatmentId
+                            );
+
+
+                    double amount =
+                            getTreatmentAmount(
+                                    treatmentId
+                            );
+
+
+                    out.print("{");
+
+
+                    out.print(
+                            "\"appointmentId\":" +
+                            result.getInt(
+                                    "appointment_id"
+                            ) +
+                            ","
+                    );
+
+
+                    out.print(
+                            "\"appointmentNumber\":\"" +
+                            escapeJson(
+                                    appointmentNumber
+                            ) +
+                            "\","
+                    );
+
+
+                    out.print(
+                            "\"patientId\":" +
+                            patientId +
+                            ","
+                    );
+
+
+                    out.print(
+                            "\"patientName\":\"" +
+                            escapeJson(
+                                    patientName
+                            ) +
+                            "\","
+                    );
+
+
+                    out.print(
+                            "\"treatmentId\":" +
+                            treatmentId +
+                            ","
+                    );
+
+
+                    out.print(
+                            "\"treatmentName\":\"" +
+                            escapeJson(
+                                    treatmentName
+                            ) +
+                            "\","
+                    );
+
+
+                    out.print(
+                            "\"amount\":" +
+                            amount
+                    );
+
+
+                    out.print("}");
+
+                } else {
+
+                    out.print(
+                            "{\"error\":\"Appointment not found\"}"
+                    );
+                }
             }
-
-            result.close();
-            statement.close();
-            connection.close();
 
 
         } catch (Exception e) {
 
             e.printStackTrace();
+
+
+            out.print(
+                    "{\"error\":\"Unable to load appointment details\"}"
+            );
         }
-
-
-        // ================================================
-        // PRINTABLE HTML
-        // ================================================
-
-        out.println("<!DOCTYPE html>");
-
-        out.println("<html>");
-
-        out.println("<head>");
-
-        out.println(
-                "<meta charset='UTF-8'>"
-        );
-
-        out.println(
-                "<meta name='viewport' " +
-                "content='width=device-width, " +
-                "initial-scale=1.0'>"
-        );
-
-        out.println(
-                "<title>Sunrise Dental Clinic - Bill</title>"
-        );
-
-
-        out.println("<style>");
-
-        out.println(
-                "body{" +
-                "font-family:Arial,Helvetica,sans-serif;" +
-                "background:#f4f8fb;" +
-                "margin:0;" +
-                "padding:40px;" +
-                "}"
-        );
-
-        out.println(
-                ".bill{" +
-                "background:white;" +
-                "width:700px;" +
-                "max-width:100%;" +
-                "margin:auto;" +
-                "padding:40px;" +
-                "border-radius:12px;" +
-                "box-shadow:0 5px 20px " +
-                "rgba(0,0,0,0.12);" +
-                "}"
-        );
-
-        out.println(
-                ".header{" +
-                "text-align:center;" +
-                "border-bottom:2px solid #075985;" +
-                "padding-bottom:20px;" +
-                "margin-bottom:25px;" +
-                "}"
-        );
-
-        out.println(
-                ".header h1{" +
-                "color:#075985;" +
-                "margin:0;" +
-                "}"
-        );
-
-        out.println(
-                ".header p{" +
-                "color:#666;" +
-                "margin:6px 0;" +
-                "}"
-        );
-
-        out.println(
-                ".bill-title{" +
-                "text-align:center;" +
-                "font-size:24px;" +
-                "font-weight:bold;" +
-                "margin:20px 0;" +
-                "color:#333;" +
-                "}"
-        );
-
-        out.println(
-                ".row{" +
-                "display:flex;" +
-                "justify-content:space-between;" +
-                "padding:12px 0;" +
-                "border-bottom:1px solid #eee;" +
-                "}"
-        );
-
-        out.println(
-                ".label{" +
-                "font-weight:bold;" +
-                "color:#555;" +
-                "}"
-        );
-
-        out.println(
-                ".total{" +
-                "display:flex;" +
-                "justify-content:space-between;" +
-                "font-size:24px;" +
-                "font-weight:bold;" +
-                "color:#075985;" +
-                "padding:20px 0;" +
-                "}"
-        );
-
-        out.println(
-                ".status{" +
-                "text-align:center;" +
-                "font-weight:bold;" +
-                "margin:15px 0;" +
-                "}"
-        );
-
-        out.println(
-                ".buttons{" +
-                "text-align:center;" +
-                "margin-top:30px;" +
-                "}"
-        );
-
-        out.println(
-                "button,a{" +
-                "display:inline-block;" +
-                "padding:12px 22px;" +
-                "margin:5px;" +
-                "border:none;" +
-                "border-radius:7px;" +
-                "text-decoration:none;" +
-                "font-weight:bold;" +
-                "cursor:pointer;" +
-                "font-size:15px;" +
-                "}"
-        );
-
-        out.println(
-                ".print-btn{" +
-                "background:#087ea4;" +
-                "color:white;" +
-                "}"
-        );
-
-        out.println(
-                ".back-btn{" +
-                "background:#6b7280;" +
-                "color:white;" +
-                "}"
-        );
-
-        out.println(
-                "@media print{" +
-                "body{" +
-                "background:white;" +
-                "padding:0;" +
-                "}" +
-                ".bill{" +
-                "width:100%;" +
-                "box-shadow:none;" +
-                "padding:20px;" +
-                "}" +
-                ".buttons{" +
-                "display:none;" +
-                "}" +
-                "}"
-        );
-
-        out.println("</style>");
-
-        out.println("</head>");
-
-        out.println("<body>");
-
-
-        // ================================================
-        // BILL
-        // ================================================
-
-        out.println(
-                "<div class='bill'>"
-        );
-
-
-        out.println(
-                "<div class='header'>"
-        );
-
-        out.println(
-                "<h1>🦷 Sunrise Dental Clinic</h1>"
-        );
-
-        out.println(
-                "<p>Dental Care & Treatment</p>"
-        );
-
-        out.println(
-                "<p>Colombo, Sri Lanka</p>"
-        );
-
-        out.println("</div>");
-
-
-        out.println(
-                "<div class='bill-title'>" +
-                "OFFICIAL BILL" +
-                "</div>"
-        );
-
-
-        out.println(
-                "<div class='row'>" +
-                "<span class='label'>Bill ID</span>" +
-                "<span>" + billId + "</span>" +
-                "</div>"
-        );
-
-
-        out.println(
-                "<div class='row'>" +
-                "<span class='label'>Appointment No</span>" +
-                "<span>" +
-                escapeHtml(appointmentNumber) +
-                "</span>" +
-                "</div>"
-        );
-
-
-        out.println(
-                "<div class='row'>" +
-                "<span class='label'>Patient Name</span>" +
-                "<span>" +
-                escapeHtml(patientName) +
-                "</span>" +
-                "</div>"
-        );
-
-
-        out.println(
-                "<div class='row'>" +
-                "<span class='label'>Treatment</span>" +
-                "<span>" +
-                escapeHtml(treatmentName) +
-                "</span>" +
-                "</div>"
-        );
-
-
-        out.println(
-                "<div class='row'>" +
-                "<span class='label'>Payment Status</span>" +
-                "<span>" +
-                escapeHtml(paymentStatus) +
-                "</span>" +
-                "</div>"
-        );
-
-
-        out.println(
-                "<div class='total'>" +
-                "<span>Total Amount</span>" +
-                "<span>Rs. " +
-                amount +
-                "</span>" +
-                "</div>"
-        );
-
-
-        out.println(
-                "<div class='status'>" +
-                "Thank you for choosing Sunrise Dental Clinic!" +
-                "</div>"
-        );
-
-
-        // ================================================
-        // BUTTONS
-        // ================================================
-
-        out.println(
-                "<div class='buttons'>"
-        );
-
-
-        out.println(
-                "<button " +
-                "class='print-btn' " +
-                "onclick='window.print()'>" +
-                "🖨 Print Bill" +
-                "</button>"
-        );
-
-
-        out.println(
-                "<a " +
-                "class='back-btn' " +
-                "href='billing.html'>" +
-                "Back to Billing" +
-                "</a>"
-        );
-
-
-        out.println(
-                "<a " +
-                "class='back-btn' " +
-                "href='receptionist-dashboard.html'>" +
-                "Dashboard" +
-                "</a>"
-        );
-
-
-        out.println(
-                "</div>"
-        );
-
-
-        out.println("</div>");
-
-        out.println("</body>");
-
-        out.println("</html>");
     }
 
 
-    // =====================================================
-    // PRINT EXISTING BILL
-    // =====================================================
+    /* =====================================================
+       PRINT EXISTING BILL
+       ===================================================== */
 
     private void printBill(
             HttpServletRequest request,
@@ -947,27 +539,55 @@ public class BillingServlet extends HttpServlet {
             throws IOException {
 
         String billId =
-                request.getParameter("billId");
+                request.getParameter(
+                        "billId"
+                );
+
 
         if (billId == null ||
-            billId.trim().isEmpty()) {
+                billId.trim().isEmpty()) {
 
-            response.sendError(
-                    HttpServletResponse.SC_BAD_REQUEST,
-                    "Bill ID is required"
+            response.sendRedirect(
+                    "billing.html"
             );
 
             return;
         }
 
 
+        printBillPage(
+                response,
+                Integer.parseInt(billId)
+        );
+    }
+
+
+    /* =====================================================
+       THERMAL RECEIPT
+       ===================================================== */
+
+    private void printBillPage(
+            HttpServletResponse response,
+            int billId)
+            throws IOException {
+
+        response.setContentType(
+                "text/html;charset=UTF-8"
+        );
+
+
+        PrintWriter out =
+                response.getWriter();
+
+
         String sql =
                 "SELECT " +
                 "b.bill_id, " +
-                "b.appointment_id, " +
                 "b.amount, " +
                 "b.payment_status, " +
+                "b.bill_date, " +
                 "a.appointment_number, " +
+                "a.patient_id, " +
                 "p.full_name, " +
                 "a.treatment_id " +
                 "FROM bills b " +
@@ -978,79 +598,636 @@ public class BillingServlet extends HttpServlet {
                 "WHERE b.bill_id = ?";
 
 
-        try {
+        try (
+                Connection connection =
+                        DBConnection.getConnection();
 
-            Connection connection =
-                    DBConnection.getConnection();
-
-            PreparedStatement statement =
-                    connection.prepareStatement(sql);
+                PreparedStatement statement =
+                        connection.prepareStatement(sql)
+        ) {
 
             statement.setInt(
                     1,
-                    Integer.parseInt(billId)
+                    billId
             );
 
-            ResultSet result =
-                    statement.executeQuery();
+
+            try (ResultSet result =
+                         statement.executeQuery()) {
+
+                if (!result.next()) {
+
+                    out.println(
+                            "<h2>Bill not found.</h2>"
+                    );
+
+                    return;
+                }
 
 
-            if (result.next()) {
-
-                String appointmentId =
-                        String.valueOf(
-                                result.getInt(
-                                        "appointment_id"
-                                )
+                double amount =
+                        result.getDouble(
+                                "amount"
                         );
 
-                String amount =
-                        String.valueOf(
-                                result.getDouble("amount")
-                        );
 
                 String paymentStatus =
                         result.getString(
                                 "payment_status"
                         );
 
-                String patientId =
-                        "0";
 
-                String treatmentId =
-                        String.valueOf(
-                                result.getInt(
-                                        "treatment_id"
-                                )
+                String appointmentNumber =
+                        result.getString(
+                                "appointment_number"
                         );
 
 
-                result.close();
-                statement.close();
-                connection.close();
+                int patientId =
+                        result.getInt(
+                                "patient_id"
+                        );
 
 
-                printBillPage(
-                        response,
-                        Integer.parseInt(billId),
-                        appointmentId,
-                        patientId,
-                        treatmentId,
-                        amount,
-                        paymentStatus
+                String patientName =
+                        result.getString(
+                                "full_name"
+                        );
+
+
+                int treatmentId =
+                        result.getInt(
+                                "treatment_id"
+                        );
+
+
+                String treatmentName =
+                        getTreatmentName(
+                                treatmentId
+                        );
+
+
+                String billDate =
+                        result.getString(
+                                "bill_date"
+                        );
+
+
+                /* =========================================
+                   HTML
+                   ========================================= */
+
+                out.println(
+                        "<!DOCTYPE html>"
+                );
+
+                out.println(
+                        "<html lang='en'>"
+                );
+
+                out.println("<head>");
+
+                out.println(
+                        "<meta charset='UTF-8'>"
+                );
+
+                out.println(
+                        "<meta name='viewport' " +
+                        "content='width=device-width, " +
+                        "initial-scale=1.0'>"
+                );
+
+                out.println(
+                        "<title>Payment Receipt</title>"
                 );
 
 
-            } else {
+                /* =========================================
+                   THERMAL RECEIPT CSS
+                   ========================================= */
 
-                result.close();
-                statement.close();
-                connection.close();
+                out.println("<style>");
 
-                response.sendError(
-                        HttpServletResponse.SC_NOT_FOUND,
-                        "Bill not found"
+                out.println(
+                        "* {" +
+                        "box-sizing: border-box;" +
+                        "}"
                 );
+
+
+                out.println(
+                        "html, body {" +
+                        "margin: 0;" +
+                        "padding: 0;" +
+                        "background: #eeeeee;" +
+                        "font-family: 'Courier New', monospace;" +
+                        "}"
+                );
+
+
+                out.println(
+                        "body {" +
+                        "display: flex;" +
+                        "justify-content: center;" +
+                        "padding: 30px 10px;" +
+                        "}"
+                );
+
+
+                out.println(
+                        ".receipt {" +
+                        "width: 80mm;" +
+                        "max-width: 80mm;" +
+                        "background: white;" +
+                        "padding: 10px;" +
+                        "color: #000;" +
+                        "font-size: 12px;" +
+                        "}"
+                );
+
+
+                out.println(
+                        ".center {" +
+                        "text-align: center;" +
+                        "}"
+                );
+
+
+                out.println(
+                        ".clinic-name {" +
+                        "font-size: 19px;" +
+                        "font-weight: bold;" +
+                        "color: #0b4f6c;" +
+                        "}"
+                );
+
+
+                out.println(
+                        ".subtitle {" +
+                        "font-size: 11px;" +
+                        "margin-top: 3px;" +
+                        "}"
+                );
+
+
+                out.println(
+                        ".receipt-title {" +
+                        "font-size: 15px;" +
+                        "font-weight: bold;" +
+                        "margin-top: 10px;" +
+                        "color: #0b4f6c;" +
+                        "}"
+                );
+
+
+                out.println(
+                        ".line {" +
+                        "border-top: 1px dashed #000;" +
+                        "margin: 9px 0;" +
+                        "}"
+                );
+
+
+                out.println(
+                        ".row {" +
+                        "display: flex;" +
+                        "justify-content: space-between;" +
+                        "gap: 10px;" +
+                        "padding: 3px 0;" +
+                        "}"
+                );
+
+
+                out.println(
+                        ".label {" +
+                        "font-weight: bold;" +
+                        "}"
+                );
+
+
+                out.println(
+                        ".treatment {" +
+                        "padding: 7px 0;" +
+                        "}"
+                );
+
+
+                out.println(
+                        ".treatment-name {" +
+                        "font-weight: bold;" +
+                        "max-width: 55%;" +
+                        "}"
+                );
+
+
+                out.println(
+                        ".amount {" +
+                        "text-align: right;" +
+                        "white-space: nowrap;" +
+                        "}"
+                );
+
+
+                out.println(
+                        ".total {" +
+                        "font-size: 17px;" +
+                        "font-weight: bold;" +
+                        "padding: 8px 0;" +
+                        "color: #0b4f6c;" +
+                        "}"
+                );
+
+
+                out.println(
+                        ".status {" +
+                        "text-align: center;" +
+                        "font-weight: bold;" +
+                        "font-size: 13px;" +
+                        "padding: 6px 0;" +
+                        "color: #0b4f6c;" +
+                        "}"
+                );
+
+
+                out.println(
+                        ".thank-you {" +
+                        "text-align: center;" +
+                        "font-weight: bold;" +
+                        "margin-top: 12px;" +
+                        "line-height: 1.5;" +
+                        "}"
+                );
+
+
+                /* =========================================
+                   BUTTONS - CLINIC THEME
+                   ========================================= */
+
+                out.println(
+                        ".buttons {" +
+                        "margin-top: 20px;" +
+                        "display: flex;" +
+                        "gap: 8px;" +
+                        "font-family: Arial, sans-serif;" +
+                        "}"
+                );
+
+
+                out.println(
+                        ".buttons button, " +
+                        ".buttons a {" +
+                        "flex: 1;" +
+                        "padding: 10px;" +
+                        "border: none;" +
+                        "border-radius: 5px;" +
+                        "text-align: center;" +
+                        "text-decoration: none;" +
+                        "cursor: pointer;" +
+                        "font-size: 12px;" +
+                        "font-weight: bold;" +
+                        "}"
+                );
+
+
+                /* DARK BLUE */
+
+                out.println(
+                        ".print-btn {" +
+                        "background: #0b4f6c;" +
+                        "color: white;" +
+                        "}"
+                );
+
+
+                /* LIGHT BLUE HOVER */
+
+                out.println(
+                        ".print-btn:hover {" +
+                        "background: #087ea4;" +
+                        "}"
+                );
+
+
+                /* LIGHT BLUE */
+
+                out.println(
+                        ".back-btn {" +
+                        "background: #087ea4;" +
+                        "color: white;" +
+                        "}"
+                );
+
+
+                /* DARK BLUE HOVER */
+
+                out.println(
+                        ".back-btn:hover {" +
+                        "background: #0b4f6c;" +
+                        "}"
+                );
+
+
+                /* =========================================
+                   PRINT SETTINGS - 80MM
+                   ========================================= */
+
+                out.println(
+                        "@page {" +
+                        "size: 80mm auto;" +
+                        "margin: 0;" +
+                        "}"
+                );
+
+
+                out.println(
+                        "@media print {" +
+
+                        "html, body {" +
+                        "background: white;" +
+                        "width: 80mm;" +
+                        "margin: 0;" +
+                        "padding: 0;" +
+                        "}" +
+
+                        ".receipt {" +
+                        "width: 80mm;" +
+                        "max-width: 80mm;" +
+                        "padding: 5mm;" +
+                        "box-shadow: none;" +
+                        "}" +
+
+                        ".buttons {" +
+                        "display: none !important;" +
+                        "}" +
+
+                        "}"
+                );
+
+
+                out.println("</style>");
+
+                out.println("</head>");
+
+
+                out.println("<body>");
+
+
+                out.println(
+                        "<div class='receipt'>"
+                );
+
+
+                /* =========================================
+                   CLINIC HEADER
+                   ========================================= */
+
+                out.println(
+                        "<div class='center clinic-name'>" +
+                        "SUNRISE DENTAL CLINIC" +
+                        "</div>"
+                );
+
+
+                out.println(
+                        "<div class='center subtitle'>" +
+                        "Dental Care & Treatment" +
+                        "</div>"
+                );
+
+
+                out.println(
+                        "<div class='center subtitle'>" +
+                        "Colombo, Sri Lanka" +
+                        "</div>"
+                );
+
+
+                out.println(
+                        "<div class='center subtitle'>" +
+                        "Tel: 011 234 5678" +
+                        "</div>"
+                );
+
+
+                out.println(
+                        "<div class='line'></div>"
+                );
+
+
+                /* =========================================
+                   RECEIPT TITLE
+                   ========================================= */
+
+                out.println(
+                        "<div class='center receipt-title'>" +
+                        "PAYMENT RECEIPT" +
+                        "</div>"
+                );
+
+
+                out.println(
+                        "<div class='line'></div>"
+                );
+
+
+                /* =========================================
+                   RECEIPT DETAILS
+                   ========================================= */
+
+                out.println(
+                        "<div class='row'>" +
+                        "<span class='label'>Receipt No</span>" +
+                        "<span>" +
+                        String.format(
+                                "%06d",
+                                billId
+                        ) +
+                        "</span>" +
+                        "</div>"
+                );
+
+
+                out.println(
+                        "<div class='row'>" +
+                        "<span class='label'>Date</span>" +
+                        "<span>" +
+                        escapeHtml(
+                                billDate
+                        ) +
+                        "</span>" +
+                        "</div>"
+                );
+
+
+                out.println(
+                        "<div class='row'>" +
+                        "<span class='label'>Appointment</span>" +
+                        "<span>" +
+                        escapeHtml(
+                                appointmentNumber
+                        ) +
+                        "</span>" +
+                        "</div>"
+                );
+
+
+                out.println(
+                        "<div class='row'>" +
+                        "<span class='label'>Patient ID</span>" +
+                        "<span>" +
+                        patientId +
+                        "</span>" +
+                        "</div>"
+                );
+
+
+                out.println(
+                        "<div class='row'>" +
+                        "<span class='label'>Patient</span>" +
+                        "<span>" +
+                        escapeHtml(
+                                patientName
+                        ) +
+                        "</span>" +
+                        "</div>"
+                );
+
+
+                out.println(
+                        "<div class='line'></div>"
+                );
+
+
+                /* =========================================
+                   TREATMENT
+                   ========================================= */
+
+                out.println(
+                        "<div class='treatment'>"
+                );
+
+
+                out.println(
+                        "<div class='row'>" +
+                        "<span class='treatment-name'>" +
+                        escapeHtml(
+                                treatmentName
+                        ) +
+                        "</span>" +
+                        "<span class='amount'>" +
+                        "Rs. " +
+                        String.format(
+                                "%,.2f",
+                                amount
+                        ) +
+                        "</span>" +
+                        "</div>"
+                );
+
+
+                out.println("</div>");
+
+
+                out.println(
+                        "<div class='line'></div>"
+                );
+
+
+                /* =========================================
+                   TOTAL
+                   ========================================= */
+
+                out.println(
+                        "<div class='row total'>" +
+                        "<span>TOTAL</span>" +
+                        "<span>Rs. " +
+                        String.format(
+                                "%,.2f",
+                                amount
+                        ) +
+                        "</span>" +
+                        "</div>"
+                );
+
+
+                out.println(
+                        "<div class='line'></div>"
+                );
+
+
+                /* =========================================
+                   PAYMENT STATUS
+                   ========================================= */
+
+                out.println(
+                        "<div class='status'>" +
+                        "PAYMENT STATUS: " +
+                        escapeHtml(
+                                paymentStatus
+                        ) +
+                        "</div>"
+                );
+
+
+                out.println(
+                        "<div class='line'></div>"
+                );
+
+
+                /* =========================================
+                   FOOTER
+                   ========================================= */
+
+                out.println(
+                        "<div class='thank-you'>" +
+                        "Thank You!<br>" +
+                        "Visit Us Again<br>" +
+                        "<br>" +
+                        "SUNRISE DENTAL CLINIC" +
+                        "</div>"
+                );
+
+
+                out.println(
+                        "<div class='line'></div>"
+                );
+
+
+                /* =========================================
+                   BUTTONS
+                   ========================================= */
+
+                out.println(
+                        "<div class='buttons'>"
+                );
+
+
+                out.println(
+                        "<button " +
+                        "class='print-btn' " +
+                        "onclick='window.print()'>" +
+                        "Print Receipt" +
+                        "</button>"
+                );
+
+
+                out.println(
+                        "<a " +
+                        "href='billing.html' " +
+                        "class='back-btn'>" +
+                        "Back" +
+                        "</a>"
+                );
+
+
+                out.println("</div>");
+
+
+                out.println("</div>");
+
+                out.println("</body>");
+
+                out.println("</html>");
             }
 
 
@@ -1058,18 +1235,26 @@ public class BillingServlet extends HttpServlet {
 
             e.printStackTrace();
 
-            response.sendError(
-                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
-                    "Database error: " +
-                    e.getMessage()
+
+            response.getWriter().println(
+                    "<h2>Error loading receipt</h2>"
+            );
+
+
+            response.getWriter().println(
+                    "<p>" +
+                    escapeHtml(
+                            e.getMessage()
+                    ) +
+                    "</p>"
             );
         }
     }
 
 
-    // =====================================================
-    // TREATMENT NAME
-    // =====================================================
+    /* =====================================================
+       TREATMENT NAME
+       ===================================================== */
 
     private String getTreatmentName(
             int treatmentId) {
@@ -1100,9 +1285,9 @@ public class BillingServlet extends HttpServlet {
     }
 
 
-    // =====================================================
-    // TREATMENT AMOUNT
-    // =====================================================
+    /* =====================================================
+       TREATMENT AMOUNT
+       ===================================================== */
 
     private double getTreatmentAmount(
             int treatmentId) {
@@ -1133,17 +1318,19 @@ public class BillingServlet extends HttpServlet {
     }
 
 
-    // =====================================================
-    // JSON ESCAPE
-    // =====================================================
+    /* =====================================================
+       JSON ESCAPE
+       ===================================================== */
 
-    private String escapeJson(String text) {
+    private String escapeJson(
+            String value) {
 
-        if (text == null) {
+        if (value == null) {
             return "";
         }
 
-        return text
+
+        return value
                 .replace("\\", "\\\\")
                 .replace("\"", "\\\"")
                 .replace("\n", "\\n")
@@ -1151,17 +1338,19 @@ public class BillingServlet extends HttpServlet {
     }
 
 
-    // =====================================================
-    // HTML ESCAPE
-    // =====================================================
+    /* =====================================================
+       HTML ESCAPE
+       ===================================================== */
 
-    private String escapeHtml(String text) {
+    private String escapeHtml(
+            String value) {
 
-        if (text == null) {
+        if (value == null) {
             return "";
         }
 
-        return text
+
+        return value
                 .replace("&", "&amp;")
                 .replace("<", "&lt;")
                 .replace(">", "&gt;")
