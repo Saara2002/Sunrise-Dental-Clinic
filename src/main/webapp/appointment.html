@@ -15,300 +15,441 @@
 <style>
 
     * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-  }
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
 
-body {
-    background:
-        linear-gradient(
-            rgba(244, 248, 251, 0.88),
-            rgba(244, 248, 251, 0.88)
-        ),
-        url("images/dental-clinic-background.png");
+    body {
 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+        background:
+            linear-gradient(
+                rgba(244, 248, 251, 0.88),
+                rgba(244, 248, 251, 0.88)
+            ),
+            url("images/dental-clinic-background.png");
 
-    min-height: 100vh;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
 
-    color: #334155;
-}
+        min-height: 100vh;
 
-.container {
-max-width: 1050px;
-margin: 0 auto;
-}
+        color: #334155;
+    }
 
-/* ==============================
-HEADER
-============================== */
+    .container {
 
-.header {
-background: linear-gradient(135deg, #075985, #087ea4);
-color: white;
-padding: 30px 35px;
-border-radius: 16px 16px 0 0;
-box-shadow: 0 8px 25px rgba(7, 89, 133, 0.18);
-}
+        max-width: 1050px;
 
-.header h1 {
-font-size: 30px;
-font-weight: 700;
-margin-bottom: 8px;
-}
-
-.header p {
-font-size: 15px;
-opacity: 0.9;
-}
-
-/* ==============================
-FORM CONTAINER
-============================== */
-
-.form-container {
-background: #ffffff;
-padding: 40px;
-border-radius: 0 0 16px 16px;
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-}
-
-/* ==============================
-SECTION TITLES
-============================== */
-
-.section-title {
-color: #075985;
-font-size: 21px;
-font-weight: 700;
-margin-bottom: 24px;
-padding-bottom: 12px;
-border-bottom: 2px solid #e4eef3;
-position: relative;
-}
-
-.section-title::after {
-content: "";
-display: block;
-width: 65px;
-height: 3px;
-background: #087ea4;
-position: absolute;
-bottom: -2px;
-left: 0;
-border-radius: 5px;
-}
-
-/* ==============================
-FORM GRID
-============================== */
-
-.form-grid {
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 22px 25px;
-margin-bottom: 35px;
-}
-
-.form-group {
-display: flex;
-flex-direction: column;
-}
-
-.form-group.full {
-grid-column: 1 / 3;
-}
-
-/* ==============================
-LABELS
-============================== */
-
-label {
-font-size: 14px;
-font-weight: 600;
-color: #374151;
-margin-bottom: 8px;
-}
-
-.required {
-color: #dc2626;
-margin-left: 3px;
-}
-
-/* ==============================
-INPUTS & SELECTS
-============================== */
-
-input,
-select {
-width: 100%;
-padding: 13px 14px;
-border: 1px solid #cbd5dc;
-border-radius: 9px;
-background: #ffffff;
-color: #263238;
-font-size: 15px;
-outline: none;
-transition: all 0.25s ease;
-}
-
-input::placeholder {
-color: #9ca3af;
-}
-
-input:hover,
-select:hover {
-border-color: #9bbdca;
-}
-
-input:focus,
-select:focus {
-border-color: #087ea4;
-box-shadow: 0 0 0 3px rgba(8, 126, 164, 0.12);
-background: #fbfeff;
-}
-
-/* ==============================
-ERROR MESSAGE
-============================== */
-
-.error-message {
-color: #dc2626;
-font-size: 13px;
-margin-top: 7px;
-line-height: 1.4;
-}
-
-/* ==============================
-BUTTONS
-============================== */
-
-.buttons {
-display: flex;
-justify-content: flex-end;
-align-items: center;
-gap: 12px;
-padding-top: 10px;
-border-top: 1px solid #edf2f5;
-}
-
-button {
-min-width: 120px;
-padding: 13px 24px;
-border: none;
-border-radius: 9px;
-font-size: 15px;
-font-weight: 600;
-cursor: pointer;
-transition: all 0.25s ease;
-}
-
-/* Register Button */
-
-.save-btn {
-background: linear-gradient(135deg, #087ea4, #075985);
-color: white;
-box-shadow: 0 5px 12px rgba(8, 126, 164, 0.22);
-}
-
-.save-btn:hover {
-transform: translateY(-2px);
-box-shadow: 0 8px 18px rgba(8, 126, 164, 0.28);
-}
-
-/* Clear Button */
-
-.clear-btn {
-background: #eef1f3;
-color: #374151;
-}
-
-.clear-btn:hover {
-background: #dfe5e8;
-}
-
-/* Back Button */
-
-.back-btn {
-background: #6b7280;
-color: white;
-}
-
-.back-btn:hover {
-background: #4b5563;
-transform: translateY(-1px);
-}
-
-/* ==============================
-RESPONSIVE DESIGN
-============================== */
-
-@media (max-width: 750px) {
+        margin: 0 auto;
+    }
 
 
-body {
-    padding: 15px;
-}
+    /* ==============================
+       HEADER
+    ============================== */
 
-.header {
-    padding: 25px;
-}
+    .header {
 
-.header h1 {
-    font-size: 24px;
-}
+        background:
+            linear-gradient(
+                135deg,
+                #075985,
+                #087ea4
+            );
 
-.form-container {
-    padding: 25px 20px;
-}
+        color: white;
 
-.form-grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
-}
+        padding: 30px 35px;
 
-.form-group.full {
-    grid-column: 1;
-}
+        border-radius: 16px 16px 0 0;
 
-.buttons {
-    flex-direction: column-reverse;
-    align-items: stretch;
-}
+        box-shadow:
+            0 8px 25px
+            rgba(7, 89, 133, 0.18);
+    }
 
-button {
-    width: 100%;
-}
+    .header h1 {
+
+        font-size: 30px;
+
+        font-weight: 700;
+
+        margin-bottom: 8px;
+    }
+
+    .header p {
+
+        font-size: 15px;
+
+        opacity: 0.9;
+    }
 
 
-}
+    /* ==============================
+       FORM CONTAINER
+    ============================== */
 
-@media (max-width: 450px) {
+    .form-container {
+
+        background: #ffffff;
+
+        padding: 40px;
+
+        border-radius: 0 0 16px 16px;
+
+        box-shadow:
+            0 10px 30px
+            rgba(0, 0, 0, 0.08);
+    }
 
 
-.header h1 {
-    font-size: 21px;
-}
+    /* ==============================
+       SECTION TITLES
+    ============================== */
 
-.header p {
-    font-size: 13px;
-}
+    .section-title {
 
-.section-title {
-    font-size: 18px;
-}
+        color: #075985;
 
-input,
-select {
-    padding: 12px;
-}
+        font-size: 21px;
 
-}
+        font-weight: 700;
+
+        margin-bottom: 24px;
+
+        padding-bottom: 12px;
+
+        border-bottom:
+            2px solid #e4eef3;
+
+        position: relative;
+    }
+
+    .section-title::after {
+
+        content: "";
+
+        display: block;
+
+        width: 65px;
+
+        height: 3px;
+
+        background: #087ea4;
+
+        position: absolute;
+
+        bottom: -2px;
+
+        left: 0;
+
+        border-radius: 5px;
+    }
+
+
+    /* ==============================
+       FORM GRID
+    ============================== */
+
+    .form-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 22px 25px;
+
+        margin-bottom: 35px;
+    }
+
+    .form-group {
+
+        display: flex;
+
+        flex-direction: column;
+    }
+
+    .form-group.full {
+
+        grid-column: 1 / 3;
+    }
+
+
+    /* ==============================
+       LABELS
+    ============================== */
+
+    label {
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        color: #374151;
+
+        margin-bottom: 8px;
+    }
+
+    .required {
+
+        color: #dc2626;
+
+        margin-left: 3px;
+    }
+
+
+    /* ==============================
+       INPUTS & SELECTS
+    ============================== */
+
+    input,
+    select {
+
+        width: 100%;
+
+        padding: 13px 14px;
+
+        border:
+            1px solid #cbd5dc;
+
+        border-radius: 9px;
+
+        background: #ffffff;
+
+        color: #263238;
+
+        font-size: 15px;
+
+        outline: none;
+
+        transition:
+            all 0.25s ease;
+    }
+
+    input::placeholder {
+
+        color: #9ca3af;
+    }
+
+    input:hover,
+    select:hover {
+
+        border-color: #9bbdca;
+    }
+
+    input:focus,
+    select:focus {
+
+        border-color: #087ea4;
+
+        box-shadow:
+            0 0 0 3px
+            rgba(8, 126, 164, 0.12);
+
+        background: #fbfeff;
+    }
+
+
+    /* ==============================
+       ERROR MESSAGE
+    ============================== */
+
+    .error-message {
+
+        color: #dc2626;
+
+        font-size: 13px;
+
+        margin-top: 7px;
+
+        line-height: 1.4;
+    }
+
+
+    /* ==============================
+       BUTTONS
+    ============================== */
+
+    .buttons {
+
+        display: flex;
+
+        justify-content: flex-end;
+
+        align-items: center;
+
+        gap: 12px;
+
+        padding-top: 10px;
+
+        border-top:
+            1px solid #edf2f5;
+    }
+
+    button {
+
+        min-width: 120px;
+
+        padding: 13px 24px;
+
+        border: none;
+
+        border-radius: 9px;
+
+        font-size: 15px;
+
+        font-weight: 600;
+
+        cursor: pointer;
+
+        transition:
+            all 0.25s ease;
+    }
+
+
+    /* Register Button */
+
+    .save-btn {
+
+        background:
+            linear-gradient(
+                135deg,
+                #087ea4,
+                #075985
+            );
+
+        color: white;
+
+        box-shadow:
+            0 5px 12px
+            rgba(8, 126, 164, 0.22);
+    }
+
+    .save-btn:hover {
+
+        transform:
+            translateY(-2px);
+
+        box-shadow:
+            0 8px 18px
+            rgba(8, 126, 164, 0.28);
+    }
+
+
+    /* Clear Button */
+
+    .clear-btn {
+
+        background: #eef1f3;
+
+        color: #374151;
+    }
+
+    .clear-btn:hover {
+
+        background: #dfe5e8;
+    }
+
+
+    /* Back Button */
+
+    .back-btn {
+
+        background: #6b7280;
+
+        color: white;
+    }
+
+    .back-btn:hover {
+
+        background: #4b5563;
+
+        transform:
+            translateY(-1px);
+    }
+
+
+    /* ==============================
+       RESPONSIVE DESIGN
+    ============================== */
+
+    @media (max-width: 750px) {
+
+        body {
+
+            padding: 15px;
+        }
+
+        .header {
+
+            padding: 25px;
+        }
+
+        .header h1 {
+
+            font-size: 24px;
+        }
+
+        .form-container {
+
+            padding: 25px 20px;
+        }
+
+        .form-grid {
+
+            grid-template-columns: 1fr;
+
+            gap: 18px;
+        }
+
+        .form-group.full {
+
+            grid-column: 1;
+        }
+
+        .buttons {
+
+            flex-direction:
+                column-reverse;
+
+            align-items: stretch;
+        }
+
+        button {
+
+            width: 100%;
+        }
+    }
+
+
+    @media (max-width: 450px) {
+
+        .header h1 {
+
+            font-size: 21px;
+        }
+
+        .header p {
+
+            font-size: 13px;
+        }
+
+        .section-title {
+
+            font-size: 18px;
+        }
+
+        input,
+        select {
+
+            padding: 12px;
+        }
+    }
 
 </style>
 
@@ -320,30 +461,41 @@ select {
 <div class="container">
 
 ```
-<!-- HEADER -->
+<!-- ==============================
+     HEADER
+============================== -->
 
 <div class="header">
 
-    <h1>🦷 Sunrise Dental Clinic</h1>
+    <h1>
+        🦷 Sunrise Dental Clinic
+    </h1>
 
-    <p>Register New Appointment</p>
+    <p>
+        Register New Appointment
+    </p>
 
 </div>
 
 
-<!-- FORM -->
+<!-- ==============================
+     FORM
+============================== -->
 
 <div class="form-container">
 
-    <form action="appointment" method="post">
+    <form action="appointment"
+          method="post">
 
 
-        <!-- ========================= -->
-        <!-- PATIENT INFORMATION -->
-        <!-- ========================= -->
+        <!-- =========================
+             PATIENT INFORMATION
+        ========================== -->
 
         <h2 class="section-title">
+
             Patient Information
+
         </h2>
 
 
@@ -355,8 +507,13 @@ select {
             <div class="form-group">
 
                 <label>
+
                     Patient Name
-                    <span class="required">*</span>
+
+                    <span class="required">
+                        *
+                    </span>
+
                 </label>
 
                 <input
@@ -373,8 +530,13 @@ select {
             <div class="form-group">
 
                 <label>
+
                     Phone Number
-                    <span class="required">*</span>
+
+                    <span class="required">
+                        *
+                    </span>
+
                 </label>
 
                 <input
@@ -393,7 +555,9 @@ select {
             <div class="form-group">
 
                 <label>
+
                     Email
+
                 </label>
 
                 <input
@@ -409,7 +573,9 @@ select {
             <div class="form-group">
 
                 <label>
+
                     Date of Birth
+
                 </label>
 
                 <input
@@ -424,8 +590,13 @@ select {
             <div class="form-group full">
 
                 <label>
+
                     Patient Address
-                    <span class="required">*</span>
+
+                    <span class="required">
+                        *
+                    </span>
+
                 </label>
 
                 <input
@@ -440,36 +611,18 @@ select {
         </div>
 
 
-        <!-- ========================= -->
-        <!-- APPOINTMENT INFORMATION -->
-        <!-- ========================= -->
+        <!-- =========================
+             APPOINTMENT INFORMATION
+        ========================== -->
 
         <h2 class="section-title">
+
             Appointment Information
+
         </h2>
 
 
         <div class="form-grid">
-
-
-            <!-- Appointment Number -->
-
-            <div class="form-group">
-
-                <label>
-                    Appointment Number
-                    <span class="required">*</span>
-                </label>
-
-                <input
-                    type="text"
-                    name="appointmentNumber"
-                    placeholder="Example: APP001"
-                    pattern="APP[0-9]{3,}"
-                    title="Appointment number must be like APP001"
-                    required>
-
-            </div>
 
 
             <!-- Dentist -->
@@ -477,9 +630,15 @@ select {
             <div class="form-group">
 
                 <label>
+
                     Dentist
-                    <span class="required">*</span>
+
+                    <span class="required">
+                        *
+                    </span>
+
                 </label>
+
 
                 <select
                     name="dentistName"
@@ -487,14 +646,18 @@ select {
                     required>
 
                     <option value="">
+
                         Loading dentists...
+
                     </option>
 
                 </select>
 
+
                 <div
                     id="dentistError"
                     class="error-message">
+
                 </div>
 
             </div>
@@ -505,40 +668,66 @@ select {
             <div class="form-group">
 
                 <label>
+
                     Treatment
-                    <span class="required">*</span>
+
+                    <span class="required">
+                        *
+                    </span>
+
                 </label>
+
 
                 <select
                     name="treatmentId"
                     required>
 
                     <option value="">
+
                         Select Treatment
+
                     </option>
+
 
                     <option value="1">
+
                         Dental Consultation
+
                     </option>
+
 
                     <option value="2">
+
                         Teeth Cleaning
+
                     </option>
+
 
                     <option value="3">
+
                         Dental Filling
+
                     </option>
+
 
                     <option value="4">
+
                         Tooth Extraction
+
                     </option>
+
 
                     <option value="5">
+
                         Root Canal Treatment
+
                     </option>
 
+
                     <option value="6">
+
                         Teeth Whitening
+
                     </option>
 
                 </select>
@@ -551,9 +740,15 @@ select {
             <div class="form-group">
 
                 <label>
+
                     Appointment Date
-                    <span class="required">*</span>
+
+                    <span class="required">
+                        *
+                    </span>
+
                 </label>
+
 
                 <input
                     type="date"
@@ -569,9 +764,15 @@ select {
             <div class="form-group">
 
                 <label>
+
                     Appointment Time
-                    <span class="required">*</span>
+
+                    <span class="required">
+                        *
+                    </span>
+
                 </label>
+
 
                 <input
                     type="time"
@@ -584,12 +785,14 @@ select {
         </div>
 
 
-        <!-- ========================= -->
-        <!-- BUTTONS -->
-        <!-- ========================= -->
+        <!-- =========================
+             BUTTONS
+        ========================== -->
 
         <div class="buttons">
 
+
+            <!-- Back -->
 
             <button
                 type="button"
@@ -601,6 +804,8 @@ select {
             </button>
 
 
+            <!-- Clear -->
+
             <button
                 type="reset"
                 class="clear-btn">
@@ -609,6 +814,8 @@ select {
 
             </button>
 
+
+            <!-- Register -->
 
             <button
                 type="submit"
@@ -625,7 +832,7 @@ select {
     </form>
 
 </div>
-```
+
 
 </div>
 
@@ -639,10 +846,15 @@ select {
     function loadDentists() {
 
         const dentistSelect =
-            document.getElementById("dentistName");
+            document.getElementById(
+                "dentistName"
+            );
+
 
         const dentistError =
-            document.getElementById("dentistError");
+            document.getElementById(
+                "dentistError"
+            );
 
 
         fetch("dentists")
@@ -664,8 +876,10 @@ select {
 
             .then(function(data) {
 
+
                 dentistSelect.innerHTML =
                     '<option value="">Select Dentist</option>';
+
 
                 dentistError.textContent = "";
 
@@ -675,10 +889,17 @@ select {
 
                 data.forEach(function(dentist) {
 
-                    if (dentist.status === "ACTIVE") {
+
+                    if (
+                        dentist.status ===
+                        "ACTIVE"
+                    ) {
+
 
                         const option =
-                            document.createElement("option");
+                            document.createElement(
+                                "option"
+                            );
 
 
                         option.value =
@@ -691,7 +912,9 @@ select {
                             dentist.specialization;
 
 
-                        dentistSelect.appendChild(option);
+                        dentistSelect.appendChild(
+                            option
+                        );
 
 
                         activeDentistCount++;
@@ -703,10 +926,13 @@ select {
 
                 // No active dentists
 
-                if (activeDentistCount === 0) {
+                if (
+                    activeDentistCount === 0
+                ) {
 
                     dentistSelect.innerHTML =
                         '<option value="">No active dentists available</option>';
+
 
                     dentistError.textContent =
                         "Please ask the administrator to add an active dentist.";
@@ -717,6 +943,7 @@ select {
 
 
             .catch(function(error) {
+
 
                 console.error(error);
 
@@ -739,8 +966,11 @@ select {
 
     function setMinimumDate() {
 
+
         const dateInput =
-            document.getElementById("appointmentDate");
+            document.getElementById(
+                "appointmentDate"
+            );
 
 
         const today =
@@ -752,17 +982,23 @@ select {
 
 
         const month =
-            String(today.getMonth() + 1)
-                .padStart(2, "0");
+            String(
+                today.getMonth() + 1
+            ).padStart(2, "0");
 
 
         const day =
-            String(today.getDate())
-                .padStart(2, "0");
+            String(
+                today.getDate()
+            ).padStart(2, "0");
 
 
         const formattedDate =
-            year + "-" + month + "-" + day;
+            year +
+            "-" +
+            month +
+            "-" +
+            day;
 
 
         dateInput.min =
@@ -785,7 +1021,6 @@ select {
 
         }
     );
-
 
 </script>
 
